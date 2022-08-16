@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/icon">
+        <file>Resource/icon/htmlogo.png</file>
+    </qresource>
+    <qresource prefix="/image">
+        <file>Resource/image/Desktop.jpg</file>
+    </qresource>
+</RCC>

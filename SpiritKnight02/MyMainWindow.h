@@ -10,6 +10,7 @@ class MyMainWindow : public QMainWindow
 public:
     MyMainWindow(QWidget *parent = nullptr);
     ~MyMainWindow();
+    void paintEvent(QPaintEvent *event);
 
 private:
     Ui::MyMainWindowClass ui;
