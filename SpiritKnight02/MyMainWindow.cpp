@@ -12,6 +12,7 @@ MyMainWindow::MyMainWindow(QWidget *parent)
     this->setFixedSize(DeskWidth, DeskHeight);//设置窗口大小
     this->setWindowTitle(QString::fromUtf16(u"英灵骑士"));//设置窗口标题
     this->setWindowIcon(QIcon(":/icon/Resource/icon/htmlogo.png"));//设置窗口logo
+    //ce
 }
 
 MyMainWindow::~MyMainWindow()
