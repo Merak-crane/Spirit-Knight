@@ -26,8 +26,20 @@ const char* Character::GetStand() {
     return picture.stand;
 }
 
-void Character::walkleft() {
+void Character::WalkLeft() {
+    x -= x_speed;
+}
 
+void Character::WalkRight() {
+    x += x_speed;
+}
+
+void Character::WalkTop() {
+    y -= y_speed;
+}
+
+void Character::WalkDown() {
+    y += y_speed;
 }
 
 int Character::GetX() {
@@ -49,6 +61,8 @@ void Character::SetY(int y) {
 Hero::Hero() {
     x = 500;
     y = 500;
+    x_speed = 50;
+    y_speed = 20;
     picture.advance.resize(6);
     picture.advance[0] = 0;
     picture.advance[1] = ":/image/Resource/image/forward01.png";
