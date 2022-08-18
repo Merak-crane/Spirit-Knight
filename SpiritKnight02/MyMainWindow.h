@@ -3,6 +3,7 @@
 #include <QtWidgets/QMainWindow>
 #include "ui_MyMainWindow.h"
 #include "Character.h"
+#include <QTimer>
 
 class MyMainWindow : public QMainWindow
 {
@@ -18,4 +19,5 @@ private:
     Ui::MyMainWindowClass ui;
     int map_choose;
     Hero hero_one;
+    QTimer map_time;
 };

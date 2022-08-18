@@ -16,19 +16,23 @@ public:
 
 class Character {
 public:
-	void walkleft();
+	void WalkLeft();
+	void WalkRight();
+	void WalkTop();
+	void WalkDown();
 	int GetX();
 	int GetY();
 	void SetX(int x);
 	void SetY(int y);
 	const char* GetStand();
-	//void walkright();
 protected:
 	double health_point;
 	double magic_point;
 	double experience;
 	int x;
 	int y;
+	int x_speed;
+	int y_speed;
 	int level;
 	Picture picture;
 };
