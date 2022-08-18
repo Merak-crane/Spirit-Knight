@@ -2,6 +2,8 @@
 
 #include <QtWidgets/QMainWindow>
 #include "ui_MyMainWindow.h"
+#include "Character.h"
+#include <QTimer>
 
 class MyMainWindow : public QMainWindow
 {
@@ -11,7 +13,11 @@ public:
     MyMainWindow(QWidget *parent = nullptr);
     ~MyMainWindow();
     void paintEvent(QPaintEvent *event);
+    void keyPressEvent(QKeyEvent* event);
 
 private:
     Ui::MyMainWindowClass ui;
+    int map_choose;
+    Hero hero_one;
+    QTimer map_time;
 };
