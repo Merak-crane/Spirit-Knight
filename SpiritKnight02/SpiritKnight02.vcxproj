@@ -88,8 +88,12 @@
     <QtRcc Include="Resource.qrc" />
     <QtUic Include="MyMainWindow.ui" />
     <QtMoc Include="MyMainWindow.h" />
+    <ClCompile Include="Character.cpp" />
     <ClCompile Include="MyMainWindow.cpp" />
     <ClCompile Include="main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Character.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

@@ -4,5 +4,20 @@
     </qresource>
     <qresource prefix="/image">
         <file>Resource/image/Desktop.jpg</file>
+        <file>Resource/image/battleback1.png</file>
+        <file>Resource/image/battleback2.png</file>
+        <file>Resource/image/battleback3.png</file>
+        <file>Resource/image/battleback4.png</file>
+        <file>Resource/image/battleback5.png</file>
+        <file>Resource/image/battleback6.png</file>
+        <file>Resource/image/battleback7.png</file>
+        <file>Resource/image/battleback8.png</file>
+        <file>Resource/image/battleback9.png</file>
+        <file>Resource/image/battleback10.png</file>
+        <file>Resource/image/forward01.png</file>
+        <file>Resource/image/forward02.png</file>
+        <file>Resource/image/forward03.png</file>
+        <file>Resource/image/forward04.png</file>
+        <file>Resource/image/stand01.png</file>
     </qresource>
 </RCC>

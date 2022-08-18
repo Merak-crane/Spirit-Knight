@@ -20,9 +20,15 @@ MyMainWindow::~MyMainWindow()
 
 void MyMainWindow::paintEvent(QPaintEvent *event)
 {
-
     QPainter painter(this);
-    QPixmap pix;
-    pix.load(":/image/Resource/image/Desktop.jpg");
-    painter.drawPixmap(0, 0, this->width(), this->height(), pix);
+    map_choose = 0;
+    painter.drawPixmap(0, 0, this->width(), this->height(), QPixmap(":/image/Resource/image/battleback1.png"));
+    if ( map_choose == 1) {
+        painter.drawPixmap(0, 0, this->width(), this->height(), QPixmap(":/image/Resource/image/battleback1.png"));
+    }
+    if ( map_choose == 2) {
+        painter.drawPixmap(0, 0, this->width(), this->height(), QPixmap(":/image/Resource/image/battleback2.png"));
+    }
+    painter.drawPixmap(hero_one.GetX(), hero_one.GetY(), QPixmap(hero_one.GetStand()));
 }
+
