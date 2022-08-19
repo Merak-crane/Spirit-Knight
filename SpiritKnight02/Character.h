@@ -41,6 +41,8 @@ class Hero : public Character {
 public:
 	Hero();
 	void Show();
+	void h_attack();
+	void h_beattacked();
 };
 
 class LittleMonster: public Character {
