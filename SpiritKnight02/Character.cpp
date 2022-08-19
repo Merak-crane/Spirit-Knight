@@ -28,9 +28,6 @@ Character::Character() {
     count_right = 0;
     count_attack = 0;
 }
-const char* Character::GetStand() {
-    return picture.stand;
-}
 
 const char* Character::GetStandRight() {
     return picture.stand_right;
@@ -281,12 +278,6 @@ Hero::Hero() {
     picture.draw_back[4] = ":/image/Resource/image/forward04left.png";
     picture.stand_right = ":/image/Resource/image/stand01.png";
     picture.stand_left = ":/image/Resource/image/stand01left.png";
-}
-void Hero::h_attack(){
-
-}
-void Hero::h_beattacked() {
-
 }
 void Hero::Show() {
     
