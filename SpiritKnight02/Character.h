@@ -19,10 +19,10 @@ public:
 
 class Character {
 public:
-	int kind;
 	int attack;
 	int count_left;
 	int count_right;
+	int count_top;
 	int count_attack;
 	int x_speed_right;
 	int x_speed_left;
@@ -35,16 +35,20 @@ public:
 	void Attack();
 	int GetX();
 	int GetY();
+	int GetKind();
 	int GetDirection();
 	void SetDirection(int direction);
 	void SetX(int x);
 	void SetY(int y);
+	void SetKind(int kind);
 	const char* GetStandRight();
 	const char* GetStandLeft();
 protected:
+	double attack_range;
 	double health_point;
 	double magic_point;
 	double experience;
+	int kind;
 	int x;
 	int y;
 	int y_speed;
@@ -61,7 +65,9 @@ public:
 
 class LittleMonster: public Character {
 public:
-
+	LittleMonster();
+	void Move(Hero player);
+	void Attack();
 };
 
 class MiddleMonster : public Character {

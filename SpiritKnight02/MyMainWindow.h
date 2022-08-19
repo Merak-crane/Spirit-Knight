@@ -21,5 +21,6 @@ private:
     Ui::MyMainWindowClass ui;
     int map_choose;
     Hero hero_one;
+    LittleMonster k;
     QTimer map_time;
 };

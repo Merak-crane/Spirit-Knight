@@ -42,7 +42,6 @@ void Character::WalkLeft() {
         x_speed_left = 10*log(3*count_left + 1) / log(2);
     }
     count_left++;
-    qDebug() << x_speed_left;
     if (count_left > 8) count_left = 1;
     switch (count_left) {
     case 1:
@@ -91,7 +90,6 @@ void Character::WalkRight() {
 void Character::Attack() {
     if (attack == 1) {
         count_attack++;
-        qDebug() << count_attack;
         if (count_attack > 11) count_attack = 1;
         switch (count_attack) {
         case 1:
@@ -172,10 +170,54 @@ void Character::Attack() {
 
 void Character::WalkTop() {
     y -= y_speed;
+    count_top++;
+    if (count_top > 8) count_top = 1;
+    switch (count_top) {
+    case 1:
+        if (direction == 0) photo = QPixmap(picture.advance[1]);
+        if (direction == 1) photo = QPixmap(picture.draw_back[1]);
+        break;
+    case 3:
+        if (direction == 0) photo = QPixmap(picture.advance[2]);
+        if (direction == 1) photo = QPixmap(picture.draw_back[2]);
+        break;
+    case 5:
+        if (direction == 0) photo = QPixmap(picture.advance[3]);
+        if (direction == 1) photo = QPixmap(picture.draw_back[3]);
+        break;
+    case 7:
+        if (direction == 0) photo = QPixmap(picture.advance[4]);
+        if (direction == 1) photo = QPixmap(picture.draw_back[4]);
+        break;
+    default:
+        break;
+    }
 }
 
 void Character::WalkDown() {
     y += y_speed;
+    count_top++;
+    if (count_top > 8) count_top = 1;
+    switch (count_top) {
+    case 1:
+        if (direction == 0) photo = QPixmap(picture.advance[1]);
+        if (direction == 1) photo = QPixmap(picture.draw_back[1]);
+        break;
+    case 3:
+        if (direction == 0) photo = QPixmap(picture.advance[2]);
+        if (direction == 1) photo = QPixmap(picture.draw_back[2]);
+        break;
+    case 5:
+        if (direction == 0) photo = QPixmap(picture.advance[3]);
+        if (direction == 1) photo = QPixmap(picture.draw_back[3]);
+        break;
+    case 7:
+        if (direction == 0) photo = QPixmap(picture.advance[4]);
+        if (direction == 1) photo = QPixmap(picture.draw_back[4]);
+        break;
+    default:
+        break;
+    }
 }
 
 int Character::GetX() {
@@ -184,6 +226,10 @@ int Character::GetX() {
 
 int Character::GetY() {
     return y;
+}
+
+int Character::GetKind() {
+    return kind;
 }
 
 int Character::GetDirection() {
@@ -198,6 +244,16 @@ void Character::SetY(int y) {
     this->y = y;
 }
 
+void Character::SetKind(int kind) {
+    this->kind = kind;
+    if (kind == 0 && direction == 1) {
+        photo = QPixmap(":/image/Resource/image/stand01left.png");
+    }
+    else if (kind == 0 && direction == 0) {
+        photo = QPixmap(":/image/Resource/image/stand01.png");
+    }
+}
+
 void Character::SetDirection(int direction) {
     this->direction = direction;
 }
@@ -207,12 +263,12 @@ Hero::Hero() {
     y = 500;
     x_speed_left = 5;
     x_speed_right = 5;
-    y_speed = 10;
+    y_speed = 40;
     photo = QPixmap(":/image/Resource/image/stand01.png");
     picture.advance.resize(6);
     picture.draw_back.resize(6);
     picture.advance[0] = 0;
-    picture.advance[1] = ":/image/Resource/image/forward01.png";
+    picture.advance[1] = ":/image/Resource/image/forward02.png";
     picture.advance[2] = ":/image/Resource/image/forward02.png";
     picture.advance[3] = ":/image/Resource/image/forward03.png";
     picture.advance[4] = ":/image/Resource/image/forward04.png";
@@ -226,4 +282,179 @@ Hero::Hero() {
 
 void Hero::Show() {
     
+}
+
+LittleMonster::LittleMonster() {
+    x = 400;
+    y = 400;
+    x_speed_left = 5;
+    x_speed_right = 5;
+    y_speed = 10;
+    count_attack = 0;
+    count_left = 0;
+    count_right = 0;
+    count_top = 0;
+    direction = 0;
+    attack_range = 40;
+    photo = QPixmap(":/image/Resource/image/stand01.png");
+    picture.advance.resize(6);
+    picture.draw_back.resize(6);
+    picture.advance[0] = 0;
+    picture.advance[1] = ":/image/Resource/image/forward02.png";
+    picture.advance[2] = ":/image/Resource/image/forward02.png";
+    picture.advance[3] = ":/image/Resource/image/forward03.png";
+    picture.advance[4] = ":/image/Resource/image/forward04.png";
+    picture.draw_back[1] = ":/image/Resource/image/forward01left.png";
+    picture.draw_back[2] = ":/image/Resource/image/forward02left.png";
+    picture.draw_back[3] = ":/image/Resource/image/forward03left.png";
+    picture.draw_back[4] = ":/image/Resource/image/forward04left.png";
+    picture.stand_right = ":/image/Resource/image/stand01.png";
+    picture.stand_left = ":/image/Resource/image/stand01left.png";
+}
+
+void LittleMonster::Move(Hero player) {
+    if (x < player.GetX() + attack_range && x > player.GetX() - attack_range && y < player.GetY() + 20 && y > player.GetY() - 20)
+    {
+        if (x < player.GetX())direction = 0;
+        else { direction = 1; }
+        SetKind(4);
+        Attack();
+    }
+    else {
+        SetKind(1);
+        if (y <= player.GetY()) {
+            y += y_speed;
+            count_top++;
+            if (count_top > 8) count_top = 1;
+            switch (count_top) {
+            case 1:
+                if (direction == 0) photo = QPixmap(picture.advance[1]);
+                if (direction == 1) photo = QPixmap(picture.draw_back[1]);
+                break;
+            case 3:
+                if (direction == 0) photo = QPixmap(picture.advance[2]);
+                if (direction == 1) photo = QPixmap(picture.draw_back[2]);
+                break;
+            case 5:
+                if (direction == 0) photo = QPixmap(picture.advance[3]);
+                if (direction == 1) photo = QPixmap(picture.draw_back[3]);
+                break;
+            case 7:
+                if (direction == 0) photo = QPixmap(picture.advance[4]);
+                if (direction == 1) photo = QPixmap(picture.draw_back[4]);
+                break;
+            default:
+                break;
+            }
+        }
+        if (y > player.GetY()) {
+            y -= y_speed;
+            count_top++;
+            if (count_top > 8) count_top = 1;
+            switch (count_top) {
+            case 1:
+                if (direction == 0) photo = QPixmap(picture.advance[1]);
+                if (direction == 1) photo = QPixmap(picture.draw_back[1]);
+                break;
+            case 3:
+                if (direction == 0) photo = QPixmap(picture.advance[2]);
+                if (direction == 1) photo = QPixmap(picture.draw_back[2]);
+                break;
+            case 5:
+                if (direction == 0) photo = QPixmap(picture.advance[3]);
+                if (direction == 1) photo = QPixmap(picture.draw_back[3]);
+                break;
+            case 7:
+                if (direction == 0) photo = QPixmap(picture.advance[4]);
+                if (direction == 1) photo = QPixmap(picture.draw_back[4]);
+                break;
+            default:
+                break;
+            }
+        }
+        if (x >= player.GetX()) {
+            x -= x_speed_left;
+            count_left++;
+            if (count_left > 8) count_left = 1;
+            switch (count_left) {
+            case 1:
+                photo = QPixmap(picture.draw_back[1]);
+                break;
+            case 3:
+                photo = QPixmap(picture.draw_back[2]);
+                break;
+            case 5:
+                photo = QPixmap(picture.draw_back[3]);
+                break;
+            case 7:
+                photo = QPixmap(picture.draw_back[4]);
+                break;
+            default:
+                break;
+            }
+        }
+        if (x < player.GetX()) {
+            x += x_speed_right;
+            count_right++;
+            if (count_right > 8) count_right = 1;
+            switch (count_right) {
+            case 1:
+                photo = QPixmap(picture.advance[1]);
+                break;
+            case 3:
+                photo = QPixmap(picture.advance[2]);
+                break;
+            case 5:
+                photo = QPixmap(picture.advance[3]);
+                break;
+            case 7:
+                photo = QPixmap(picture.advance[4]);
+                break;
+            default:
+                break;
+            }
+        }
+    }
+}
+
+void LittleMonster::Attack() {
+    count_attack++;
+    qDebug() << count_attack;
+    if (count_attack > 11) count_attack = 1;
+    switch (count_attack) {
+    case 1:
+        if (direction == 0) photo = QPixmap(":/image/Resource/image/2att01.png");
+        if (direction == 1) photo = QPixmap(":/image/Resource/image/2att01left.png");
+        break;
+    case 2:
+        if (direction == 0) photo = QPixmap(":/image/Resource/image/2att02.png");
+        if (direction == 1) photo = QPixmap(":/image/Resource/image/2att02left.png");
+        break;
+    case 3:
+        if (direction == 0) photo = QPixmap(":/image/Resource/image/2att03.png");
+        if (direction == 1) photo = QPixmap(":/image/Resource/image/2att03left.png");
+        break;
+    case 4:
+        if (direction == 0) photo = QPixmap(":/image/Resource/image/2att04.png");
+        if (direction == 1) photo = QPixmap(":/image/Resource/image/2att04left.png");
+        break;
+    case 6:
+        if (direction == 0) photo = QPixmap(":/image/Resource/image/2att05.png");
+        if (direction == 1) photo = QPixmap(":/image/Resource/image/2att05left.png");
+        break;
+    case 8:
+        if (direction == 0) photo = QPixmap(":/image/Resource/image/2att06.png");
+        if (direction == 1) photo = QPixmap(":/image/Resource/image/2att06left.png");
+        break;
+    case 9:
+        if (direction == 0) photo = QPixmap(":/image/Resource/image/2att07.png");
+        if (direction == 1) photo = QPixmap(":/image/Resource/image/2att07left.png");
+        break;
+    case 10:
+        if (direction == 0) photo = QPixmap(":/image/Resource/image/stand01.png");
+        if (direction == 1) photo = QPixmap(":/image/Resource/image/stand01left.png");
+        break;
+    default:
+        break;
+    }
 }
