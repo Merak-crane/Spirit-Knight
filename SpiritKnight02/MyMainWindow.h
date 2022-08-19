@@ -12,7 +12,7 @@ public:
     MyMainWindow(QWidget *parent = nullptr);
     ~MyMainWindow();
     void paintEvent(QPaintEvent *event);
-    void keyPressEvent(QKeyEvent* event);
+    //void keyPressEvent(QKeyEvent* event);
 
 private:
     Ui::MyMainWindowClass ui;

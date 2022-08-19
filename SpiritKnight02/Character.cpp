@@ -21,7 +21,6 @@
 //        break;
 //    }
 //}
-
 const char* Character::GetStand() {
     return picture.stand;
 }
@@ -57,7 +56,12 @@ Hero::Hero() {
     picture.advance[4] = ":/image/Resource/image/forward04.png";
     picture.stand = ":/image/Resource/image/stand01.png";
 }
+void Hero::h_attack(){
 
+}
+void Hero::h_beattacked() {
+
+}
 void Hero::Show() {
     
 }
