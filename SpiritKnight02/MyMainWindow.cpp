@@ -19,6 +19,7 @@ MyMainWindow::MyMainWindow(QWidget *parent)
     map_time.start();
     connect(&map_time, &QTimer::timeout, [=]() {
         update();
+        UpdateOne();
     });
 }
 
@@ -29,24 +30,70 @@ MyMainWindow::~MyMainWindow()
 void MyMainWindow::paintEvent(QPaintEvent *event)
 {
     QPainter painter(this);
-    map_choose = 0;
+    map_choose = 2;
     painter.drawPixmap(0, 0, this->width(), this->height(), QPixmap(":/image/Resource/image/battleback1.png"));
     if ( map_choose == 1) {
         painter.drawPixmap(0, 0, this->width(), this->height(), QPixmap(":/image/Resource/image/battleback1.png"));
     }
-    if ( map_choose == 2) {
+    else if ( map_choose == 2) {
         painter.drawPixmap(0, 0, this->width(), this->height(), QPixmap(":/image/Resource/image/battleback2.png"));
     }
-    painter.drawPixmap(hero_one.GetX(), hero_one.GetY(), QPixmap(hero_one.GetStand()));
+    if (hero_one.kind == 0 &&hero_one.GetDirection() == 1) {
+        painter.drawPixmap(hero_one.GetX(), hero_one.GetY(), QPixmap(":/image/Resource/image/stand01left.png"));
+    }
+    if (hero_one.kind == 0 && hero_one.GetDirection() == 0) {
+        painter.drawPixmap(hero_one.GetX(), hero_one.GetY(), QPixmap(":/image/Resource/image/stand01.png"));
+    }
+    if (hero_one.kind == 1 && hero_one.GetDirection() == 0) {
+        painter.drawPixmap(hero_one.GetX(), hero_one.GetY(), hero_one.photo);
+    }
+    if (hero_one.kind == 1 && hero_one.GetDirection() == 1) {
+        painter.drawPixmap(hero_one.GetX(), hero_one.GetY(), hero_one.photo);
+    }
+    if (hero_one.kind == 2) {
+        painter.drawPixmap(hero_one.GetX(), hero_one.GetY(), hero_one.photo);
+    }
 }
 
 void MyMainWindow::keyPressEvent(QKeyEvent* event) {
     switch (event->key()) {
     case Qt::Key_A:
-        hero_one.WalkLeft();
+        hero_one.SetDirection(1);
+        hero_one.kind = 1;
+        hero_one.x_speed_right = 5;
         break;
     case Qt::Key_D:
-        hero_one.WalkRight();
+        hero_one.SetDirection(0);
+        hero_one.kind = 1;
+        hero_one.x_speed_left = 5;
+        break;
+    case Qt::Key_W:
+        hero_one.WalkTop();
+        break;
+    case Qt::Key_S:
+        hero_one.WalkDown();
+        break;
+    case Qt::Key_J:
+        hero_one.attack = 1;
+        hero_one.kind = 2;
+        break;
+    case Qt::Key_K:
+        hero_one.WalkDown();
+        break;
+    default:
+        break;
+    }
+}
+
+void MyMainWindow::keyReleaseEvent(QKeyEvent* event) {
+    switch (event->key()) {
+    case Qt::Key_A:
+        hero_one.SetDirection(1);
+        hero_one.kind = 0;
+        break;
+    case Qt::Key_D:
+        hero_one.SetDirection(0);
+        hero_one.kind = 0;
         break;
     case Qt::Key_W:
         hero_one.WalkTop();
@@ -56,5 +103,19 @@ void MyMainWindow::keyPressEvent(QKeyEvent* event) {
         break;
     default:
         break;
+    }
+}
+
+void MyMainWindow::UpdateOne() {
+    if (hero_one.kind == 1) {
+        if(hero_one.GetDirection() == 1)hero_one.WalkLeft();
+        if(hero_one.GetDirection() == 0)hero_one.WalkRight();
+    }
+    if (hero_one.kind == 2) {
+        if (hero_one.count_attack > 10)
+        {
+            hero_one.kind = 0;
+        }
+        hero_one.Attack();
     }
 }
