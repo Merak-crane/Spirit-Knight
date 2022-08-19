@@ -1,2 +1,2 @@
 #pragma once
-#define GAME_RATE 10
+#define GAME_RATE 50

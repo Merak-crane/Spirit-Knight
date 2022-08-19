@@ -19,5 +19,23 @@
         <file>Resource/image/forward03.png</file>
         <file>Resource/image/forward04.png</file>
         <file>Resource/image/stand01.png</file>
+        <file>Resource/image/stand01left.png</file>
+        <file>Resource/image/forward01left.png</file>
+        <file>Resource/image/forward02left.png</file>
+        <file>Resource/image/forward03left.png</file>
+        <file>Resource/image/forward04left.png</file>
+        <file>Resource/image/2att01.png</file>
+        <file>Resource/image/2att02.png</file>
+        <file>Resource/image/2att03.png</file>
+        <file>Resource/image/2att04.png</file>
+        <file>Resource/image/2att05.png</file>
+        <file>Resource/image/2att06.png</file>
+        <file>Resource/image/2att07.png</file>
+        <file>Resource/image/2att01left.png</file>
+        <file>Resource/image/2att02left.png</file>
+        <file>Resource/image/2att03left.png</file>
+        <file>Resource/image/2att04left.png</file>
+        <file>Resource/image/2att06left.png</file>
+        <file>Resource/image/2att07left.png</file>
     </qresource>
 </RCC>
