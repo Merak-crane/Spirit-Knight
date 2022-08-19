@@ -17,6 +17,15 @@ public:
 	const char* stand_left;
 };//存储每个基本动作多张图片的相对路径
 
+class Skill {
+public:
+	vector<const char*> skill_picture;
+private:
+	double range_x;
+	double range_y;
+	int count;
+};
+
 class Character {
 public:
 	int attack;

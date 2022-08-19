@@ -4,12 +4,12 @@
 #include <QDebug>
 #include <QPainter>
 #include <QKeyEvent>
-
 MyMainWindow::MyMainWindow(QWidget *parent)
     : QMainWindow(parent)
 {  
     QDesktopWidget w;
     int DeskWidth = w.width() / 2;
+    map_choose = 2;
     int DeskHeight = w.height() / 2;//获取设备的分辨率
     this->setFixedSize(DeskWidth, DeskHeight);//设置窗口大小
     this->setWindowTitle(QString::fromUtf16(u"英灵骑士"));//设置窗口标题
@@ -29,16 +29,17 @@ MyMainWindow::~MyMainWindow()
 void MyMainWindow::paintEvent(QPaintEvent *event)
 {
     QPainter painter(this);
-    map_choose = 2;
-    painter.drawPixmap(0, 0, this->width(), this->height(), QPixmap(":/image/Resource/image/battleback1.png"));
     if ( map_choose == 1) {
         painter.drawPixmap(0, 0, this->width(), this->height(), QPixmap(":/image/Resource/image/battleback1.png"));
     }
     else if ( map_choose == 2) {
         painter.drawPixmap(0, 0, this->width(), this->height(), QPixmap(":/image/Resource/image/battleback2.png"));
     }
-    else {
-        painter.drawPixmap(hero_one.GetX(), hero_one.GetY(), hero_one.photo);
+    if (hero_one.GetKind() == 0 && hero_one.GetDirection() == 1) {
+        hero_one.photo = QPixmap(":/image/Resource/image/stand01left.png");
+    }
+    else if (hero_one.GetKind() == 0 && hero_one.GetDirection() == 0) {
+        hero_one.photo = QPixmap(":/image/Resource/image/stand01.png");
     }
     painter.drawPixmap(hero_one.GetX(), hero_one.GetY(), hero_one.photo);
     painter.drawPixmap(k.GetX(), k.GetY(), k.photo);
@@ -49,7 +50,7 @@ void MyMainWindow::keyPressEvent(QKeyEvent* event) {
     case Qt::Key_A://向左跑
         hero_one.SetDirection(1);//设置人物朝向
         hero_one.SetKind(1);;//设置人物状态
-        hero_one.x_speed_right = 5;//将反方向的速度赋为低速
+        hero_one.x_speed_right = 5;//将反方向的速度赋为低
         break;
     case Qt::Key_D:
         hero_one.SetDirection(0);

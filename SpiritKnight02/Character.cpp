@@ -246,12 +246,6 @@ void Character::SetY(int y) {
 
 void Character::SetKind(int kind) {
     this->kind = kind;
-    if (kind == 0 && direction == 1) {
-        photo = QPixmap(":/image/Resource/image/stand01left.png");
-    }
-    else if (kind == 0 && direction == 0) {
-        photo = QPixmap(":/image/Resource/image/stand01.png");
-    }
 }
 
 void Character::SetDirection(int direction) {
@@ -264,6 +258,7 @@ Hero::Hero() {
     x_speed_left = 5;
     x_speed_right = 5;
     y_speed = 40;
+    kind = 0;
     photo = QPixmap(":/image/Resource/image/stand01.png");
     picture.advance.resize(6);
     picture.draw_back.resize(6);
@@ -314,7 +309,7 @@ LittleMonster::LittleMonster() {
 void LittleMonster::Move(Hero player) {
     if (x < player.GetX() + attack_range && x > player.GetX() - attack_range && y < player.GetY() + 20 && y > player.GetY() - 20)
     {
-        if (x < player.GetX())direction = 0;
+        if (x <= player.GetX()) direction = 0;
         else { direction = 1; }
         SetKind(4);
         Attack();
@@ -418,7 +413,6 @@ void LittleMonster::Move(Hero player) {
 
 void LittleMonster::Attack() {
     count_attack++;
-    qDebug() << count_attack;
     if (count_attack > 11) count_attack = 1;
     switch (count_attack) {
     case 1:
