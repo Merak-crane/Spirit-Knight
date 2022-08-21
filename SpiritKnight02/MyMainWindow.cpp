@@ -36,6 +36,7 @@ void MyMainWindow::paintEvent(QPaintEvent *event)
     else if ( map_choose == 2) {
         painter.drawPixmap(0, 0, this->width(), this->height(), QPixmap(":/image/Resource/image/background/battleback1.png"));
     }
+    painter.drawRect(hero_one.attack_range);
     if (hero_one.GetKind() == 0 && hero_one.GetDirection() == 1) {
         QImage image(":/image/Resource/image/main_character/running3/zero4_5.png");
         QImage mirroredImage = image.mirrored(true, false);

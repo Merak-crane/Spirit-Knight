@@ -7,14 +7,16 @@ using namespace std;
 class Skill {
 public:
 	vector<QString> skill_picture;
+	int count;
 private:
 	double range_x;
 	double range_y;
-	int count;
 };
 
 class Character {
 public:
+	Skill attack;
+	QRect attack_range;
 	int attacknum;
 	int count_left;
 	int count_right;
@@ -40,7 +42,8 @@ public:
 	void SetY(int y);
 	void SetKind(int kind);
 protected:
-	double attack_range;
+	int attack_range_x;
+	int attack_range_y;
 	double health_point;
 	double magic_point;
 	double experience;
@@ -51,7 +54,6 @@ protected:
 	int level;
 	int direction;
 	Skill running;
-	Skill attack;
 	Skill first_skill;
 	Skill second_skill;
 };

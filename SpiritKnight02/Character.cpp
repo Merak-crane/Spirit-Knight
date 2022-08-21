@@ -39,7 +39,6 @@ void Character::PathCreator(QString a, QString b, int start, int count, vector <
     {
         d = QString::number(i, 10);
         picture[num] = a + d + b;
-        qDebug() << picture[num];
         num++;
     }
 }
@@ -47,9 +46,15 @@ void Character::PathCreator(QString a, QString b, int start, int count, vector <
 void Character::Attack() {
     if (attacknum == 1) {
         if (direction == 0) {
+            attack_range.moveTo(x,y);
+            attack_range.setWidth(attack_range_x);   //¹¥»÷¾ØÐÎ(Åö×²¼ì²â)
+            attack_range.setHeight(attack_range_y);
             photo = QPixmap(FrameAnimation(attack.skill_picture, count_attack));
         }
         else {
+            attack_range.moveTo(x - attack_range_x, y);
+            attack_range.setWidth(attack_range_x);   //¹¥»÷¾ØÐÎ(Åö×²¼ì²â)
+            attack_range.setHeight(attack_range_y);
             QImage image(FrameAnimation(attack.skill_picture, count_attack));
             QImage mirroredImage = image.mirrored(true, false);
             photo = QPixmap::fromImage(mirroredImage);
@@ -134,6 +139,8 @@ Hero::Hero() {
     count_left = 0;
     count_right = 0;
     count_top = 0;
+    attack_range_x = 110;
+    attack_range_y = 100;
     photo = QPixmap(":/image/Resource/image/main_character/running3/zero4_5.png");
     PathCreator(":/image/Resource/image/main_character/running3/zero4_", ".png", 5, 13, running.skill_picture);
     PathCreator(":/image/Resource/image/main_character/slice1/zero2_", ".png", 18, 11, attack.skill_picture);
@@ -153,14 +160,14 @@ LittleMonster::LittleMonster() {
     count_right = 0;
     count_top = 0;
     direction = 0;
-    attack_range = 40;
+    attack_range_x = 40;
     photo = QPixmap(":/image/Resource/image/main_character/running3/zero4_5.png");
     PathCreator(":/image/Resource/image/main_character/running3/zero4_", ".png", 5, 13, running.skill_picture);
     PathCreator(":/image/Resource/image/main_character/slice1/zero2_", ".png", 18, 11, attack.skill_picture);
 }
 
 void LittleMonster::Move(Hero player) {
-    if (x < player.GetX() + attack_range && x > player.GetX() - attack_range && y < player.GetY() + 20 && y > player.GetY() - 20)
+    if (x < player.GetX() + attack_range_x && x > player.GetX() - attack_range_x && y < player.GetY() + attack_range_y && y > player.GetY() - attack_range_y)
     {
         if (x <= player.GetX()) direction = 0;
         else { direction = 1; }
