@@ -96,6 +96,32 @@ void Character::WalkDown() {
     }
 }
 
+void Character::Die() {
+    photo = die.skill_picture[10];
+}
+
+void Hero::BeAttackedAnimation() {
+    if (direction == 0) {
+        photo = QPixmap(FrameAnimation(die.skill_picture, count_attack));
+    }
+    else {
+        QImage image(FrameAnimation(die.skill_picture, count_attack));
+        QImage mirroredImage = image.mirrored(true, false);
+        photo = QPixmap::fromImage(mirroredImage);
+    }
+    //if (attacknum == 2) {
+    //    if (direction == 0) {
+    //        photo = QPixmap(FrameAnimation(first_skill.skill_picture, count_attack));
+    //    }
+    //    else {
+    //        QImage image(FrameAnimation(second_skill.skill_picture, count_attack));
+    //        QImage mirroredImage = image.mirrored(true, false);
+    //        photo = QPixmap::fromImage(mirroredImage);
+    //    }
+    //}
+}
+
+
 int Character::GetX() {
     return x;
 }
@@ -108,8 +134,28 @@ int Character::GetKind() {
     return kind;
 }
 
+int Character::GetStrong() {
+    return strong;
+}
+
 int Character::GetDirection() {
     return direction;
+}
+
+double Character::GetMP() {
+    return magic_point;
+}
+
+double Character::GetHP() {
+    return health_point;
+}
+
+double Character::GetMPMAX() {
+    return magic_point_max;
+}
+
+double Character::GetHPMAX() {
+    return health_point_max;
 }
 
 void Character::SetX(int X) {
@@ -124,9 +170,22 @@ void Character::SetKind(int kind) {
     this->kind = kind;
 }
 
+void Character::SetStrong(int strong) {
+    this->strong = strong;
+}
+
 void Character::SetDirection(int direction) {
     this->direction = direction;
 }
+
+void Character::SetMP(double magic_point) {
+    this->magic_point = magic_point;
+}
+
+void Character::SetHP(double health_point) {
+    this->health_point = health_point;
+}
+
 
 Hero::Hero() {
     x = 500;
@@ -139,19 +198,36 @@ Hero::Hero() {
     count_left = 0;
     count_right = 0;
     count_top = 0;
+    strong = 0;
+    real_body.moveTo(x, y);
+    real_body.setWidth(50);   //¹¥»÷¾ØÐÎ(Åö×²¼ì²â)
+    real_body.setHeight(50);
     attack_range_x = 110;
     attack_range_y = 100;
+    health_point_max = 200;
+    magic_point_max = 200;
+    health_point = 100;
+    magic_point = 100;
     photo = QPixmap(":/image/Resource/image/main_character/running3/zero4_5.png");
     PathCreator(":/image/Resource/image/main_character/running3/zero4_", ".png", 5, 13, running.skill_picture);
     PathCreator(":/image/Resource/image/main_character/slice1/zero2_", ".png", 18, 11, attack.skill_picture);
+    PathCreator(":/image/Resource/image/main_character/die/zero1_", ".png", 16, 11, die.skill_picture);
 }
+
+void Hero::BeAttacked(LittleMonster mirror) {
+    if (mirror.attack_range.intersects(real_body)) {
+        kind = 5;
+    }
+}
+
+
 void Hero::Show() {
     
 }
 
 LittleMonster::LittleMonster() {
-    x = 400;
-    y = 400;
+    x = 100;
+    y = 100;
     x_speed_left = 5;
     x_speed_right = 5;
     y_speed = 10;
@@ -160,7 +236,8 @@ LittleMonster::LittleMonster() {
     count_right = 0;
     count_top = 0;
     direction = 0;
-    attack_range_x = 40;
+    attack_range_x = 110;
+    attack_range_y = 100;
     photo = QPixmap(":/image/Resource/image/main_character/running3/zero4_5.png");
     PathCreator(":/image/Resource/image/main_character/running3/zero4_", ".png", 5, 13, running.skill_picture);
     PathCreator(":/image/Resource/image/main_character/slice1/zero2_", ".png", 18, 11, attack.skill_picture);
@@ -193,9 +270,15 @@ void LittleMonster::Move(Hero player) {
 
 void LittleMonster::Attack() {
     if (direction == 0) {
+        attack_range.moveTo(x, y);
+        attack_range.setWidth(attack_range_x);   //¹¥»÷¾ØÐÎ(Åö×²¼ì²â)
+        attack_range.setHeight(attack_range_y);
         photo = QPixmap(FrameAnimation(attack.skill_picture, count_attack));
     }
     else {
+        attack_range.moveTo(x - attack_range_x, y);
+        attack_range.setWidth(attack_range_x);   //¹¥»÷¾ØÐÎ(Åö×²¼ì²â)
+        attack_range.setHeight(attack_range_y);
         QImage image(FrameAnimation(attack.skill_picture, count_attack));
         QImage mirroredImage = image.mirrored(true, false);
         photo = QPixmap::fromImage(mirroredImage);

@@ -37,5 +37,16 @@
         <file>Resource/image/main_character/slice1/zero2_26.png</file>
         <file>Resource/image/main_character/slice1/zero2_27.png</file>
         <file>Resource/image/main_character/slice1/zero2_28.png</file>
+        <file>Resource/image/main_character/die/zero1_16.png</file>
+        <file>Resource/image/main_character/die/zero1_17.png</file>
+        <file>Resource/image/main_character/die/zero1_18.png</file>
+        <file>Resource/image/main_character/die/zero1_19.png</file>
+        <file>Resource/image/main_character/die/zero1_20.png</file>
+        <file>Resource/image/main_character/die/zero1_21.png</file>
+        <file>Resource/image/main_character/die/zero1_22.png</file>
+        <file>Resource/image/main_character/die/zero1_23.png</file>
+        <file>Resource/image/main_character/die/zero1_24.png</file>
+        <file>Resource/image/main_character/die/zero1_25.png</file>
+        <file>Resource/image/main_character/die/zero1_26.png</file>
     </qresource>
 </RCC>
