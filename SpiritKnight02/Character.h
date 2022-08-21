@@ -4,22 +4,9 @@
 #include <QPainter>
 using namespace std;
 
-class Picture {
-public:
-	//void Animation(vector <const char*> motion);
-public:
-	vector <const char*> advance;//前进
-	vector <const char*> draw_back;//后退
-	vector <const char*> attack_right;//普通右攻击
-	vector <const char*> attack_left;//普通左攻击
-	vector <const char*> skill_one;//技能1
-	const char* stand_right;
-	const char* stand_left;
-};//存储每个基本动作多张图片的相对路径
-
 class Skill {
 public:
-	vector<const char*> skill_picture;
+	vector<QString> skill_picture;
 private:
 	double range_x;
 	double range_y;
@@ -28,7 +15,7 @@ private:
 
 class Character {
 public:
-	int attack;
+	int attacknum;
 	int count_left;
 	int count_right;
 	int count_top;
@@ -42,6 +29,8 @@ public:
 	void WalkTop();
 	void WalkDown();
 	void Attack();
+	void PathCreator(QString a, QString b, int c, int count, vector <QString> &picture);
+	QString FrameAnimation(vector <QString> picture, int& count);
 	int GetX();
 	int GetY();
 	int GetKind();
@@ -50,8 +39,6 @@ public:
 	void SetX(int x);
 	void SetY(int y);
 	void SetKind(int kind);
-	const char* GetStandRight();
-	const char* GetStandLeft();
 protected:
 	double attack_range;
 	double health_point;
@@ -63,10 +50,14 @@ protected:
 	int y_speed;
 	int level;
 	int direction;
-	Picture picture;
+	Skill running;
+	Skill attack;
+	Skill first_skill;
+	Skill second_skill;
 };
 
 class Hero : public Character {
+private:
 public:
 	Hero();
 	void Show();
