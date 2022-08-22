@@ -23,7 +23,9 @@ private:
     int map_choose;
     int timeID1;
     int timeID2;
+    LittleMonster* little_monster[10];
+    bool little_monster_survive[10];
     Hero hero_one;
-    LittleMonster k;
+    LittleMonster *k;
     QTimer map_time;
 };

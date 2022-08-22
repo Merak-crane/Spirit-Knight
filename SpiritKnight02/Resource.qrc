@@ -64,5 +64,14 @@
         <file>Resource/image/little_monter/run1/panther_14.png</file>
         <file>Resource/image/little_monter/run1/panther_15.png</file>
         <file>Resource/image/little_monter/run1/panther_16.png</file>
+        <file>Resource/image/little_monter/beattack/panther_33.png</file>
+        <file>Resource/image/little_monter/beattack/panther_34.png</file>
+        <file>Resource/image/little_monter/beattack/panther_35.png</file>
+        <file>Resource/image/little_monter/beattack/panther_36.png</file>
+        <file>Resource/image/little_monter/beattack/panther_37.png</file>
+        <file>Resource/image/little_monter/beattack/panther_38.png</file>
+        <file>Resource/image/little_monter/beattack/panther_39.png</file>
+        <file>Resource/image/little_monter/beattack/panther_40.png</file>
+        <file>Resource/image/little_monter/beattack/panther_41.png</file>
     </qresource>
 </RCC>

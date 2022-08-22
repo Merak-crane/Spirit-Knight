@@ -77,6 +77,7 @@ protected:
 	Skill first_skill;
 	Skill second_skill;
 	Skill attack;
+	Skill be_attack;
 	Skill die;
 };
 
@@ -87,7 +88,7 @@ private:
 public:
 	Hero();
 	void Show();
-	void BeAttacked(LittleMonster mirror);
+	void BeAttacked(LittleMonster* mirror);
 	void BeAttackedAnimation();
 };
 
