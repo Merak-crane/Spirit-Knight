@@ -4,12 +4,12 @@
 #include <QDebug>
 #include <QPainter>
 #include <QKeyEvent>
-
 MyMainWindow::MyMainWindow(QWidget *parent)
     : QMainWindow(parent)
 {  
     QDesktopWidget w;
     int DeskWidth = w.width() / 2;
+    map_choose = 2;
     int DeskHeight = w.height() / 2;//获取设备的分辨率
     this->setFixedSize(DeskWidth, DeskHeight);//设置窗口大小
     this->setWindowTitle(QString::fromUtf16(u"英灵骑士"));//设置窗口标题
@@ -29,19 +29,46 @@ MyMainWindow::~MyMainWindow()
 void MyMainWindow::paintEvent(QPaintEvent *event)
 {
     QPainter painter(this);
-    map_choose = 2;
-    painter.drawPixmap(0, 0, this->width(), this->height(), QPixmap(":/image/Resource/image/battleback1.png"));
     if ( map_choose == 1) {
-        painter.drawPixmap(0, 0, this->width(), this->height(), QPixmap(":/image/Resource/image/battleback1.png"));
+        painter.drawPixmap(0, 0, this->width(), this->height(), QPixmap(":/image/Resource/image/background/battleback1.png"));
     }
     else if ( map_choose == 2) {
-        painter.drawPixmap(0, 0, this->width(), this->height(), QPixmap(":/image/Resource/image/battleback2.png"));
+        painter.drawPixmap(0, 0, this->width(), this->height(), QPixmap(":/image/Resource/image/background/battleback1.png"));
     }
-    else {
-        painter.drawPixmap(hero_one.GetX(), hero_one.GetY(), hero_one.photo);
+    painter.drawRect(hero_one.attack_range);
+    painter.drawRect(hero_one.real_body);
+    if (hero_one.GetKind() == 0 && hero_one.GetDirection() == 1) {
+        QImage image(":/image/Resource/image/main_character/running3/zero4_5.png");
+        QImage mirroredImage = image.mirrored(true, false);
+        hero_one.photo = QPixmap::fromImage(mirroredImage);
     }
-    painter.drawPixmap(hero_one.GetX(), hero_one.GetY(), hero_one.photo);
-    painter.drawPixmap(k.GetX(), k.GetY(), k.photo);
+    else if (hero_one.GetKind() == 0 && hero_one.GetDirection() == 0) {
+        hero_one.photo = QPixmap(":/image/Resource/image/main_character/running3/zero4_5.png");
+    }
+    painter.drawPixmap(hero_one.GetX(), hero_one.GetY(),100,100, hero_one.photo);
+    painter.drawPixmap(hero_one.GetX(), hero_one.GetY(), 100, 100, hero_one.photo);
+    if (k.GetKind() == 0 && k.GetDirection() == 1) {
+        QImage image(":/image/Resource/image/main_character/running3/zero4_5.png");
+        QImage mirroredImage = image.mirrored(true, false);
+        k.photo = QPixmap::fromImage(mirroredImage);
+    }
+    else if (k.GetKind() == 0 && k.GetDirection() == 0) {
+        k.photo = QPixmap(":/image/Resource/image/main_character/running3/zero4_5.png");
+    }
+    painter.setPen(Qt::black);
+    painter.setBrush(Qt::white);
+    painter.drawRect(50, 40, 500, 20);
+    painter.drawRect(50, 75, 300, 15);
+    painter.setBrush(Qt::red);
+    if (hero_one.GetHP() <= 0) {
+        hero_one.SetHP(0);
+    }
+    painter.drawRect(50, 40, 500 * (double(hero_one.GetHP()) / hero_one.GetHPMAX()), 15);
+    painter.setBrush(Qt::blue);
+    painter.drawRect(50, 75, 300 * (double(hero_one.GetMP()) / hero_one.GetMPMAX()), 10);
+    painter.drawPixmap(k.GetX(), k.GetY(),80,30,k.photo);
+    painter.setBrush(QBrush(Qt::NoBrush));
+    painter.drawRect(k.attack_range);
 }
 //以下是键盘敲击事件函数，影响角色行为
 void MyMainWindow::keyPressEvent(QKeyEvent* event) {
@@ -49,12 +76,10 @@ void MyMainWindow::keyPressEvent(QKeyEvent* event) {
     case Qt::Key_A://向左跑
         hero_one.SetDirection(1);//设置人物朝向
         hero_one.SetKind(1);;//设置人物状态
-        hero_one.x_speed_right = 5;//将反方向的速度赋为低速
         break;
     case Qt::Key_D:
         hero_one.SetDirection(0);
         hero_one.SetKind(1);
-        hero_one.x_speed_left = 5;
         break;
     case Qt::Key_W:
         hero_one.SetKind(2);
@@ -63,7 +88,7 @@ void MyMainWindow::keyPressEvent(QKeyEvent* event) {
         hero_one.SetKind(3);
         break;
     case Qt::Key_J:
-        hero_one.attack = 1;
+        hero_one.attacknum = 1;
         hero_one.SetKind(4);
         break;
     case Qt::Key_K:
@@ -94,9 +119,25 @@ void MyMainWindow::keyReleaseEvent(QKeyEvent* event) {
         break;
     }
 }
+void MyMainWindow::timerEvent(QTimerEvent* event) {
+    int tmp = event->timerId();
+    if (tmp == timeID1) {
+        hero_one.SetStrong(0);
+    }
+}
 //以下是更新函数，主要更新角色属性，怪物属性，加载动作动画等
 void MyMainWindow::UpdateOne() {
     k.Move(hero_one);
+    if (hero_one.GetHP() == 0) {
+        hero_one.SetStrong(1);
+        hero_one.SetKind(6);
+    }
+    if (hero_one.GetStrong() == 0) {
+        hero_one.BeAttacked(k);
+    }
+    hero_one.real_body.moveTo(hero_one.GetX(), hero_one.GetY());
+    hero_one.real_body.setWidth(50);   //攻击矩形(碰撞检测)
+    hero_one.real_body.setHeight(50);
     if (hero_one.GetKind() == 1) {
         if(hero_one.GetDirection() == 1)hero_one.WalkLeft();
         if(hero_one.GetDirection() == 0)hero_one.WalkRight();
@@ -114,4 +155,17 @@ void MyMainWindow::UpdateOne() {
         }
         hero_one.Attack();
     }
+    if (hero_one.GetKind() == 5 && hero_one.GetStrong() == 0) {
+        hero_one.BeAttackedAnimation();
+        if (hero_one.count_attack >= 11) {
+            hero_one.SetHP(hero_one.GetHP() - 50);
+            timeID1 = startTimer(1000);
+            hero_one.SetStrong(1);
+            hero_one.SetKind(0);
+        }
+    }
+    if (hero_one.GetKind() == 6) {
+        hero_one.Die();
+    }
+
 }
