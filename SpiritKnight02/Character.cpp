@@ -227,17 +227,21 @@ Hero::Hero() {
 void Hero::Show() {
 
 }
-void Hero::BeAttacked(LittleMonster *mirror) {
-    if (mirror->GetKind() != 6) {
-        qDebug() << mirror->GetKind();
-        if (mirror->attack_range.intersects(real_body)) {
-            kind = 5;
+void Hero::BeAttacked(LittleMonster *monster[], bool monster_survive[]) {
+    for (int i = 1; i < 11; i++)
+    {
+        if (monster_survive[i] == true) {
+            if (monster[i]->GetKind() != 6) {
+                if (monster[i]->attack_range.intersects(real_body)) {
+                    kind = 5;
+                }
+            }
         }
     }
 }
 LittleMonster::LittleMonster() {
-    x = 400;
-    y = 400;
+    x = (rand() % ( 1200 + 1)) + 0;
+    y = (rand() % ( 600 + 1)) + 0;
     real_body_width = 59 * size_factor;
     real_body_height = 44 * size_factor;
     real_body_x = x + image_width/2;
@@ -259,7 +263,7 @@ LittleMonster::LittleMonster() {
     photo = QPixmap(":/image/Resource/image/little_monter/attack1/panther_47.png");
     PathCreator(":/image/Resource/image/little_monter/run1/panther_", ".png", 11, 6, running.skill_picture);
     PathCreator(":/image/Resource/image/little_monter/attack1/panther_", ".png", 47, 10, attack.skill_picture);
-    PathCreator(":/image/Resource/image/little_monter/beattack/panther_", ".png", 33, 4, be_attack.skill_picture);
+    PathCreator(":/image/Resource/image/little_monter/beattack/panther_", ".png", 33, 9, be_attack.skill_picture);
     PathCreator(":/image/Resource/image/little_monter/beattack/panther_", ".png", 33, 9, die.skill_picture);
 }
 

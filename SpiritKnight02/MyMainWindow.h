@@ -22,9 +22,9 @@ private:
     Ui::MyMainWindowClass ui;
     int map_choose;
     int timeID1;
-    int timeID2;
-    LittleMonster* little_monster[10];
-    bool little_monster_survive[10];
+    int timeID2[11];
+    LittleMonster*  little_monster[11];
+    bool little_monster_survive[11];
     Hero hero_one;
     LittleMonster *k;
     QTimer map_time;

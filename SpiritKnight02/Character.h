@@ -88,7 +88,7 @@ private:
 public:
 	Hero();
 	void Show();
-	void BeAttacked(LittleMonster* mirror);
+	void BeAttacked(LittleMonster* monster[], bool monster_survive[]);
 	void BeAttackedAnimation();
 };
 
