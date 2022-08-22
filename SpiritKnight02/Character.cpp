@@ -7,10 +7,14 @@ Character::Character() {
     count_left = 0;
     count_right = 0;
     count_attack = 0;
+    size_factor = 2.5;
+    image_width = static_cast<int>(size_factor * 138);
+    image_height = static_cast<int>(size_factor * 107);
 }
 
 void Character::WalkLeft() {
     x -= x_speed_left;
+    real_body_x -= x_speed_left;
     QImage image(FrameAnimation(running.skill_picture, count_left));
     QImage mirroredImage = image.mirrored(true, false);
     photo = QPixmap::fromImage(mirroredImage);
@@ -19,6 +23,7 @@ void Character::WalkLeft() {
 
 void Character::WalkRight() {
     x += x_speed_right;
+    real_body_x += x_speed_left;
     photo = QPixmap(FrameAnimation(running.skill_picture, count_right));
 }
 
@@ -35,7 +40,7 @@ void Character::PathCreator(QString a, QString b, int start, int count, vector <
     int num = 1;
     QString c;
     QString d;
-    for (int i = start; num < count; i++)
+    for (int i = start; num <= count; i++)
     {
         d = QString::number(i, 10);
         picture[num] = a + d + b;
@@ -46,13 +51,13 @@ void Character::PathCreator(QString a, QString b, int start, int count, vector <
 void Character::Attack() {
     if (attacknum == 1) {
         if (direction == 0) {
-            attack_range.moveTo(x,y);
-            attack_range.setWidth(attack_range_x);   //¹¥»÷¾ØÐÎ(Åö×²¼ì²â)
-            attack_range.setHeight(attack_range_y);
+            attack_range.moveTo(real_body_x - real_body_width / 2,real_body_y - real_body_height / 2 - 50);
+            attack_range.setWidth(attack_range_x + real_body_width);   //¹¥»÷¾ØÐÎ(Åö×²¼ì²â)
+            attack_range.setHeight(attack_range_y + real_body_width / 2);
             photo = QPixmap(FrameAnimation(attack.skill_picture, count_attack));
         }
         else {
-            attack_range.moveTo(x - attack_range_x, y);
+            attack_range.moveTo(real_body_x - real_body_width / 2 - attack_range_x, real_body_y - real_body_height / 2);
             attack_range.setWidth(attack_range_x);   //¹¥»÷¾ØÐÎ(Åö×²¼ì²â)
             attack_range.setHeight(attack_range_y);
             QImage image(FrameAnimation(attack.skill_picture, count_attack));
@@ -74,6 +79,7 @@ void Character::Attack() {
 
 void Character::WalkTop() {
     y -= y_speed;
+    real_body_y -= y_speed;
     if (direction == 0) {
         photo = QPixmap(FrameAnimation(running.skill_picture, count_top));
     }
@@ -86,6 +92,7 @@ void Character::WalkTop() {
 
 void Character::WalkDown() {
     y += y_speed;
+    real_body_y += y_speed;
     if (direction == 0) {
         photo = QPixmap(FrameAnimation(running.skill_picture, count_top));
     }
@@ -190,6 +197,10 @@ void Character::SetHP(double health_point) {
 Hero::Hero() {
     x = 500;
     y = 500;
+    real_body_width = 38 * size_factor;
+    real_body_height = 41 * size_factor;
+    real_body_x = x + image_width / 2;
+    real_body_y = y + image_height / 2;
     x_speed_left = 50;
     x_speed_right = 50;
     y_speed = 40;
@@ -199,7 +210,7 @@ Hero::Hero() {
     count_right = 0;
     count_top = 0;
     strong = 0;
-    real_body.moveTo(x, y);
+    real_body.moveTo(real_body_x, real_body_y);
     real_body.setWidth(50);   //¹¥»÷¾ØÐÎ(Åö×²¼ì²â)
     real_body.setHeight(50);
     attack_range_x = 110;
@@ -224,6 +235,10 @@ void Hero::BeAttacked(LittleMonster mirror) {
 LittleMonster::LittleMonster() {
     x = 400;
     y = 400;
+    real_body_width = 59 * size_factor;
+    real_body_height = 44 * size_factor;
+    real_body_x = x + image_width/2;
+    real_body_y = y + image_height/2;
     x_speed_left = 5;
     x_speed_right = 5;
     y_speed = 10;
@@ -232,50 +247,74 @@ LittleMonster::LittleMonster() {
     count_right = 0;
     count_top = 0;
     direction = 0;
-    attack_range_x = 40;
-    attack_range_y = 40;
+    kind = 0;
+    strong = 0;
+    health_point = 100;
+    health_point_max = 100;
+    attack_range_x = 100;
+    attack_range_y = 100;
     photo = QPixmap(":/image/Resource/image/little_monter/attack1/panther_47.png");
     PathCreator(":/image/Resource/image/little_monter/run1/panther_", ".png", 11, 6, running.skill_picture);
     PathCreator(":/image/Resource/image/little_monter/attack1/panther_", ".png", 47, 10, attack.skill_picture);
+    PathCreator(":/image/Resource/image/main_character/die/zero1_", ".png", 16, 11, die.skill_picture);
 }
 
 void LittleMonster::Move(Hero player) {
-    if (x < player.GetX() + attack_range_x && x > player.GetX() - attack_range_x && y < player.GetY() + attack_range_y && y > player.GetY() - attack_range_y)
-    {
-        if (x <= player.GetX()) direction = 0;
-        else { direction = 1; }
-        SetKind(4);
-        Attack();
+    if (kind != 5) {
+        if (x < player.GetX() + attack_range_x && x > player.GetX() - attack_range_x && y < player.GetY() + attack_range_y && y > player.GetY() - attack_range_y)
+        {
+            if (x <= player.GetX()) direction = 0;
+            else { direction = 1; }
+            SetKind(4);
+            Attack();
+        }
+        else {
+            SetKind(1);
+            if (y <= player.GetY()) {
+                WalkDown();
+            }
+            if (y > player.GetY()) {
+                WalkTop();
+            }
+            if (x >= player.GetX()) {
+                WalkLeft();
+            }
+            if (x < player.GetX()) {
+                WalkRight();
+            }
+        }
     }
-    else {
-        SetKind(1);
-        if (y <= player.GetY()) {
-            WalkDown();
-        }
-        if (y > player.GetY()) {
-            WalkTop();
-        }
-        if (x >= player.GetX()) {
-            WalkLeft();
-        }
-        if (x < player.GetX()) {
-            WalkRight();
-        }
+}
+
+void LittleMonster::BeAttacked(Hero hero) {
+    if (hero.attack_range.intersects(real_body)) {
+        kind = 5;
     }
 }
 
 void LittleMonster::Attack() {
     if (direction == 0) {
-        attack_range.moveTo(x, y);
-        attack_range.setWidth(attack_range_x);   //¹¥»÷¾ØÐÎ(Åö×²¼ì²â)
-        attack_range.setHeight(attack_range_y);
+        attack_range.moveTo(real_body_x - real_body_width / 2, real_body_y - real_body_height / 2);
+        attack_range.setWidth(attack_range_x + real_body_width);   //¹¥»÷¾ØÐÎ(Åö×²¼ì²â)
+        attack_range.setHeight(attack_range_y + real_body_width / 2);
         photo = QPixmap(FrameAnimation(attack.skill_picture, count_attack));
     }
     else {
-        attack_range.moveTo(x - attack_range_x, y);
+        attack_range.moveTo(real_body_x - real_body_width / 2 - attack_range_x, real_body_y - real_body_height / 2);
         attack_range.setWidth(attack_range_x);   //¹¥»÷¾ØÐÎ(Åö×²¼ì²â)
         attack_range.setHeight(attack_range_y);
         QImage image(FrameAnimation(attack.skill_picture, count_attack));
+        QImage mirroredImage = image.mirrored(true, false);
+        photo = QPixmap::fromImage(mirroredImage);
+    }
+}
+
+void LittleMonster::BeAttackedAnimation() {
+    if (direction == 0) {
+        photo = QPixmap(FrameAnimation(die.skill_picture, count_attack));
+    }
+    else {
+        QImage image(FrameAnimation(die.skill_picture, count_attack));
         QImage mirroredImage = image.mirrored(true, false);
         photo = QPixmap::fromImage(mirroredImage);
     }

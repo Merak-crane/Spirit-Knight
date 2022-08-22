@@ -37,6 +37,7 @@ void MyMainWindow::paintEvent(QPaintEvent *event)
     }
     painter.drawRect(hero_one.attack_range);
     painter.drawRect(hero_one.real_body);
+    painter.drawRect(k.real_body);
     if (hero_one.GetKind() == 0 && hero_one.GetDirection() == 1) {
         QImage image(":/image/Resource/image/main_character/running3/zero4_5.png");
         QImage mirroredImage = image.mirrored(true, false);
@@ -45,8 +46,7 @@ void MyMainWindow::paintEvent(QPaintEvent *event)
     else if (hero_one.GetKind() == 0 && hero_one.GetDirection() == 0) {
         hero_one.photo = QPixmap(":/image/Resource/image/main_character/running3/zero4_5.png");
     }
-    painter.drawPixmap(hero_one.GetX(), hero_one.GetY(),100,100, hero_one.photo);
-    painter.drawPixmap(hero_one.GetX(), hero_one.GetY(), 100, 100, hero_one.photo);
+    painter.drawPixmap(hero_one.GetX(), hero_one.GetY(), hero_one.image_width, hero_one.image_height, hero_one.photo);
     if (k.GetKind() == 0 && k.GetDirection() == 1) {
         QImage image(":/image/Resource/image/main_character/running3/zero4_5.png");
         QImage mirroredImage = image.mirrored(true, false);
@@ -66,7 +66,12 @@ void MyMainWindow::paintEvent(QPaintEvent *event)
     painter.drawRect(50, 40, 500 * (double(hero_one.GetHP()) / hero_one.GetHPMAX()), 15);
     painter.setBrush(Qt::blue);
     painter.drawRect(50, 75, 300 * (double(hero_one.GetMP()) / hero_one.GetMPMAX()), 10);
-    painter.drawPixmap(k.GetX(), k.GetY(),80,30,k.photo);
+    painter.drawPixmap(k.GetX(), k.GetY(), k.image_width,k.image_height,k.photo);
+    painter.setBrush(QBrush(Qt::NoBrush));
+    painter.drawRect(k.real_body_x, k.real_body_x, 500 * (double(hero_one.GetHP()) / hero_one.GetHPMAX()), 15);
+    painter.setBrush(Qt::blue);
+    painter.drawRect(50, 75, 300 * (double(hero_one.GetMP()) / hero_one.GetMPMAX()), 10);
+    painter.drawPixmap(k.GetX(), k.GetY(), k.image_width, k.image_height, k.photo);
     painter.setBrush(QBrush(Qt::NoBrush));
     painter.drawRect(k.attack_range);
 }
@@ -124,10 +129,17 @@ void MyMainWindow::timerEvent(QTimerEvent* event) {
     if (tmp == timeID1) {
         hero_one.SetStrong(0);
     }
+    if (tmp == timeID2) {
+        k.SetStrong(0);
+    }
 }
 //以下是更新函数，主要更新角色属性，怪物属性，加载动作动画等
 void MyMainWindow::UpdateOne() {
     k.Move(hero_one);
+    hero_one.SetStrong(1);
+    if (k.GetStrong() == 0) {
+        k.BeAttacked(hero_one);
+    }
     if (hero_one.GetHP() == 0) {
         hero_one.SetStrong(1);
         hero_one.SetKind(6);
@@ -135,9 +147,12 @@ void MyMainWindow::UpdateOne() {
     if (hero_one.GetStrong() == 0) {
         hero_one.BeAttacked(k);
     }
-    hero_one.real_body.moveTo(hero_one.GetX(), hero_one.GetY());
-    hero_one.real_body.setWidth(50);   //攻击矩形(碰撞检测)
-    hero_one.real_body.setHeight(50);
+    hero_one.real_body.moveTo(hero_one.real_body_x - hero_one.real_body_width / 2, hero_one.real_body_y - hero_one.real_body_height / 2);
+    hero_one.real_body.setWidth(hero_one.real_body_width);   //攻击矩形(碰撞检测)
+    hero_one.real_body.setHeight(hero_one.real_body_height);
+    k.real_body.moveTo(k.real_body_x - k.real_body_width / 2, k.real_body_y - k.real_body_height / 2);
+    k.real_body.setWidth(k.real_body_width);   //攻击矩形(碰撞检测)
+    k.real_body.setHeight(k.real_body_height);
     if (hero_one.GetKind() == 1) {
         if(hero_one.GetDirection() == 1)hero_one.WalkLeft();
         if(hero_one.GetDirection() == 0)hero_one.WalkRight();
@@ -158,7 +173,7 @@ void MyMainWindow::UpdateOne() {
     if (hero_one.GetKind() == 5 && hero_one.GetStrong() == 0) {
         hero_one.BeAttackedAnimation();
         if (hero_one.count_attack >= 11) {
-            hero_one.SetHP(hero_one.GetHP() - 50);
+            hero_one.SetHP(hero_one.GetHP()- 50);
             timeID1 = startTimer(1000);
             hero_one.SetStrong(1);
             hero_one.SetKind(0);
@@ -167,5 +182,13 @@ void MyMainWindow::UpdateOne() {
     if (hero_one.GetKind() == 6) {
         hero_one.Die();
     }
-
+    if (k.GetKind() == 5 && k.GetStrong() == 0) {
+        k.BeAttackedAnimation();
+        if (k.count_attack >= 11) {
+            k.SetHP(hero_one.GetHP() - 50);
+            timeID2 = startTimer(1000);
+            k.SetStrong(1);
+            k.SetKind(0);
+        }
+    }
 }

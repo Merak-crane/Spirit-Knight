@@ -18,6 +18,11 @@ class Character {
 public:
 	QRect attack_range;
 	QRect real_body;
+	int image_width;
+	int image_height;
+	int real_body_width;
+	int real_body_height;
+	double size_factor;
 	int attacknum;
 	int count_left;
 	int count_right;
@@ -25,6 +30,8 @@ public:
 	int count_attack;
 	int x_speed_right;
 	int x_speed_left;
+	int real_body_x;
+	int real_body_y;
 	QPixmap photo;
 	Character();
 	void WalkLeft();
@@ -89,11 +96,12 @@ public:
 	LittleMonster();
 	void Move(Hero player);
 	void Attack();
+	void BeAttacked(Hero hero);
+	void BeAttackedAnimation();
 };
 
 class MiddleMonster : public Character {
 public:
-
 };
 
 class UltraMonster : public Character {
