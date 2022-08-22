@@ -4,7 +4,6 @@
 #include <QDesktopWidget>
 #include <QIcon>
 #include <QString>
-#include <QSound>
 
 Start::Start(QWidget *parent)
 	: QWidget(parent)
@@ -15,8 +14,8 @@ Start::Start(QWidget *parent)
 	this->setFixedSize(DeskWidth, DeskHeight);//设置窗口大小
 	this->setWindowTitle(QString::fromUtf16(u"英灵骑士"));//设置窗口标题
 	this->setWindowIcon(QIcon(":/icon/Resource/icon/htmlogo.png"));//设置窗口logo
-	connect(exit, &QPushButton::clicked, this, &QWidget::close);
-	connect(start, &QPushButton::clicked, this, &Start::startmapcreate);
+	connect(exit, &QPushButton::clicked, this, &QWidget::Close);
+	connect(start, &QPushButton::clicked, this, &Start::Modechoose);
 	connect(continued, &QPushButton::clicked, this, &Start::openload);
 	connect(returnbtn, &QPushButton::clicked, this, &Start::returnback);
 	connect(start, &QPushButton::clicked, this, &QWidget::close);
@@ -32,4 +31,12 @@ Start::~Start()
 void Start::paintEvent(QPaintEvent* Event) {
 	QPainter painter1(this);
 	painter1.drawPixmap(0,0, this->width(), this->height(), QPixmap(":/image/Resource/image/background/background.jpeg"));
+}
+
+void Start::modechoose(){
+
+}
+
+void Start::close() {
+
 }

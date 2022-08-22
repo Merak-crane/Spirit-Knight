@@ -12,6 +12,8 @@ public:
 	Start(QWidget *parent = nullptr);
 	~Start();
 	void paintEvent(QPaintEvent* Event);
+    void ModeChoose();
+    void Close();
     QPushButton* start = new QPushButton(this);
     QPushButton* continued = new QPushButton(this);
     QPushButton* help = new QPushButton(this);
