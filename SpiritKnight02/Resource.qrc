@@ -48,5 +48,21 @@
         <file>Resource/image/main_character/die/zero1_24.png</file>
         <file>Resource/image/main_character/die/zero1_25.png</file>
         <file>Resource/image/main_character/die/zero1_26.png</file>
+        <file>Resource/image/little_monter/attack1/panther_47.png</file>
+        <file>Resource/image/little_monter/attack1/panther_48.png</file>
+        <file>Resource/image/little_monter/attack1/panther_49.png</file>
+        <file>Resource/image/little_monter/attack1/panther_50.png</file>
+        <file>Resource/image/little_monter/attack1/panther_51.png</file>
+        <file>Resource/image/little_monter/attack1/panther_52.png</file>
+        <file>Resource/image/little_monter/attack1/panther_53.png</file>
+        <file>Resource/image/little_monter/attack1/panther_54.png</file>
+        <file>Resource/image/little_monter/attack1/panther_55.png</file>
+        <file>Resource/image/little_monter/attack1/panther_56.png</file>
+        <file>Resource/image/little_monter/run1/panther_11.png</file>
+        <file>Resource/image/little_monter/run1/panther_12.png</file>
+        <file>Resource/image/little_monter/run1/panther_13.png</file>
+        <file>Resource/image/little_monter/run1/panther_14.png</file>
+        <file>Resource/image/little_monter/run1/panther_15.png</file>
+        <file>Resource/image/little_monter/run1/panther_16.png</file>
     </qresource>
 </RCC>

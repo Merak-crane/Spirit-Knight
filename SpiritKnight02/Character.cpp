@@ -213,21 +213,17 @@ Hero::Hero() {
     PathCreator(":/image/Resource/image/main_character/slice1/zero2_", ".png", 18, 11, attack.skill_picture);
     PathCreator(":/image/Resource/image/main_character/die/zero1_", ".png", 16, 11, die.skill_picture);
 }
+void Hero::Show() {
 
+}
 void Hero::BeAttacked(LittleMonster mirror) {
     if (mirror.attack_range.intersects(real_body)) {
         kind = 5;
     }
 }
-
-
-void Hero::Show() {
-    
-}
-
 LittleMonster::LittleMonster() {
-    x = 100;
-    y = 100;
+    x = 400;
+    y = 400;
     x_speed_left = 5;
     x_speed_right = 5;
     y_speed = 10;
@@ -236,11 +232,11 @@ LittleMonster::LittleMonster() {
     count_right = 0;
     count_top = 0;
     direction = 0;
-    attack_range_x = 110;
-    attack_range_y = 100;
-    photo = QPixmap(":/image/Resource/image/main_character/running3/zero4_5.png");
-    PathCreator(":/image/Resource/image/main_character/running3/zero4_", ".png", 5, 13, running.skill_picture);
-    PathCreator(":/image/Resource/image/main_character/slice1/zero2_", ".png", 18, 11, attack.skill_picture);
+    attack_range_x = 40;
+    attack_range_y = 40;
+    photo = QPixmap(":/image/Resource/image/little_monter/attack1/panther_47.png");
+    PathCreator(":/image/Resource/image/little_monter/run1/panther_", ".png", 11, 6, running.skill_picture);
+    PathCreator(":/image/Resource/image/little_monter/attack1/panther_", ".png", 47, 10, attack.skill_picture);
 }
 
 void LittleMonster::Move(Hero player) {
