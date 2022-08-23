@@ -73,5 +73,37 @@
         <file>Resource/image/little_monter/beattack/panther_39.png</file>
         <file>Resource/image/little_monter/beattack/panther_40.png</file>
         <file>Resource/image/little_monter/beattack/panther_41.png</file>
+        <file>Resource/image/firemonkey/run/firemonkey_16.png</file>
+        <file>Resource/image/firemonkey/run/firemonkey_17.png</file>
+        <file>Resource/image/firemonkey/run/firemonkey_18.png</file>
+        <file>Resource/image/firemonkey/run/firemonkey_19.png</file>
+        <file>Resource/image/firemonkey/run/firemonkey_20.png</file>
+        <file>Resource/image/firemonkey/run/firemonkey_21.png</file>
+        <file>Resource/image/firemonkey/die/firemonkey_60.png</file>
+        <file>Resource/image/firemonkey/die/firemonkey_61.png</file>
+        <file>Resource/image/firemonkey/die/firemonkey_62.png</file>
+        <file>Resource/image/firemonkey/die/firemonkey_63.png</file>
+        <file>Resource/image/firemonkey/dash/firemonkey_31.png</file>
+        <file>Resource/image/firemonkey/dash/firemonkey_32.png</file>
+        <file>Resource/image/firemonkey/dash/firemonkey_33.png</file>
+        <file>Resource/image/firemonkey/dash/firemonkey_34.png</file>
+        <file>Resource/image/firemonkey/dash/firemonkey_35.png</file>
+        <file>Resource/image/firemonkey/dash/firemonkey_37.png</file>
+        <file>Resource/image/firemonkey/dash/firemonkey_38.png</file>
+        <file>Resource/image/firemonkey/dash/firemonkey_39.png</file>
+        <file>Resource/image/firemonkey/dash/firemonkey_41.png</file>
+        <file>Resource/image/firemonkey/2phace/firemonkey_46.png</file>
+        <file>Resource/image/firemonkey/2phace/firemonkey_47.png</file>
+        <file>Resource/image/firemonkey/2phace/firemonkey_48.png</file>
+        <file>Resource/image/firemonkey/2phace/firemonkey_49.png</file>
+        <file>Resource/image/firemonkey/2phace/firemonkey_50.png</file>
+        <file>Resource/image/firemonkey/2phace/firemonkey_51.png</file>
+        <file>Resource/image/firemonkey/2phace/firemonkey_52.png</file>
+        <file>Resource/image/firemonkey/2phace/firemonkey_53.png</file>
+        <file>Resource/image/firemonkey/2phace/firemonkey_54.png</file>
+        <file>Resource/image/firemonkey/2phace/firemonkey_56.png</file>
+        <file>Resource/image/firemonkey/2phace/firemonkey_57.png</file>
+        <file>Resource/image/firemonkey/2phace/firemonkey_58.png</file>
+        <file>Resource/image/firemonkey/2phace/firemonkey_59.png</file>
     </qresource>
 </RCC>

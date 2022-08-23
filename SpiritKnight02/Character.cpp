@@ -327,3 +327,96 @@ void LittleMonster::BeAttackedAnimation() {
         photo = QPixmap::fromImage(mirroredImage);
     }
 }
+
+MiddleMonster::MiddleMonster() {
+    x = (rand() % (1200 + 1)) + 0;
+    y = (rand() % (600 + 1)) + 0;
+    real_body_width = 40 * size_factor;
+    real_body_height = 37 * size_factor;
+    real_body_x = x + image_width / 2;
+    real_body_y = y + image_height / 2;
+    x_speed_left = 5;
+    x_speed_right = 5;
+    y_speed = 10;
+    count_attack = 0;
+    count_left = 0;
+    count_right = 0;
+    count_top = 0;
+    direction = 0;
+    kind = 0;
+    strong = 0;
+    health_point = 100;
+    health_point_max = 100;
+    attack_range_x = 100;
+    attack_range_y = 100;
+    photo = QPixmap(":/image/Resource/image/little_monter/attack1/panther_47.png");
+    PathCreator(":/image/Resource/image/firemonkey/run/firemonkey_", ".png", 16, 6, running.skill_picture);
+    PathCreator(":/image/Resource/image/firemonkey/dash/firemonkey_", ".png", 31, 11, attack.skill_picture);
+    PathCreator(":/image/Resource/image/firemonkey/2phace/firemonkey_", ".png", 46, 14, attack_two.skill_picture);
+    PathCreator(":/image/Resource/image/firemonkey/die/firemonkey_", ".png", 60, 4, be_attack.skill_picture);
+    PathCreator(":/image/Resource/image/firemonkey/die/firemonkey_", ".png", 60, 4, die.skill_picture);
+}
+void MiddleMonster::Move(Hero player) {
+    if (kind != 5) {
+        if (x < player.GetX() + attack_range_x && x > player.GetX() - attack_range_x && y < player.GetY() + attack_range_y && y > player.GetY() - attack_range_y)
+        {
+            if (x <= player.GetX()) direction = 0;
+            else { direction = 1; }
+            SetKind(4);
+            Attack();
+        }
+        else {
+            SetKind(1);
+            if (y <= player.GetY()) {
+                WalkDown();
+            }
+            if (y > player.GetY()) {
+                WalkTop();
+            }
+            if (x >= player.GetX()) {
+                WalkLeft();
+            }
+            if (x < player.GetX()) {
+                WalkRight();
+            }
+        }
+    }
+}
+
+void MiddleMonster::BeAttacked(Hero hero) {
+    if (hero.attack_range.intersects(real_body)) {
+        kind = 5;
+    }
+}
+
+void MiddleMonster::Attack() {
+    if (direction == 0) {
+        x += x_speed_right;
+        real_body_x += x_speed_right;
+        attack_range.moveTo(real_body_x - real_body_width / 2, real_body_y - real_body_height / 2);
+        attack_range.setWidth(attack_range_x + real_body_width);   //¹¥»÷¾ØÐÎ(Åö×²¼ì²â)
+        attack_range.setHeight(attack_range_y + real_body_width / 2);
+        photo = QPixmap(FrameAnimation(attack.skill_picture, count_attack));
+    }
+    else {
+        x -= x_speed_left;
+        real_body_x -= x_speed_left;
+        attack_range.moveTo(real_body_x - real_body_width / 2 - attack_range_x, real_body_y - real_body_height / 2);
+        attack_range.setWidth(attack_range_x);   //¹¥»÷¾ØÐÎ(Åö×²¼ì²â)
+        attack_range.setHeight(attack_range_y);
+        QImage image(FrameAnimation(attack.skill_picture, count_attack));
+        QImage mirroredImage = image.mirrored(true, false);
+        photo = QPixmap::fromImage(mirroredImage);
+    }
+}
+
+void MiddleMonster::BeAttackedAnimation() {
+    if (direction == 0) {
+        photo = QPixmap(FrameAnimation(be_attack.skill_picture, count_attack));
+    }
+    else {
+        QImage image(FrameAnimation(be_attack.skill_picture, count_attack));
+        QImage mirroredImage = image.mirrored(true, false);
+        photo = QPixmap::fromImage(mirroredImage);
+    }
+}

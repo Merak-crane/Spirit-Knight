@@ -102,7 +102,14 @@ public:
 };
 
 class MiddleMonster : public Character {
+private:
+	Skill attack_two;
 public:
+	MiddleMonster();
+	void Move(Hero player);
+	void Attack();
+	void BeAttacked(Hero hero);
+	void BeAttackedAnimation();
 };
 
 class UltraMonster : public Character {
