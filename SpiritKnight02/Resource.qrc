@@ -49,5 +49,6 @@
         <file>Resource/image/main_character/die/zero1_25.png</file>
         <file>Resource/image/main_character/die/zero1_26.png</file>
         <file>Resource/image/background/background.jpeg</file>
+        <file>Resource/image/background/background.png</file>
     </qresource>
 </RCC>
