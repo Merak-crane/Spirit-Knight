@@ -105,5 +105,6 @@
         <file>Resource/image/firemonkey/2phace/firemonkey_57.png</file>
         <file>Resource/image/firemonkey/2phace/firemonkey_58.png</file>
         <file>Resource/image/firemonkey/2phace/firemonkey_59.png</file>
+        <file>Resource/image/firemonkey/dash/firemonkey_0.png</file>
     </qresource>
 </RCC>

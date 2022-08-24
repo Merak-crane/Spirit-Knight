@@ -46,6 +46,7 @@ public:
 	int GetY();
 	int GetStrong();
 	int GetKind();
+	bool GetLay();
 	int GetDirection();
 	double GetHP();
 	double GetMP();
@@ -55,6 +56,7 @@ public:
 	void SetX(int x);
 	void SetY(int y);
 	void SetKind(int kind);
+	void SetLay(bool lay);
 	void SetStrong(int strong);
 	void SetHP(double health_point);
 	void SetMP(double magic_point);
@@ -67,6 +69,7 @@ protected:
 	double magic_point;
 	double experience;
 	int kind;
+	bool lay;
 	int x;
 	int y;
 	int y_speed;
@@ -110,9 +113,18 @@ public:
 	void Attack();
 	void BeAttacked(Hero hero);
 	void BeAttackedAnimation();
+	void AttackAnimation();
 };
 
 class UltraMonster : public Character {
 public:
-
+private:
+	Skill attack_two;
+public:
+	UltraMonster();
+	void Move(Hero player);
+	void Attack();
+	void BeAttacked(Hero hero);
+	void BeAttackedAnimation();
+	void AttackAnimation();
 };

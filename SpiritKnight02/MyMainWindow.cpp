@@ -19,18 +19,23 @@ MyMainWindow::MyMainWindow(QWidget *parent)
     this->setWindowIcon(QIcon(":/icon/Resource/icon/htmlogo.png"));//设置窗口logo
     map_time.setInterval(GAME_RATE);
     map_time.start();
+    ultra_monster.resize(4);
     k = new LittleMonster;
     connect(&map_time, &QTimer::timeout, [=]() {
         update();
         UpdateOne();
     });
-    for (int i = 1; i < 11; i++) {
+    for (int i = 1; i < 3; i++) {
         little_monster[i] = new LittleMonster();
         little_monster_survive[i] = false;
     }
-    for (int i = 1; i < 11; i++) {
+    for (int i = 1; i < 3; i++) {
         middle_monster[i] = new MiddleMonster();
-        middle_monster_survive[i] = true;
+        middle_monster_survive[i] = false;
+    }
+    for (int i = 1; i < ultra_monster.size(); i++) {
+        ultra_monster[i] = new UltraMonster;
+        ultra_monster_survive[i] = true;
     }
 }
 
@@ -72,7 +77,7 @@ void MyMainWindow::paintEvent(QPaintEvent *event)
     painter.setBrush(Qt::red);
     painter.setBrush(QBrush(Qt::NoBrush));
 
-    for (int i = 1; i < 11; i++) {
+    for (int i = 1; i < 3; i++) {
         if (little_monster_survive[i] == true) {
             if (little_monster[i]->GetKind() == 0 && little_monster[i]->GetDirection() == 1) {
                 QImage image(":/image/Resource/image/main_character/running3/zero4_5.png");
@@ -99,7 +104,7 @@ void MyMainWindow::paintEvent(QPaintEvent *event)
             }
         }
     }
-    for (int i = 1; i < 11; i++) {
+    for (int i = 1; i < 3; i++) {
         if (middle_monster_survive[i] == true) {
             if (middle_monster[i]->GetKind() == 0 && middle_monster[i]->GetDirection() == 1) {
                 QImage image(":/image/Resource/image/main_character/running3/zero4_5.png");
@@ -123,6 +128,33 @@ void MyMainWindow::paintEvent(QPaintEvent *event)
                 painter.drawRect(middle_monster[i]->real_body_x, middle_monster[i]->real_body_y, 300 * (double(middle_monster[i]->GetMP()) / middle_monster[i]->GetMPMAX()), 10);
                 painter.setBrush(QBrush(Qt::NoBrush));
                 painter.drawRect(middle_monster[i]->attack_range);
+            }
+        }
+    }
+    for (int i = 1; i < ultra_monster.size(); i++) {
+        if (ultra_monster_survive[i] == true) {
+            if (ultra_monster[i]->GetKind() == 0 && ultra_monster[i]->GetDirection() == 1) {
+                QImage image(":/image/Resource/image/main_character/running3/zero4_5.png");
+                QImage mirroredImage = image.mirrored(true, false);
+                ultra_monster[i]->photo = QPixmap::fromImage(mirroredImage);
+            }
+            else if (ultra_monster[i]->GetKind() == 0 && ultra_monster[i]->GetDirection() == 0) {
+                ultra_monster[i]->photo = QPixmap(":/image/Resource/image/main_character/running3/zero4_5.png");
+            }
+            if (ultra_monster[i]->GetHP() <= 0) {
+                ultra_monster[i]->SetHP(0);
+                ultra_monster[i]->SetKind(6);
+                qDebug() << ultra_monster[i]->GetKind();
+            }
+            if (ultra_monster[i]->GetKind() != 6) {
+                painter.drawRect(ultra_monster[i]->real_body);
+                painter.setBrush(Qt::red);
+                painter.drawPixmap(ultra_monster[i]->GetX(), ultra_monster[i]->GetY(), ultra_monster[i]->image_width, ultra_monster[i]->image_height, ultra_monster[i]->photo);
+                painter.drawRect(ultra_monster[i]->real_body_x, ultra_monster[i]->real_body_y + 50, 500 * (double(ultra_monster[i]->GetHP()) / ultra_monster[i]->GetHPMAX()), 15);
+                painter.setBrush(Qt::blue);
+                painter.drawRect(ultra_monster[i]->real_body_x, ultra_monster[i]->real_body_y, 300 * (double(ultra_monster[i]->GetMP()) / ultra_monster[i]->GetMPMAX()), 10);
+                painter.setBrush(QBrush(Qt::NoBrush));
+                painter.drawRect(ultra_monster[i]->attack_range);
             }
         }
     }
@@ -181,14 +213,19 @@ void MyMainWindow::timerEvent(QTimerEvent* event) {
     if (tmp == timeID1) {
         hero_one.SetStrong(0);
     }
-    for (int i = 1; i < 11; i++) {
+    for (int i = 1; i < 3; i++) {
         if (tmp == timeID2[i] && little_monster_survive[i] == true) {
             little_monster[i]->SetStrong(0);
         }
     }
-    for (int i = 1; i < 11; i++) {
+    for (int i = 1; i < 3; i++) {
         if (tmp == timeID3[i] && middle_monster_survive[i] == true) {
             middle_monster[i]->SetStrong(0);
+        }
+    }
+    for (int i = 1; i < ultra_monster.size(); i++) {
+        if (tmp == timeID4[i] && middle_monster_survive[i] == true) {
+            ultra_monster[i]->SetKind(0);
         }
     }
 }
@@ -228,7 +265,7 @@ void MyMainWindow::UpdateOne() {
     if (hero_one.GetKind() == 5 && hero_one.GetStrong() == 0) {
         hero_one.BeAttackedAnimation();
         if (hero_one.count_attack >= 11) {
-            hero_one.SetHP(hero_one.GetHP()- 1);
+            hero_one.SetHP(hero_one.GetHP() - 1);
             timeID1 = startTimer(1000);
             hero_one.SetStrong(1);
             hero_one.SetKind(0);
@@ -237,7 +274,7 @@ void MyMainWindow::UpdateOne() {
     if (hero_one.GetKind() == 6) {
         hero_one.Die();
     }
-    for (int i = 1; i < 11; i++) {
+    for (int i = 1; i < 3; i++) {
         if (little_monster_survive[i] == true) {
             little_monster[i]->Move(hero_one);
             if (little_monster[i]->GetStrong() == 0) {
@@ -279,7 +316,7 @@ void MyMainWindow::UpdateOne() {
             }
         }
     }
-    for (int i = 1; i < 11; i++) {
+    for (int i = 1; i < 3; i++) {
         if (middle_monster_survive[i] == true) {
             middle_monster[i]->Move(hero_one);
             if (middle_monster[i]->GetStrong() == 0) {
@@ -288,6 +325,7 @@ void MyMainWindow::UpdateOne() {
             if (middle_monster[i]->GetHP() == 0) {
                 middle_monster[i]->SetStrong(1);
                 middle_monster[i]->SetKind(6);
+                middle_monster[i]->SetLay(0);
             }
             if (middle_monster[i]->GetKind() == 6) {
                 middle_monster[i]->Die();
@@ -316,7 +354,69 @@ void MyMainWindow::UpdateOne() {
                     middle_monster[i]->SetHP(middle_monster[i]->GetHP() - 30);
                     timeID3[i] = startTimer(1000);
                     middle_monster[i]->SetStrong(1);
-                    middle_monster[i]->SetKind(0);
+                    if (middle_monster[i]->GetLay() != 1) {
+                        middle_monster[i]->SetKind(0);
+                    }
+                }
+            }
+            qDebug() << middle_monster[1]->GetKind();
+            if (middle_monster[i]->GetKind() == 8) {
+                middle_monster[i]->AttackAnimation();
+                middle_monster[i]->x_speed_left = 5;
+                middle_monster[i]->x_speed_right = 5;
+                if (middle_monster[i]->count_attack >= 9) {
+                    middle_monster[i]->SetKind(9);
+                    middle_monster[i]->photo = QPixmap(":/image/Resource/image/firemonkey/die/firemonkey_63.png");
+
+                    timeID4[i] = startTimer(2000);
+                }
+            }
+            if (middle_monster[i]->GetKind() == 9) {
+                middle_monster[i]->SetLay(1);
+            }
+        }
+    }
+    for (int i = 1; i < ultra_monster.size(); i++) {
+        if (ultra_monster_survive[i] == true) {
+            ultra_monster[i]->Move(hero_one);
+            if (ultra_monster[i]->GetStrong() == 0) {
+                ultra_monster[i]->BeAttacked(hero_one);
+            }
+            if (ultra_monster[i]->GetHP() == 0) {
+                ultra_monster[i]->SetStrong(1);
+                ultra_monster[i]->SetKind(6);
+                ultra_monster[i]->SetLay(0);
+            }
+            if (ultra_monster[i]->GetKind() == 6) {
+                ultra_monster[i]->Die();
+                ultra_monster_survive[i] = false;
+                delete ultra_monster[i];
+            }
+            if (ultra_monster[i]->GetKind() != 4) {
+                ultra_monster[i]->attack_range.setWidth(0);
+                ultra_monster[i]->attack_range.setHeight(0);
+            }
+            if (ultra_monster[i]->GetKind() != 7) {
+                ultra_monster[i]->real_body.moveTo(ultra_monster[i]->real_body_x - ultra_monster[i]->real_body_width / 2, ultra_monster[i]->real_body_y - ultra_monster[i]->real_body_height / 2);
+                ultra_monster[i]->real_body.setWidth(ultra_monster[i]->real_body_width);   //攻击矩形(碰撞检测)
+                ultra_monster[i]->real_body.setHeight(ultra_monster[i]->real_body_height);
+            }
+            else {
+                ultra_monster[i]->real_body.moveTo(ultra_monster[i]->real_body_x - ultra_monster[i]->real_body_width / 2, ultra_monster[i]->real_body_y - ultra_monster[i]->real_body_height / 2);
+                ultra_monster[i]->real_body.setWidth(0);   //攻击矩形(碰撞检测)
+                ultra_monster[i]->real_body.setHeight(0);
+                ultra_monster[i]->attack_range.setWidth(0);
+                ultra_monster[i]->attack_range.setHeight(0);
+            }
+            if (ultra_monster[i]->GetKind() == 5 && ultra_monster[i]->GetStrong() == 0) {
+                ultra_monster[i]->BeAttackedAnimation();
+                if (ultra_monster[i]->count_attack >= 4) {
+                    ultra_monster[i]->SetHP(ultra_monster[i]->GetHP() - 30);
+                    timeID4[i] = startTimer(1000);
+                    ultra_monster[i]->SetStrong(1);
+                    if (ultra_monster[i]->GetLay() != 1) {
+                        ultra_monster[i]->SetKind(0);
+                    }
                 }
             }
         }
