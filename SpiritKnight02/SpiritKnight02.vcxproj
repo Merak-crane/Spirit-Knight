@@ -32,7 +32,7 @@
   </ImportGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="QtSettings">
     <QtInstall>5.14.2_msvc2017_64</QtInstall>
-    <QtModules>core;gui;multimedia;widgets;multimediawidgets</QtModules>
+    <QtModules>core;sql;gui;multimedia;widgets;multimediawidgets</QtModules>
     <QtBuildConfig>debug</QtBuildConfig>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="QtSettings">
@@ -90,6 +90,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Smtp.cpp" />
     <ClCompile Include="Start.cpp" />
     <QtRcc Include="Resource.qrc" />
     <QtUic Include="MyMainWindow.ui" />
@@ -101,6 +102,7 @@
   <ItemGroup>
     <ClInclude Include="Character.h" />
     <ClInclude Include="config.h" />
+    <ClInclude Include="Smtp.h" />
     <QtMoc Include="Start.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
