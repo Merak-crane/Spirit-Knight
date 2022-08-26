@@ -69,7 +69,7 @@ protected:
 	double magic_point;
 	double experience;
 	int kind;
-	bool lay;
+	bool lay = 0;
 	int x;
 	int y;
 	int y_speed;

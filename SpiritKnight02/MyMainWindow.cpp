@@ -223,9 +223,14 @@ void MyMainWindow::timerEvent(QTimerEvent* event) {
             middle_monster[i]->SetStrong(0);
         }
     }
-    for (int i = 1; i < ultra_monster.size(); i++) {
+    for (int i = 1; i < 3; i++) {
         if (tmp == timeID4[i] && middle_monster_survive[i] == true) {
-            ultra_monster[i]->SetKind(0);
+            middle_monster[i]->SetKind(0);
+        }
+    }
+    for (int i = 1; i < ultra_monster.size(); i++) {
+        if (tmp == timeID5[i] && ultra_monster_survive[i] == true) {
+            ultra_monster[i]->SetStrong(0);
         }
     }
 }
@@ -367,7 +372,6 @@ void MyMainWindow::UpdateOne() {
                 if (middle_monster[i]->count_attack >= 9) {
                     middle_monster[i]->SetKind(9);
                     middle_monster[i]->photo = QPixmap(":/image/Resource/image/firemonkey/die/firemonkey_63.png");
-
                     timeID4[i] = startTimer(2000);
                 }
             }
@@ -412,7 +416,7 @@ void MyMainWindow::UpdateOne() {
                 ultra_monster[i]->BeAttackedAnimation();
                 if (ultra_monster[i]->count_attack >= 4) {
                     ultra_monster[i]->SetHP(ultra_monster[i]->GetHP() - 30);
-                    timeID4[i] = startTimer(1000);
+                    timeID5[i] = startTimer(2000);
                     ultra_monster[i]->SetStrong(1);
                     if (ultra_monster[i]->GetLay() != 1) {
                         ultra_monster[i]->SetKind(0);

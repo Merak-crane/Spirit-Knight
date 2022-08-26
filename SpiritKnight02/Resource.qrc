@@ -106,5 +106,38 @@
         <file>Resource/image/firemonkey/2phace/firemonkey_58.png</file>
         <file>Resource/image/firemonkey/2phace/firemonkey_59.png</file>
         <file>Resource/image/firemonkey/dash/firemonkey_0.png</file>
+        <file>Resource/image/zark/move/googuy_18.png</file>
+        <file>Resource/image/zark/move/googuy_19.png</file>
+        <file>Resource/image/zark/move/googuy_20.png</file>
+        <file>Resource/image/zark/move/googuy_21.png</file>
+        <file>Resource/image/zark/move/googuy_22.png</file>
+        <file>Resource/image/zark/move/googuy_23.png</file>
+        <file>Resource/image/zark/move/googuy_24.png</file>
+        <file>Resource/image/zark/wrap/googuy_25.png</file>
+        <file>Resource/image/zark/wrap/googuy_26.png</file>
+        <file>Resource/image/zark/wrap/googuy_27.png</file>
+        <file>Resource/image/zark/wrap/googuy_28.png</file>
+        <file>Resource/image/zark/wrap/googuy_29.png</file>
+        <file>Resource/image/zark/wrap/googuy_30.png</file>
+        <file>Resource/image/zark/wrap/googuy_31.png</file>
+        <file>Resource/image/zark/wrap/googuy_32.png</file>
+        <file>Resource/image/zark/attacked/googuy_37.png</file>
+        <file>Resource/image/zark/attacked/googuy_38.png</file>
+        <file>Resource/image/zark/attacked/googuy_39.png</file>
+        <file>Resource/image/zark/attacked/googuy_40.png</file>
+        <file>Resource/image/zark/attacked/googuy_41.png</file>
+        <file>Resource/image/zark/die/googuy_33.png</file>
+        <file>Resource/image/zark/die/googuy_34.png</file>
+        <file>Resource/image/zark/die/googuy_35.png</file>
+        <file>Resource/image/zark/die/googuy_36.png</file>
+        <file>Resource/image/zark/die/googuy_37.png</file>
+        <file>Resource/image/zark/wrap/googuy_33.png</file>
+        <file>Resource/image/zark/wrap/googuy_34.png</file>
+        <file>Resource/image/zark/wrap/googuy_35.png</file>
+        <file>Resource/image/zark/wrap/googuy_36.png</file>
+        <file>Resource/image/zark/wrap/googuy_37.png</file>
+        <file>Resource/image/zark/wrap/googuy_38.png</file>
+        <file>Resource/image/zark/wrap/googuy_39.png</file>
+        <file>Resource/image/zark/wrap/googuy_40.png</file>
     </qresource>
 </RCC>

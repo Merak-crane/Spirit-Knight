@@ -452,11 +452,11 @@ UltraMonster::UltraMonster() {
     health_point_max = 100;
     attack_range_x = 100;
     attack_range_y = 100;
-    photo = QPixmap(":/image/Resource/image/little_monter/attack1/panther_47.png");
-    PathCreator(":/image/Resource/image/little_monter/run1/panther_", ".png", 11, 6, running.skill_picture);
-    PathCreator(":/image/Resource/image/little_monter/attack1/panther_", ".png", 47, 10, attack.skill_picture);
-    PathCreator(":/image/Resource/image/little_monter/beattack/panther_", ".png", 33, 9, be_attack.skill_picture);
-    PathCreator(":/image/Resource/image/little_monter/beattack/panther_", ".png", 33, 9, die.skill_picture);
+    photo = QPixmap(":/image/Resource/image/zark/move/googuy_18.png");
+    PathCreator(":/image/Resource/image/zark/move/googuy_", ".png", 18, 7, running.skill_picture);
+    PathCreator(":/image/Resource/image/zark/wrap/googuy_", ".png", 25, 16, attack.skill_picture);
+    PathCreator(":/image/Resource/image/zark/attacked/googuy_", ".png", 37, 5, be_attack.skill_picture);
+    PathCreator(":/image/Resource/image/zark/die/googuy_", ".png", 33, 5, die.skill_picture);
 }
 
 void UltraMonster::Move(Hero player) {
@@ -508,7 +508,9 @@ void UltraMonster::Attack() {
         photo = QPixmap::fromImage(mirroredImage);
     }
 }
+void UltraMonster::AttackAnimation() {
 
+}
 void UltraMonster::BeAttackedAnimation() {
     if (direction == 0) {
         photo = QPixmap(FrameAnimation(be_attack.skill_picture, count_attack));

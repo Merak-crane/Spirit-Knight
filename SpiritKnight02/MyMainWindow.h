@@ -25,7 +25,9 @@ private:
     int timeID1;
     int timeID2[3];
     int timeID3[3];
-    int timeID4[4];
+    int timeID4[3];
+    int timeID5[4];
+    int timeID6[4];
     LittleMonster* little_monster[3];
     MiddleMonster* middle_monster[3];
     vector<UltraMonster*> ultra_monster;
