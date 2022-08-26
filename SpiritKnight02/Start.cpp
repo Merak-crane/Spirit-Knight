@@ -194,20 +194,18 @@ Start::Start(QWidget *parent)
 		start_interface->show();
 	});
 	connect(confirm2, &QPushButton::clicked, [=] {
-		//bool isNumber = email_verify.exactMatch(emaill);
-		//if (!isNumber) {
-		//	QMessageBox::critical(this, "错误", "请填写规范的邮箱格式");
-		//}
-		//else {
-		//	load_interface->hide();
-		//	login_interface->hide();
-		//	register_interface->hide();
-		//	start_interface->hide();
-		//	mode_interface->hide();
-		//	qDebug() << user_name2 << pass_word2 << emaill;
-		//	kind = 4;
-		//	start_interface->show();
-		//}
+		if (register_kind == 1) {
+			load_interface->hide();
+			login_interface->hide();
+			register_interface->hide();
+			start_interface->hide();
+			mode_interface->hide();
+			kind = 4;
+			start_interface->show();
+		}
+		else {
+			QMessageBox::critical(register_interface, "无法进入下一阶段", "资料填写不当");
+		}
 		});
 	connect(continued, &QPushButton::clicked, this, &Start::OpenLoad);
 	connect(returnbtn, &QPushButton::clicked, this, &Start::ReturnBack);
@@ -333,17 +331,17 @@ void Start::RegisterUpdate() {
 	int username_verify_num = 0;
 	username_verify_label->setGeometry(50, 550, 200, 30);
 	if (username_text.length() < 11) {
-		if (username_validator->validate(username_text, pos) != QValidator::Acceptable)
+		if (username_text.length() == 0)
 		{
-			username_verify_label->setText("英文数字下划线");
+			username_verify_label->setText("请输入用户名");
 		}
 		else if (username_text.length() >= 3 && username_validator->validate(username_text, pos) == QValidator::Acceptable)
 		{
 			username_verify_label->setText("用户名输入正确");
-		}
-		else if (username_text.length() < 3){
-			username_verify_label->setText("请输入用户名");
 			username_verify_num = 1;
+		}
+		else if (username_text.length() < 3 && username_text.length() != 0){
+			username_verify_label->setText("至少3位哈");
 		}
 	}
 	else {
@@ -357,12 +355,12 @@ void Start::RegisterUpdate() {
 	int password_verify_num = 0;
 	password_verify_label->setGeometry(50, 650, 200, 30);
 	if (password_text.length() <= 15) {
-		if (password_text.length() >= 8 && password_validator->validate(password_text, pos) != QValidator::Acceptable)
+		if (password_text.length() == 0)
 		{
 			password_verify_label->setText("请输入密码");
 		}
-		else if (password_text.length() < 8) {
-			password_verify_label->setText("至少8位");
+		else if (password_text.length() < 8 && password_text.length() != 0) {
+			password_verify_label->setText("至少8位哈");
 		}
 		else if (password_text.length() >= 8 && password_validator->validate(password_text, pos) == QValidator::Acceptable)
 		{
@@ -379,12 +377,18 @@ void Start::RegisterUpdate() {
 	password_confirm_verify_label->setGeometry(50, 700, 200, 30);
 	int password_confirm_verify_num = 0;
 	QString password_confirm_text = password_confirm->text();
-	if (password_confirm_text.length() > 8 && password_confirm_text == password_text) {
+	if (password_confirm_text.length() >= 8 && password_confirm_text == password_text) {
 		password_confirm_verify_label->setText("两次输入密码相同");
 		password_confirm_verify_num = 1;
 	}
 	else{
 		password_confirm_verify_label->setText("请再次输入密码");
 	}
-
+	if (password_confirm_verify_num == 1 && username_verify_num == 1 &&
+		email_verify_num == 1 && password_verify_num == 1) {
+		register_kind = 1;
+	}
+	else {
+		register_kind = 0;
+	}
 }

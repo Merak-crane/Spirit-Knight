@@ -9,7 +9,6 @@ QLineEdit {
 	selection-color: #ffffff; /* 选中文本的颜色 */
 	font-family: "Microsoft YaHei"; /* 文本字体族 */
 	font-size: 10pt; /* 文本字体大小 */
-	transition: all .6s;
 }
 
 QLineEdit:hover { /* 鼠标悬浮在QLineEdit时的状态 */

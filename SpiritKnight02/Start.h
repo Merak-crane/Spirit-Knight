@@ -27,6 +27,7 @@ public:
     void ReturnBack();
     void Close();
     int kind;
+    int register_kind = 0;
     QWidget* login_interface = new QWidget(this);
     QWidget* register_interface = new QWidget(this);
     QWidget* introduction_interface = new QWidget(this);
