@@ -17,18 +17,18 @@ Start::Start(QWidget *parent)
 	: QWidget(parent)
 {
 	kind = 0;
-	QSqlDatabase data_base = QSqlDatabase::addDatabase("QMYSQL");//添加驱动
-	data_base.setHostName("175.178.64.219");  //设置主机地址
-	data_base.setPort(3306);  //mysql设置端口
-	data_base.setDatabaseName("test01");  //设置数据库名称
-	if (!data_base.open())//打开数据库
-	{
-		qDebug() << "connect failed";
-		qDebug() << data_base.lastError();//.databaseText()  输出错误信息
-	}
-	else
-		qDebug() << "success";
-	data_base.close();//关闭数据库
+	//QSqlDatabase data_base = QSqlDatabase::addDatabase("QMYSQL");//添加驱动
+	//data_base.setHostName("175.178.64.219");  //设置主机地址
+	//data_base.setPort(3306);  //mysql设置端口
+	//data_base.setDatabaseName("gametest");  //设置数据库名称
+	//if (!data_base.open())//打开数据库
+	//{
+	//	qDebug() << "connect failed";
+	//	qDebug() << data_base.lastError();//.databaseText()  输出错误信息
+	//}
+	//else
+	//	qDebug() << "success";
+	//data_base.close();//关闭数据库
 	QDesktopWidget w;
 	int DeskWidth = w.width() / 2;
 	int DeskHeight = w.height() / 2;//获取设备的分辨率
@@ -91,6 +91,13 @@ Start::Start(QWidget *parent)
 	register_->setIcon(p3);
 	register_->setIconSize(QSize(240, 80));
 	register_->setFlat(true);
+
+	identify_code_emit->resize(240, 80);
+	identify_code_emit->move(700, 650);
+	QPixmap p4= QPixmap(":/ui/Resource/image/ui/register.png");
+	identify_code_emit->setIcon(p3);
+	identify_code_emit->setIconSize(QSize(240, 80));
+	identify_code_emit->setFlat(true);
 
 	continued->resize(240, 80);
 	continued->move(300, 500);
@@ -179,6 +186,8 @@ Start::Start(QWidget *parent)
 	username2->setMaxLength(11);
 	email->move(200, 600);
 	email->setPlaceholderText("email");
+	identify_code->move(200, 750);
+	identify_code->setPlaceholderText("6位数字");
 
 	password2->move(200, 650);
 	password2->setMaxLength(15);
@@ -396,6 +405,19 @@ void Start::RegisterUpdate() {
 	}
 	else{
 		password_confirm_verify_label->setText("请再次输入密码");
+	}
+	identify_verify_label->setGeometry(50, 750, 200, 30);
+	int identify_verify_num = 0;
+	QString identify_confirm_text = identify_code->text();
+	if (identify_confirm_text.length() == 6 && password_confirm_text == password_text) {
+		identify_verify_label->setText("输入正确");
+		identify_verify_num = 1;
+	}
+	else if (identify_confirm_text.length() == 6 && password_confirm_text == password_text) {
+		identify_verify_label->setText("输入错误");
+	}
+	else {
+		password_confirm_verify_label->setText("请输入验证码");
 	}
 	if (password_confirm_verify_num == 1 && username_verify_num == 1 &&
 		email_verify_num == 1 && password_verify_num == 1) {

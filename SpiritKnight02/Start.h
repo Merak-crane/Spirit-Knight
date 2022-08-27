@@ -39,12 +39,15 @@ public:
     QLabel* password_verify_label = new QLabel(register_interface);
     QLabel* password_confirm_verify_label = new QLabel(register_interface);
     QLabel* email_verify_label = new QLabel(register_interface);
+    QLabel* identify_verify_label = new QLabel(register_interface);
     QLineEdit* username = new QLineEdit(login_interface);
     QLineEdit* password = new QLineEdit(login_interface);
     QLineEdit* username2 = new QLineEdit(register_interface);
     QLineEdit* email = new QLineEdit(register_interface);
     QLineEdit* password2 = new QLineEdit(register_interface);
     QLineEdit* password_confirm = new QLineEdit(register_interface);
+    QLineEdit* identify_code = new QLineEdit(register_interface);
+    QPushButton* identify_code_emit = new QPushButton(register_interface);
     QPushButton* confirm2 = new QPushButton(register_interface);
     QPushButton* start = new QPushButton(start_interface);
     QPushButton* login = new QPushButton(origin_interface);
