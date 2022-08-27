@@ -101,7 +101,7 @@ Start::Start(QWidget *parent)
 
 	continued->resize(240, 80);
 	continued->move(300, 500);
-	QPixmap p4 = QPixmap(":/ui/Resource/image/ui/continue.png");
+	QPixmap p100 = QPixmap(":/ui/Resource/image/ui/continue.png");
 	continued->setIcon(p4);
 	continued->setIconSize(QSize(240, 80));
 	continued->setFlat(true);
