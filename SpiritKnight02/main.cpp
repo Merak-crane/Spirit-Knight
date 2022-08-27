@@ -5,18 +5,18 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    //MyMainWindow w;
-    //w.show();
-    Start s;
-	QFile file(":/css/Resource/stylesheet.css");
-	if (file.open(QFile::ReadOnly))
-	{
-		qApp->setStyleSheet(file.readAll());
-		qDebug() << file.readAll();
-	}
-	else
-		QMessageBox::about(NULL, "Test", "Open File Failed");
-	file.close();
-	s.show();
+    MyMainWindow w;
+    w.show();
+ //   Start s;
+	//QFile file(":/css/Resource/stylesheet.css");
+	//if (file.open(QFile::ReadOnly))
+	//{
+	//	qApp->setStyleSheet(file.readAll());
+	//	qDebug() << file.readAll();
+	//}
+	//else
+	//	QMessageBox::about(NULL, "Test", "Open File Failed");
+	//file.close();
+	//s.show();
     return a.exec();
 }

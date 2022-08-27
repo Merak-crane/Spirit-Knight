@@ -11,11 +11,24 @@
 #include <QMessageBox>
 #include <QSqlDatabase>
 #include <QSqlQuery>
+#include <QSqlError>
 #include <QRegExpValidator>
 Start::Start(QWidget *parent)
 	: QWidget(parent)
 {
 	kind = 0;
+	QSqlDatabase data_base = QSqlDatabase::addDatabase("QMYSQL");//添加驱动
+	data_base.setHostName("175.178.64.219");  //设置主机地址
+	data_base.setPort(3306);  //mysql设置端口
+	data_base.setDatabaseName("test01");  //设置数据库名称
+	if (!data_base.open())//打开数据库
+	{
+		qDebug() << "connect failed";
+		qDebug() << data_base.lastError();//.databaseText()  输出错误信息
+	}
+	else
+		qDebug() << "success";
+	data_base.close();//关闭数据库
 	QDesktopWidget w;
 	int DeskWidth = w.width() / 2;
 	int DeskHeight = w.height() / 2;//获取设备的分辨率
