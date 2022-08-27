@@ -1,4 +1,5 @@
 #include "Start.h"
+#include "Smtp.h"
 #include <QPainter>
 #include <QDebug>
 #include <QDesktopWidget>
@@ -17,18 +18,18 @@ Start::Start(QWidget *parent)
 	: QWidget(parent)
 {
 	kind = 0;
-	//QSqlDatabase data_base = QSqlDatabase::addDatabase("QMYSQL");//添加驱动
-	//data_base.setHostName("175.178.64.219");  //设置主机地址
-	//data_base.setPort(3306);  //mysql设置端口
-	//data_base.setDatabaseName("gametest");  //设置数据库名称
-	//if (!data_base.open())//打开数据库
-	//{
-	//	qDebug() << "connect failed";
-	//	qDebug() << data_base.lastError();//.databaseText()  输出错误信息
-	//}
-	//else
-	//	qDebug() << "success";
-	//data_base.close();//关闭数据库
+	QSqlDatabase data_base = QSqlDatabase::addDatabase("QMYSQL");//添加驱动
+	data_base.setHostName("175.178.64.219");  //设置主机地址
+	data_base.setPort(3306);  //mysql设置端口
+	data_base.setDatabaseName("gametest");  //设置数据库名称
+	if (!data_base.open())//打开数据库
+	{
+		qDebug() << "connect failed";
+		qDebug() << data_base.lastError();//.databaseText()  输出错误信息
+	}
+	else
+		qDebug() << "success";
+	data_base.close();//关闭数据库
 	QDesktopWidget w;
 	int DeskWidth = w.width() / 2;
 	int DeskHeight = w.height() / 2;//获取设备的分辨率
@@ -219,11 +220,28 @@ Start::Start(QWidget *parent)
 	password2->setPlaceholderText("password");
 	password_confirm->setPlaceholderText("password again");
 
-
 	connect(login, &QPushButton::clicked, this, &Start::Login);
 	connect(register_, &QPushButton::clicked, this, &Start::Register);
 	connect(exit, &QPushButton::clicked, this, &QWidget::close);
 	connect(start, &QPushButton::clicked, this, &Start::ModeChoose);
+	connect(identify_code_emit, &QPushButton::clicked, [=] {
+		srand((int)time(0));
+		int temp = 0;
+		QString identify;
+		for (int i = 0; i < 6; i++)
+		{
+			temp = rand() % 10 + 0;
+			identify += QString::number(temp, 10);
+		}
+		//int m = rand() % 100000 + 100000;
+		//identify = QString::number(m, 10);
+		QString emaill = email->text();
+		QString content = QString("注册验证码：%1").arg(identify);
+		QByteArray emailll= emaill.toUtf8();
+		qDebug() << emailll << content;
+		Smtp smtp("lazyreborn@163.com", "AIVUBLNWPFHPZEMC"); //邮箱和密码都要用自己的
+		smtp.send(emailll, "Mega man E 账户注册验证码", content);
+		});
 	connect(confirm, &QPushButton::clicked, [=] {
 		QString user_name = username->text();
 		QString pass_word = password->text();
