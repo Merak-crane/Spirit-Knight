@@ -26,6 +26,7 @@ public:
     void OpenLoad();
     void OpenIntroduction();
     void ReturnBack();
+    void ReturnOrigin();
     void Close();
     int kind;
     int register_kind = 0;
@@ -65,6 +66,9 @@ public:
     QPushButton* introduction = new QPushButton(start_interface);
     QPushButton* exit = new QPushButton(start_interface);
     QPushButton* returnbtn = new QPushButton(mode_interface);
+    QPushButton* returnbtn_login = new QPushButton(login_interface);
+    QPushButton* returnbtn_register = new QPushButton(register_interface);
+    QPushButton* returnbtn_load = new QPushButton(load_interface);
 private:
     QMediaPlayer* qtaudioPlayer;
     QVideoWidget* m_videoW;

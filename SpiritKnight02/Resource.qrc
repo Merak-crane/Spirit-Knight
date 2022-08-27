@@ -68,5 +68,10 @@
         <file>Resource/image/ui/introduction.png</file>
         <file>Resource/image/ui/modeone.png</file>
         <file>Resource/image/ui/modetwo.png</file>
+        <file>Resource/image/ui/identify.png</file>
+        <file>Resource/image/ui/load1.png</file>
+        <file>Resource/image/ui/load2.png</file>
+        <file>Resource/image/ui/load3.png</file>
+        <file>Resource/image/ui/return.png</file>
     </qresource>
 </RCC>

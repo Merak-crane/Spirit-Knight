@@ -94,15 +94,15 @@ Start::Start(QWidget *parent)
 
 	identify_code_emit->resize(240, 80);
 	identify_code_emit->move(700, 650);
-	QPixmap p4= QPixmap(":/ui/Resource/image/ui/register.png");
-	identify_code_emit->setIcon(p3);
+	QPixmap p4= QPixmap(":/ui/Resource/image/ui/identify.png");
+	identify_code_emit->setIcon(p4);
 	identify_code_emit->setIconSize(QSize(240, 80));
 	identify_code_emit->setFlat(true);
 
 	continued->resize(240, 80);
 	continued->move(300, 500);
 	QPixmap p100 = QPixmap(":/ui/Resource/image/ui/continue.png");
-	continued->setIcon(p4);
+	continued->setIcon(p100);
 	continued->setIconSize(QSize(240, 80));
 	continued->setFlat(true);
 
@@ -135,23 +135,23 @@ Start::Start(QWidget *parent)
 	mode_two->setFlat(true);
 
 	load_one->resize(240, 80);
-	load_one->move(400, 600);
-	QPixmap p9 = QPixmap(":/icon/Resource/icon/htmlogo.png");
-	load_one->setIcon(p4);
+	load_one->move(200, 600);
+	QPixmap p9 = QPixmap(":/ui/Resource/image/ui/load1.png");
+	load_one->setIcon(p9);
 	load_one->setIconSize(QSize(240, 80));
 	load_one->setFlat(true);
 
 	load_two->resize(240, 80);
-	load_two->move(600, 600);
-	QPixmap p10 = QPixmap(":/icon/Resource/icon/htmlogo.png");
-	load_two->setIcon(p4);
+	load_two->move(500, 600);
+	QPixmap p10 = QPixmap(":/ui/Resource/image/ui/load2.png");
+	load_two->setIcon(p10);
 	load_two->setIconSize(QSize(240, 80));
 	load_two->setFlat(true);
 
 	load_three->resize(240, 80);
 	load_three->move(800, 600);
-	QPixmap p11 = QPixmap(":/icon/Resource/icon/htmlogo.png");
-	load_three->setIcon(p4);
+	QPixmap p11 = QPixmap(":/ui/Resource/image/ui/load2.png");
+	load_three->setIcon(p11);
 	load_three->setIconSize(QSize(240, 80));
 	load_three->setFlat(true);
 
@@ -162,16 +162,34 @@ Start::Start(QWidget *parent)
 	returnbtn->setIconSize(QSize(240, 80));
 	returnbtn->setFlat(true);
 
+	returnbtn_login->resize(240, 80);
+	returnbtn_login->move(800, 650);
+	QPixmap p15 = QPixmap(":/ui/Resource/image/ui/return.png");
+	returnbtn_login->setIcon(p15);
+	returnbtn_login->setIconSize(QSize(240, 80));
+	returnbtn_login->setFlat(true);
+
+	returnbtn_register->resize(240, 80);
+	returnbtn_register->move(800, 650);
+	returnbtn_register->setIcon(p15);
+	returnbtn_register->setIconSize(QSize(240, 80));
+	returnbtn_register->setFlat(true);
+
+	returnbtn_load->resize(240, 80);
+	returnbtn_load->move(800, 650);
+	returnbtn_load->setIcon(p15);
+	returnbtn_load->setIconSize(QSize(240, 80));
+	returnbtn_load->setFlat(true);
+
 	confirm->resize(240, 80);
 	confirm->move(1000, 650);
-	QPixmap p13= QPixmap(":/ui/Resource/image/ui/confirm.png");
-	confirm->setIcon(p13);
+	QPixmap p14 = QPixmap(":/ui/Resource/image/ui/confirm.png");
+	confirm->setIcon(p14);
 	confirm->setIconSize(QSize(240, 80));
 	confirm->setFlat(true);
 
 	confirm2->resize(240, 80);
 	confirm2->move(1000, 650);
-	QPixmap p14 = QPixmap(":/ui/Resource/image/ui/confirm.png");
 	confirm2->setIcon(p14);
 	confirm2->setIconSize(QSize(240, 80));
 	confirm2->setFlat(true);
@@ -233,6 +251,9 @@ Start::Start(QWidget *parent)
 		});
 	connect(continued, &QPushButton::clicked, this, &Start::OpenLoad);
 	connect(returnbtn, &QPushButton::clicked, this, &Start::ReturnBack);
+	connect(returnbtn_login, &QPushButton::clicked, this, &Start::ReturnOrigin);
+	connect(returnbtn_register, &QPushButton::clicked, this, &Start::ReturnOrigin);
+	connect(returnbtn_load, &QPushButton::clicked, this, &Start::ReturnBack);
 	//connect(load1btn, &QPushButton::clicked, this, &Start::load_1);
 	//connect(load2btn, &QPushButton::clicked, this, &Start::load_2);
 	//connect(load3btn, &QPushButton::clicked, this, &Start::load_3);
@@ -310,6 +331,13 @@ void Start::ReturnBack() {
 	start_interface->hide();
 	mode_interface->hide();
 	start_interface->show();
+}
+
+void Start::ReturnOrigin() {
+	kind = 0;
+	login_interface->hide();
+	register_interface->hide();
+	origin_interface->show();
 }
 
 void Start::Login() {
