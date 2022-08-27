@@ -181,6 +181,8 @@ Start::Start(QWidget *parent)
 	password->setEchoMode(QLineEdit::Password);	
     username->setPlaceholderText("username");
 	password->setPlaceholderText("password");
+	username->setMaxLength(11);
+	password->setMaxLength(15);
 
 	username2->move(200, 550);
 	username2->setMaxLength(11);
@@ -242,6 +244,9 @@ Start::Start(QWidget *parent)
 		if (kind == 5) {
 			RegisterUpdate();
 		}
+		else if (kind == 6) {
+			LoginUpdate();
+		}
 	});
 }
 
@@ -262,7 +267,7 @@ void Start::paintEvent(QPaintEvent* Event) {
 	if (kind == 4) {
 		painter1.drawPixmap(0, 0, this->width(), this->height(), QPixmap(":/image/Resource/image/background/background.jpeg"));
 	}
-	if (kind == 5) {
+	if (kind == 5 || kind == 6) {
 		painter1.drawPixmap(0, 0, this->width(), this->height(), QPixmap(":/image/Resource/image/background/login.png"));
 	}
 }
@@ -308,7 +313,7 @@ void Start::ReturnBack() {
 }
 
 void Start::Login() {
-	kind = 5;
+	kind = 6;
 	origin_interface->hide();
 	load_interface->hide();
 	introduction_interface->hide();
@@ -321,6 +326,59 @@ void Start::Register() {
 	kind = 5;
 	origin_interface->hide();
 	register_interface->show();
+}
+
+void Start::LoginUpdate() {
+	int pos = 0;
+	QRegExp username_verify("^[0-9a-zA-Z_]+$");
+	QRegExpValidator* username_validator = new QRegExpValidator(username_verify);
+	username->setValidator(username_validator);
+	QString username_text = username->text();
+	int username_verify_num = 0;
+	username_verify_label2->setGeometry(50, 600, 200, 30);
+	if (username_text.length() < 11) {
+		if (username_text.length() == 0)
+		{
+			username_verify_label2->setText("请输入用户名");
+		}
+		else if (username_text.length() >= 3 && username_validator->validate(username_text, pos) == QValidator::Acceptable)
+		{
+			username_verify_label2->setText("用户名输入正确");
+			username_verify_num = 1;
+		}
+		else if (username_text.length() < 3 && username_text.length() != 0) {
+			username_verify_label2->setText("至少3位哈"); 
+		}
+	}
+	else {
+		username_verify_label2->setText("最多11位");
+	}
+	QRegExp password_verify("^[0-9a-zA-Z_]+$");
+	QRegExpValidator* password_validator = new QRegExpValidator(username_verify);
+	password->setValidator(password_validator);
+	QString password_text = password->text();
+	int password_verify_num = 0;
+	password_verify_label2->setGeometry(50, 700, 200, 30);
+	if (password_text.length() <= 15) {
+		if (password_text.length() == 0)
+		{
+			password_verify_label2->setText("请输入密码");
+		}
+		else if (password_text.length() < 8 && password_text.length() != 0) {
+			password_verify_label2->setText("至少8位哈");
+		}
+		else if (password_text.length() >= 8 && password_validator->validate(password_text, pos) == QValidator::Acceptable)
+		{
+			password_verify_label->setText("密码格式正确");
+			password_verify_num = 1;
+		}
+		else {
+			password_verify_label2->setText("英文数字下划线");
+		}
+	}
+	else {
+		password_verify_label2->setText("最多15位");
+	}
 }
 
 void Start::RegisterUpdate() {
@@ -409,15 +467,15 @@ void Start::RegisterUpdate() {
 	identify_verify_label->setGeometry(50, 750, 200, 30);
 	int identify_verify_num = 0;
 	QString identify_confirm_text = identify_code->text();
-	if (identify_confirm_text.length() == 6 && password_confirm_text == password_text) {
+	if (identify_confirm_text.length() == 6 ) {
 		identify_verify_label->setText("输入正确");
 		identify_verify_num = 1;
 	}
-	else if (identify_confirm_text.length() == 6 && password_confirm_text == password_text) {
+	else if (identify_confirm_text.length() == 6) {
 		identify_verify_label->setText("输入错误");
 	}
 	else {
-		password_confirm_verify_label->setText("请输入验证码");
+		identify_verify_label->setText("请输入验证码");
 	}
 	if (password_confirm_verify_num == 1 && username_verify_num == 1 &&
 		email_verify_num == 1 && password_verify_num == 1) {

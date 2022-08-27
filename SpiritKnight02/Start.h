@@ -21,6 +21,7 @@ public:
     void Login();
     void Register();
     void RegisterUpdate();
+    void LoginUpdate();
     void ModeChoose();
     void OpenLoad();
     void OpenIntroduction();
@@ -35,6 +36,8 @@ public:
     QWidget* start_interface = new QWidget(this);
     QWidget* mode_interface = new QWidget(this);
     QWidget* origin_interface = new QWidget(this);
+    QLabel* username_verify_label2 = new QLabel(login_interface);
+    QLabel* password_verify_label2 = new QLabel(login_interface);
     QLabel* username_verify_label = new QLabel(register_interface);
     QLabel* password_verify_label = new QLabel(register_interface);
     QLabel* password_confirm_verify_label = new QLabel(register_interface);
