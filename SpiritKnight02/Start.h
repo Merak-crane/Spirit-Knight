@@ -21,7 +21,9 @@ public:
     void Login();
     void Register();
     void RegisterUpdate();
+    void RegisterConfirm();
     void LoginUpdate();
+    void LoginConfirm();
     void ModeChoose();
     void OpenLoad();
     void OpenIntroduction();
@@ -30,6 +32,8 @@ public:
     void Close();
     int kind;
     int register_kind = 0;
+    int identify_kind = 0;
+    QString identify;
     QWidget* login_interface = new QWidget(this);
     QWidget* register_interface = new QWidget(this);
     QWidget* introduction_interface = new QWidget(this);

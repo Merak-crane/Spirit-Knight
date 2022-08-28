@@ -14,6 +14,7 @@
 #include <QSqlQuery>
 #include <QSqlError>
 #include <QRegExpValidator>
+#include <QSqlTableModel>
 Start::Start(QWidget *parent)
 	: QWidget(parent)
 {
@@ -94,7 +95,7 @@ Start::Start(QWidget *parent)
 	register_->setFlat(true);
 
 	identify_code_emit->resize(240, 80);
-	identify_code_emit->move(700, 650);
+	identify_code_emit->move(600, 650);
 	QPixmap p4= QPixmap(":/ui/Resource/image/ui/identify.png");
 	identify_code_emit->setIcon(p4);
 	identify_code_emit->setIconSize(QSize(240, 80));
@@ -225,48 +226,31 @@ Start::Start(QWidget *parent)
 	connect(exit, &QPushButton::clicked, this, &QWidget::close);
 	connect(start, &QPushButton::clicked, this, &Start::ModeChoose);
 	connect(identify_code_emit, &QPushButton::clicked, [=] {
-		srand((int)time(0));
-		int temp = 0;
-		QString identify;
-		for (int i = 0; i < 6; i++)
-		{
-			temp = rand() % 10 + 0;
-			identify += QString::number(temp, 10);
-		}
-		//int m = rand() % 100000 + 100000;
-		//identify = QString::number(m, 10);
-		QString emaill = email->text();
-		QString content = QString("注册验证码：%1").arg(identify);
-		QByteArray emailll= emaill.toUtf8();
-		qDebug() << emailll << content;
-		Smtp smtp("lazyreborn@163.com", "AIVUBLNWPFHPZEMC"); //邮箱和密码都要用自己的
-		smtp.send(emailll, "Mega man E 账户注册验证码", content);
-		});
-	connect(confirm, &QPushButton::clicked, [=] {
-		QString user_name = username->text();
-		QString pass_word = password->text();
-		load_interface->hide();
-		login_interface->hide();
-		start_interface->hide();
-		mode_interface->hide();
-		qDebug() << user_name << pass_word;
-		kind = 4;
-		start_interface->show();
-	});
-	connect(confirm2, &QPushButton::clicked, [=] {
 		if (register_kind == 1) {
-			load_interface->hide();
-			login_interface->hide();
-			register_interface->hide();
-			start_interface->hide();
-			mode_interface->hide();
-			kind = 4;
-			start_interface->show();
+			srand((int)time(0));
+			identify.clear();
+			int temp = 0;
+			for (int i = 0; i < 6; i++)
+			{
+				temp = rand() % 10 + 0;
+				identify += QString::number(temp, 10);
+			}
+			//int m = rand() % 100000 + 100000;
+			//identify = QString::number(m, 10);
+			QString emaill = email->text();
+			QString content = QString("注册验证码：%1").arg(identify);
+			QByteArray emailll = emaill.toUtf8();
+			qDebug() << emailll << content;
+			Smtp smtp("lazyreborn@163.com", "AIVUBLNWPFHPZEMC"); //邮箱和密码都要用自己的
+			smtp.send(emailll, "Mega man E 账户注册验证码", content);
 		}
-		else {
-			QMessageBox::critical(register_interface, "无法进入下一阶段", "资料填写不当");
+		else
+		{
+			QMessageBox::information(this, "提示", "请完整填写表单!");
 		}
-		});
+	});
+	connect(confirm, &QPushButton::clicked, this, &Start::LoginConfirm);
+	connect(confirm2, &QPushButton::clicked, this, &Start::RegisterConfirm);
 	connect(continued, &QPushButton::clicked, this, &Start::OpenLoad);
 	connect(returnbtn, &QPushButton::clicked, this, &Start::ReturnBack);
 	connect(returnbtn_login, &QPushButton::clicked, this, &Start::ReturnOrigin);
@@ -427,8 +411,46 @@ void Start::LoginUpdate() {
 	}
 }
 
+void Start::LoginConfirm(){
+	QString user_name = username->text();
+	QString pass_word = password->text();
+
+	QSqlTableModel* model = new QSqlTableModel;
+	model->setTable("test01");
+	model->setFilter(QString("name='%1'").arg(user_name));//查询用户名
+	model->select();
+
+	int row = model->rowCount();
+	if (row > 0) {//查询成功
+		row = 0;
+		model->setFilter(QString("name='%1' and password='%2'").arg(user_name).arg(pass_word));//查询用户与密码
+		model->select();
+		row = model->rowCount();
+		if (row > 0) {//查询成功
+			QMessageBox::information(this,"提示","登录成功!");
+			load_interface->hide();
+			login_interface->hide();
+			start_interface->hide();
+			mode_interface->hide();
+			kind = 4;
+			start_interface->show();
+		}
+		else {
+		   QMessageBox::information(this,"提示","密码错误，登录失败!");
+		   password->clear();
+		}
+	}
+	else {//查询失败
+	   QMessageBox::information(this,"提示","用户未注册!");
+	}
+	delete model;
+}
+
 void Start::RegisterUpdate() {
+	QSqlTableModel* model = new QSqlTableModel;
+	model->setTable("test01");//选择数据表
 	int pos = 0;
+
 	QRegExp email_verify("[a-zA-Z0-9-_]+@[a-zA-Z0-9_]+\\.[a-zA-Z]+");
 	QRegExpValidator* email_validator = new QRegExpValidator(email_verify);
 	email->setValidator(email_validator);
@@ -446,8 +468,16 @@ void Start::RegisterUpdate() {
 		}
 	}
 	else {
-		email_verify_label->setText("邮箱格式正确");
-		email_verify_num = 1;
+		model->setFilter(QString("email='%1'").arg(emaill));//设置查询过滤选项，此处查询用户名
+		model->select();//获取查询数据
+		int row_email = model->rowCount();
+		if (row_email > 0) {//查询到用户名已在数据库中
+			email_verify_label->setText( "邮箱已注册！");
+		}
+		else {
+			email_verify_label->setText("邮箱未被注册");
+			email_verify_num = 1;
+		}
 	}
 
 	QRegExp username_verify("^[0-9a-zA-Z_]+$");
@@ -463,8 +493,16 @@ void Start::RegisterUpdate() {
 		}
 		else if (username_text.length() >= 3 && username_validator->validate(username_text, pos) == QValidator::Acceptable)
 		{
-			username_verify_label->setText("用户名输入正确");
-			username_verify_num = 1;
+			model->setFilter(QString("name='%1'").arg(username_text));//设置查询过滤选项，此处查询用户名
+			model->select();//获取查询数据
+			int row_username = model->rowCount();
+			if (row_username > 0) {//查询到用户名已在数据库中
+				username_verify_label->setText("用户名已注册！");
+			}
+			else {
+				username_verify_label->setText("用户名未被注册");
+				username_verify_num = 1;
+			}
 		}
 		else if (username_text.length() < 3 && username_text.length() != 0){
 			username_verify_label->setText("至少3位哈");
@@ -513,7 +551,7 @@ void Start::RegisterUpdate() {
 	identify_verify_label->setGeometry(50, 750, 200, 30);
 	int identify_verify_num = 0;
 	QString identify_confirm_text = identify_code->text();
-	if (identify_confirm_text.length() == 6 ) {
+	if (identify_confirm_text.length() == 6 && identify == identify_confirm_text) {
 		identify_verify_label->setText("输入正确");
 		identify_verify_num = 1;
 	}
@@ -524,10 +562,41 @@ void Start::RegisterUpdate() {
 		identify_verify_label->setText("请输入验证码");
 	}
 	if (password_confirm_verify_num == 1 && username_verify_num == 1 &&
-		email_verify_num == 1 && password_verify_num == 1) {
+		email_verify_num == 1 && password_verify_num == 1 && identify_verify_num != 1) {
 		register_kind = 1;
+	}
+	else if (password_confirm_verify_num == 1 && username_verify_num == 1 &&
+		email_verify_num == 1 && password_verify_num == 1 && identify_verify_num == 1) {
+		register_kind = 2;
 	}
 	else {
 		register_kind = 0;
+	}
+	delete model;
+}
+
+void Start::RegisterConfirm(){
+ 	if (register_kind == 2) {
+		QString cmd = QString("insert into test01 values ('%1','%2','%3','%4','%5','%6')")
+			.arg(3).arg(username2->text()).arg(password2->text()).arg(1).arg("player").arg(email->text());
+		QSqlQuery* query = new QSqlQuery;
+
+		if (query->exec(cmd)) {
+			QMessageBox::information(this, "提示", "注册成功!");
+			load_interface->hide();
+			login_interface->hide();
+			register_interface->hide();
+			start_interface->hide();
+			mode_interface->hide();
+			kind = 4;
+			start_interface->show();
+		}
+		else {
+			QMessageBox::information(this, "提示", "注册失败!请联系管理员");
+		}
+		delete query;
+	}
+	else {
+	QMessageBox::critical(register_interface, "无法进入下一阶段", "资料填写不当");
 	}
 }
