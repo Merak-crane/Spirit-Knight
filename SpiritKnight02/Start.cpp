@@ -1,5 +1,6 @@
 #include "Start.h"
 #include "Smtp.h"
+#include "MyMainWindow.h"
 #include <QPainter>
 #include <QDebug>
 #include <QDesktopWidget>
@@ -260,6 +261,16 @@ Start::Start(QWidget *parent)
 	//connect(load2btn, &QPushButton::clicked, this, &Start::load_2);
 	//connect(load3btn, &QPushButton::clicked, this, &Start::load_3);
 	connect(introduction, &QPushButton::clicked, this, &Start::OpenIntroduction);
+	connect(mode_one, &QPushButton::clicked, [=]() {
+		MyMainWindow* gamewindow = new MyMainWindow(1);
+		gamewindow->show();
+		this->close();
+		});
+	connect(mode_two, &QPushButton::clicked, [=]() {
+		MyMainWindow* gamewindow = new MyMainWindow(2);
+		gamewindow->show();
+		this->close();
+		});
 	start_time.setInterval(1);
 	start_time.start();
 	connect(&start_time, &QTimer::timeout, [=]() {
@@ -584,12 +595,12 @@ void Start::RegisterConfirm(){
 		if (query->exec(cmd)) {
 			QMessageBox::information(this, "提示", "注册成功!");
 			load_interface->hide();
-			login_interface->hide();
+			origin_interface->hide();
 			register_interface->hide();
 			start_interface->hide();
 			mode_interface->hide();
-			kind = 4;
-			start_interface->show();
+			kind = 6;
+			login_interface->show();
 		}
 		else {
 			QMessageBox::information(this, "提示", "注册失败!请联系管理员");
