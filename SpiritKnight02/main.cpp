@@ -1,4 +1,4 @@
-#include "MyMainWindow.h"
+
 #include "Start.h"
 #include <QtWidgets/QApplication>
 #include <QFile>

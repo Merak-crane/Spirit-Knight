@@ -262,14 +262,12 @@ Start::Start(QWidget *parent)
 	//connect(load3btn, &QPushButton::clicked, this, &Start::load_3);
 	connect(introduction, &QPushButton::clicked, this, &Start::OpenIntroduction);
 	connect(mode_one, &QPushButton::clicked, [=]() {
-		MyMainWindow* gamewindow = new MyMainWindow(1);
+		MyMainWindow* gamewindow = new MyMainWindow(1,this);
 		gamewindow->show();
-		this->close();
 		});
 	connect(mode_two, &QPushButton::clicked, [=]() {
-		MyMainWindow* gamewindow = new MyMainWindow(2);
+		MyMainWindow* gamewindow = new MyMainWindow(2, this);
 		gamewindow->show();
-		this->close();
 		});
 	start_time.setInterval(1);
 	start_time.start();
@@ -285,25 +283,27 @@ Start::Start(QWidget *parent)
 }
 
 Start::~Start()
-{}
+{
+}
 
 void Start::paintEvent(QPaintEvent* Event) {
-	QPainter painter1(this);
+	QPainter* painter1 = new QPainter(this);
 	if (kind == 0) {
-		painter1.drawPixmap(0, 0, this->width(), this->height(), QPixmap(":/image/Resource/image/background/background.png"));
+		painter1->drawPixmap(0, 0, this->width(), this->height(), QPixmap(":/image/Resource/image/background/background.png"));
 	}
 	if (kind == 1) {
-		painter1.drawPixmap(0, 0, this->width(), this->height(), QPixmap(":/image/Resource/image/background/background2.jpg"));
+		painter1->drawPixmap(0, 0, this->width(), this->height(), QPixmap(":/image/Resource/image/background/background2.jpg"));
 	}
 	if (kind == 2) {
-		painter1.drawPixmap(0, 0, this->width(), this->height(), QPixmap(":/image/Resource/image/background/modechoose.jpg"));
+		painter1->drawPixmap(0, 0, this->width(), this->height(), QPixmap(":/image/Resource/image/background/modechoose.jpg"));
 	}
 	if (kind == 4) {
-		painter1.drawPixmap(0, 0, this->width(), this->height(), QPixmap(":/image/Resource/image/background/background.jpeg"));
+		painter1->drawPixmap(0, 0, this->width(), this->height(), QPixmap(":/image/Resource/image/background/background.jpeg"));
 	}
 	if (kind == 5 || kind == 6) {
-		painter1.drawPixmap(0, 0, this->width(), this->height(), QPixmap(":/image/Resource/image/background/login.png"));
+		painter1->drawPixmap(0, 0, this->width(), this->height(), QPixmap(":/image/Resource/image/background/login.png"));
 	}
+	delete painter1;
 }
 
 void Start::ModeChoose(){

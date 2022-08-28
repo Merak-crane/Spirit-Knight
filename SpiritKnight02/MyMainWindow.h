@@ -26,6 +26,7 @@ public:
 private:
     Ui::MyMainWindowClass ui;
     int map_choose;
+    int close_num;
     int timeID1;
     int timeID3[3];
     int timeID4[3];

@@ -1,5 +1,6 @@
 #pragma once
 #pragma execution_character_set("utf-8")  
+#include "MyMainWindow.h"
 #include <QWidget>
 #include <QPushButton>
 #include <QMediaPlaylist>
