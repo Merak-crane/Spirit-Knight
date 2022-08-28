@@ -19,7 +19,7 @@ MyMainWindow::MyMainWindow(QWidget *parent)
     this->setWindowIcon(QIcon(":/icon/Resource/icon/htmlogo.png"));//设置窗口logo
     map_time.setInterval(GAME_RATE);
     map_time.start();
-    ultra_monster.resize(4);
+    ultra_monster.resize(2);
     k = new LittleMonster;
     connect(&map_time, &QTimer::timeout, [=]() {
         update();
@@ -233,6 +233,16 @@ void MyMainWindow::timerEvent(QTimerEvent* event) {
             ultra_monster[i]->SetStrong(0);
         }
     }
+    for (int i = 1; i < ultra_monster.size(); i++) {
+        if (tmp == timeID6[i] && ultra_monster_survive[i] == true) {
+            ultra_monster[i]->SetKind(0);
+        }
+    }
+    if (tmp == timeIDm1) {
+        hero_one.x_speed_left = 50;
+        hero_one.x_speed_right = 50;
+        hero_one.y_speed = 40;
+    }
 }
 //以下是更新函数，主要更新角色属性，怪物属性，加载动作动画等
 void MyMainWindow::UpdateOne() {
@@ -278,6 +288,13 @@ void MyMainWindow::UpdateOne() {
     }
     if (hero_one.GetKind() == 6) {
         hero_one.Die();
+    }
+    if (hero_one.GetKind() == 8) {
+        hero_one.photo = QPixmap(":/image/Resource/image/main_character/die/zero1_30.png");
+        hero_one.x_speed_left = 0;
+        hero_one.x_speed_right = 0;
+        hero_one.y_speed = 0;
+        timeIDm1 = startTimer(800);
     }
     for (int i = 1; i < 3; i++) {
         if (little_monster_survive[i] == true) {
@@ -388,7 +405,7 @@ void MyMainWindow::UpdateOne() {
             }
             if (ultra_monster[i]->GetHP() == 0) {
                 ultra_monster[i]->SetStrong(1);
-                ultra_monster[i]->SetKind(6);
+                ultra_monster[i]->SetKind(12);
                 ultra_monster[i]->SetLay(0);
             }
             if (ultra_monster[i]->GetKind() == 6) {
@@ -422,6 +439,25 @@ void MyMainWindow::UpdateOne() {
                         ultra_monster[i]->SetKind(0);
                     }
                 }
+            }
+            if (ultra_monster[i]->GetKind() == 8) {
+                ultra_monster[i]->AttackAnimation();
+                hero_one.SetKind(8);
+                ultra_monster[i]->x_speed_left = 15;
+                ultra_monster[i]->x_speed_right = 15;
+                if (ultra_monster[i]->count_attack >= 15) {
+                    hero_one.SetHP(hero_one.GetHP() - 20);
+                    ultra_monster[i]->SetKind(9);
+                    ultra_monster[i]->photo = QPixmap(":/image/Resource/image/zark/attacked/googuy_37.png");
+                    timeID6[i] = startTimer(1000);
+                }
+            }
+            if (ultra_monster[i]->GetKind() == 9) {
+                ultra_monster[i]->SetLay(1);
+            }
+            if (ultra_monster[i]->GetKind() == 13) {
+                hero_one.SetHP(hero_one.GetHP() - 40);
+                ultra_monster[i]->SetKind(6);
             }
         }
     }

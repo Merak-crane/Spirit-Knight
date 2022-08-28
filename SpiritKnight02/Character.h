@@ -32,6 +32,7 @@ public:
 	int x_speed_left;
 	int real_body_x;
 	int real_body_y;
+	int y_speed;
 	QPixmap photo;
 	Character();
 	void WalkLeft();
@@ -39,6 +40,7 @@ public:
 	void WalkTop();
 	void WalkDown();
 	void Attack();
+	void Attack2();
 	void Die();
 	void PathCreator(QString a, QString b, int c, int count, vector <QString> &picture);
 	QString FrameAnimation(vector <QString> picture, int& count);
@@ -72,7 +74,6 @@ protected:
 	bool lay = 0;
 	int x;
 	int y;
-	int y_speed;
 	int level;
 	int strong;
 	int direction;
@@ -124,6 +125,7 @@ public:
 	UltraMonster();
 	void Move(Hero player);
 	void Attack();
+	void Attack2();
 	void BeAttacked(Hero hero);
 	void BeAttackedAnimation();
 	void AttackAnimation();

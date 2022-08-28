@@ -438,8 +438,8 @@ UltraMonster::UltraMonster() {
     real_body_height = 44 * size_factor;
     real_body_x = x + image_width/2;
     real_body_y = y + image_height/2;
-    x_speed_left = 5;
-    x_speed_right = 5;
+    x_speed_left = 15;
+    x_speed_right = 15;
     y_speed = 10;
     count_attack = 0;
     count_left = 0;
@@ -460,13 +460,41 @@ UltraMonster::UltraMonster() {
 }
 
 void UltraMonster::Move(Hero player) {
-    if (kind != 5) {
+    if (kind != 5 && kind != 9 && kind != 12) {
         if (x < player.GetX() + attack_range_x && x > player.GetX() - attack_range_x && y < player.GetY() + attack_range_y && y > player.GetY() - attack_range_y)
         {
+            x_speed_left = 25;
+            x_speed_right = 25;
             if (x <= player.GetX()) direction = 0;
             else { direction = 1; }
             SetKind(4);
             Attack();
+        }
+        else {
+            SetKind(1);
+            if (y <= player.GetY()) {
+                WalkDown();
+            }
+            if (y > player.GetY()) {
+                WalkTop();
+            }
+            if (x >= player.GetX()) {
+                WalkLeft();
+            }
+            if (x < player.GetX()) {
+                WalkRight();
+            }
+        }
+    }
+    if (kind == 12) {
+        x_speed_left = 40;
+        x_speed_right = 40;
+        y_speed = 20;
+        if (x < player.GetX() + attack_range_x && x > player.GetX() - attack_range_x && y < player.GetY() + attack_range_y && y > player.GetY() - attack_range_y)
+        {
+            if (x <= player.GetX()) direction = 0;
+            else { direction = 1; }
+            Attack2();
         }
         else {
             SetKind(1);
@@ -493,7 +521,14 @@ void UltraMonster::BeAttacked(Hero hero) {
 }
 
 void UltraMonster::Attack() {
-    if (direction == 0) {
+    kind = 8;
+}
+
+void UltraMonster::Attack2(){
+    kind = 13;
+}
+void UltraMonster::AttackAnimation() {
+if (direction == 0) {
         attack_range.moveTo(real_body_x - real_body_width / 2, real_body_y - real_body_height / 2);
         attack_range.setWidth(attack_range_x + real_body_width);   //¹¥»÷¾ØÐÎ(Åö×²¼ì²â)
         attack_range.setHeight(attack_range_y + real_body_width / 2);
@@ -507,9 +542,6 @@ void UltraMonster::Attack() {
         QImage mirroredImage = image.mirrored(true, false);
         photo = QPixmap::fromImage(mirroredImage);
     }
-}
-void UltraMonster::AttackAnimation() {
-
 }
 void UltraMonster::BeAttackedAnimation() {
     if (direction == 0) {
