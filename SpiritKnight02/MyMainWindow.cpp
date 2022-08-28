@@ -6,7 +6,7 @@
 #include "stdio.h"
 #include "time.h"
 #include <QKeyEvent>
-MyMainWindow::MyMainWindow(QWidget *parent)
+MyMainWindow::MyMainWindow(int mode, QWidget *parent)
     : QMainWindow(parent)
 {  
     srand((unsigned)time(NULL));

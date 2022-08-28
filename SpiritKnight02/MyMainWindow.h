@@ -14,6 +14,7 @@ public:
     QLabel* hp;
     QLabel* mp;
     MyMainWindow(QWidget *parent = nullptr);
+    MyMainWindow(int mode, QWidget *parent = nullptr);
     ~MyMainWindow();
     void paintEvent(QPaintEvent *event);
     void keyPressEvent(QKeyEvent* event);

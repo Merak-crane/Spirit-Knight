@@ -1,4 +1,5 @@
 #include "MyMainWindow.h"
+#include "Start.h"
 #include <QtWidgets/QApplication>
 #include <QFile>
 #include <QMessageBox>
@@ -15,7 +16,10 @@ int main(int argc, char *argv[])
 		QMessageBox::about(NULL, "Test", "Open File Failed");
 		//file.close();
 	}
-    MyMainWindow w;
-    w.show();
+	int mode = 0;
+	Start s;
+	s.show();
+    //MyMainWindow w(mode);
+    //w.show();
     return a.exec();
 }
