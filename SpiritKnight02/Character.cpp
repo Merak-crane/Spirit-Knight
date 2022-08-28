@@ -448,19 +448,21 @@ UltraMonster::UltraMonster() {
     direction = 0;
     kind = 0;
     strong = 0;
-    health_point = 100;
+    health_point = 30;
     health_point_max = 100;
     attack_range_x = 100;
     attack_range_y = 100;
     photo = QPixmap(":/image/Resource/image/zark/move/googuy_18.png");
     PathCreator(":/image/Resource/image/zark/move/googuy_", ".png", 18, 7, running.skill_picture);
     PathCreator(":/image/Resource/image/zark/wrap/googuy_", ".png", 25, 16, attack.skill_picture);
+    PathCreator(":/image/Resource/image/zark/dash/googuy_", ".png", 52, 9, first_skill.skill_picture);
     PathCreator(":/image/Resource/image/zark/attacked/googuy_", ".png", 37, 5, be_attack.skill_picture);
     PathCreator(":/image/Resource/image/zark/die/googuy_", ".png", 33, 5, die.skill_picture);
+    PathCreator(":/image/Resource/image/zark/dash/googuy_", ".png", 52, 9, second_skill.skill_picture);
 }
 
 void UltraMonster::Move(Hero player) {
-    if (kind != 5 && kind != 9 && kind != 12) {
+    if (kind != 5 && kind != 9 && kind != 12 && life == 2) {
         if (x < player.GetX() + attack_range_x && x > player.GetX() - attack_range_x && y < player.GetY() + attack_range_y && y > player.GetY() - attack_range_y)
         {
             x_speed_left = 25;
@@ -486,10 +488,17 @@ void UltraMonster::Move(Hero player) {
             }
         }
     }
-    if (kind == 12) {
-        x_speed_left = 40;
-        x_speed_right = 40;
-        y_speed = 20;
+    if (kind == 13) {
+        PathCreator(":/image/Resource/image/zark/dash/googuy_", ".png", 61, 3, running.skill_picture);
+        photo = QPixmap(":/image/Resource/image/zark/dash/googuy_63.png");
+        if (direction == 0) {
+            photo = QPixmap(":/image/Resource/image/zark/dash/googuy_63.png");
+        }
+        else {
+            QImage image(":/image/Resource/image/zark/dash/googuy_63.png");
+            QImage mirroredImage = image.mirrored(true, false);
+            photo = QPixmap::fromImage(mirroredImage);
+        }
         if (x < player.GetX() + attack_range_x && x > player.GetX() - attack_range_x && y < player.GetY() + attack_range_y && y > player.GetY() - attack_range_y)
         {
             if (x <= player.GetX()) direction = 0;
@@ -497,7 +506,6 @@ void UltraMonster::Move(Hero player) {
             Attack2();
         }
         else {
-            SetKind(1);
             if (y <= player.GetY()) {
                 WalkDown();
             }
@@ -525,7 +533,8 @@ void UltraMonster::Attack() {
 }
 
 void UltraMonster::Attack2(){
-    kind = 13;
+    kind = 14;
+    PathCreator(":/image/Resource/image/zark/move/googuy_", ".png", 18, 7, running.skill_picture);
 }
 void UltraMonster::AttackAnimation() {
 if (direction == 0) {
@@ -539,6 +548,16 @@ if (direction == 0) {
         attack_range.setWidth(attack_range_x);   //¹¥»÷¾ØÐÎ(Åö×²¼ì²â)
         attack_range.setHeight(attack_range_y);
         QImage image(FrameAnimation(attack.skill_picture, count_attack));
+        QImage mirroredImage = image.mirrored(true, false);
+        photo = QPixmap::fromImage(mirroredImage);
+    }
+}
+void UltraMonster::Attack2Animation() {
+    if (direction == 0) {
+        photo = QPixmap(FrameAnimation(first_skill.skill_picture, count_attack));
+    }
+    else {
+        QImage image(FrameAnimation(first_skill.skill_picture, count_attack));
         QImage mirroredImage = image.mirrored(true, false);
         photo = QPixmap::fromImage(mirroredImage);
     }

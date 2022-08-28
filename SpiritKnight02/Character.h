@@ -33,6 +33,7 @@ public:
 	int real_body_x;
 	int real_body_y;
 	int y_speed;
+	int life = 2;
 	QPixmap photo;
 	Character();
 	void WalkLeft();
@@ -49,7 +50,7 @@ public:
 	int GetStrong();
 	int GetKind();
 	bool GetLay();
-	int GetDirection();
+	int GetDirection();	
 	double GetHP();
 	double GetMP();
 	double GetHPMAX();
@@ -129,4 +130,5 @@ public:
 	void BeAttacked(Hero hero);
 	void BeAttackedAnimation();
 	void AttackAnimation();
+	void Attack2Animation();
 };
