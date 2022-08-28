@@ -4,12 +4,15 @@
 #include "ui_MyMainWindow.h"
 #include "Character.h"
 #include <QTimer>
+#include <QLabel>
 
 class MyMainWindow : public QMainWindow
 {
     Q_OBJECT
 
 public:
+    QLabel* hp;
+    QLabel* mp;
     MyMainWindow(QWidget *parent = nullptr);
     ~MyMainWindow();
     void paintEvent(QPaintEvent *event);

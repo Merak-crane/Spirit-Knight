@@ -139,5 +139,9 @@
         <file>Resource/image/zark/wrap/googuy_38.png</file>
         <file>Resource/image/zark/wrap/googuy_39.png</file>
         <file>Resource/image/zark/wrap/googuy_40.png</file>
+        <file>Resource/image/main_character/hp.png</file>
+    </qresource>
+    <qresource prefix="/css">
+        <file>Resource/stylesheet.css</file>
     </qresource>
 </RCC>
