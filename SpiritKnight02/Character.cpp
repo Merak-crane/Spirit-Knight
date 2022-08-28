@@ -234,7 +234,7 @@ Hero::Hero() {
 void Hero::Show() {
 
 }
-void Hero::BeAttacked(LittleMonster *monster[], bool monster_survive[]) {
+void Hero::BeAttacked(vector<LittleMonster*> monster, vector<bool> monster_survive) {
     for (int i = 1; i < 3; i++)
     {
         if (monster_survive[i] == true) {

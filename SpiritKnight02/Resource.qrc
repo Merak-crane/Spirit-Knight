@@ -139,6 +139,32 @@
         <file>Resource/image/zark/wrap/googuy_38.png</file>
         <file>Resource/image/zark/wrap/googuy_39.png</file>
         <file>Resource/image/zark/wrap/googuy_40.png</file>
+        <file>Resource/image/main_character/hp.png</file>
+        <file>Resource/image/background/background.jpeg</file>
+        <file>Resource/image/background/background.png</file>
+        <file>Resource/image/background/background2.jpg</file>
+        <file>Resource/image/background/login.png</file>
+        <file>Resource/image/background/modechoose.jpg</file>
+    </qresource>
+    <qresource prefix="/css">
+        <file>Resource/stylesheet.css</file>
+    </qresource>
+    <qresource prefix="/ui">
+        <file>Resource/image/ui/confirm.png</file>
+        <file>Resource/image/ui/continue.png</file>
+        <file>Resource/image/ui/exit.png</file>
+        <file>Resource/image/ui/identify.png</file>
+        <file>Resource/image/ui/introduction.png</file>
+        <file>Resource/image/ui/load1.png</file>
+        <file>Resource/image/ui/load2.png</file>
+        <file>Resource/image/ui/load3.png</file>
+        <file>Resource/image/ui/login.png</file>
+        <file>Resource/image/ui/modeone.png</file>
+        <file>Resource/image/ui/modetwo.png</file>
+        <file>Resource/image/ui/register.png</file>
+        <file>Resource/image/ui/return.png</file>
+        <file>Resource/image/ui/returnback.png</file>
+        <file>Resource/image/ui/start.png</file>
         <file>Resource/image/zark/dash/googuy_52.png</file>
         <file>Resource/image/zark/dash/googuy_53.png</file>
         <file>Resource/image/zark/dash/googuy_54.png</file>

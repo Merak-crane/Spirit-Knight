@@ -93,7 +93,7 @@ private:
 public:
 	Hero();
 	void Show();
-	void BeAttacked(LittleMonster* monster[], bool monster_survive[]);
+	void BeAttacked(vector<LittleMonster*> monster, vector<bool> monster_survive);
 	void BeAttackedAnimation();
 };
 

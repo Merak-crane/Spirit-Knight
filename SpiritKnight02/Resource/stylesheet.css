@@ -1,0 +1,53 @@
+
+QLineEdit {
+	border: 3px solid #f9cd07; /* 边框宽度为1px，颜色为#A0A0A0 */
+	border-radius: 5px; /* 边框圆角 */
+	padding-left: 5px; /* 文本距离左边界有5px */
+	background-color: #fcfbf8; /* 背景颜色 */
+	color: #0d7fea; /* 文本颜色 */
+	selection-background-color: #0729ec; /* 选中文本的背景颜色 */
+	selection-color: #ffffff; /* 选中文本的颜色 */
+	font-family: "Microsoft YaHei"; /* 文本字体族 */
+	font-size: 10pt; /* 文本字体大小 */
+}
+
+QLineEdit:hover { /* 鼠标悬浮在QLineEdit时的状态 */
+	border: 1px solid #298DFF;
+	border-radius: 3px;
+	background-color: #F2F2F2;
+	color: #298DFF;
+	selection-background-color: #298DFF;
+	selection-color: #F2F2F2;
+}
+
+QLineEdit[echoMode="2"] { /* QLineEdit有输入掩码时的状态 */
+	lineedit-password-character: 9679;
+	lineedit-password-mask-delay: 2000;
+}
+
+QLineEdit:disabled { /* QLineEdit在禁用时的状态 */
+	border: 1px solid #CDCDCD;
+	background-color: #CDCDCD;
+	color: #B4B4B4;
+}
+
+QLineEdit:read-only { /* QLineEdit在只读时的状态 */
+	background-color: #CDCDCD;
+	color: #F2F2F2;
+}
+QLabel{
+}
+QLabel#HP{
+	background-color: #F90000;
+	border: 3px solid rgb(243, 63, 63);
+	border-radius: 3px;
+	padding-left: 10px;
+	font-size: 5px;
+}
+QLabel#MP{
+	background-color: #0064f9;
+	border: 3px solid rgb(19, 118, 211);
+	border-radius: 3px;
+	padding-left: 10px;
+	font-size: 5px;
+}
