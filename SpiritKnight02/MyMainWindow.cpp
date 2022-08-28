@@ -143,7 +143,7 @@ void MyMainWindow::paintEvent(QPaintEvent *event)
             }
             if (ultra_monster[i]->GetHP() <= 0) {
                 ultra_monster[i]->SetHP(0);
-                ultra_monster[i]->SetKind(6);
+              /*  ultra_monster[i]->SetKind(6);*/
                 qDebug() << ultra_monster[i]->GetKind();
             }
             if (ultra_monster[i]->GetKind() != 6) {
@@ -234,7 +234,7 @@ void MyMainWindow::timerEvent(QTimerEvent* event) {
         }
     }
     for (int i = 1; i < ultra_monster.size(); i++) {
-        if (tmp == timeID6[i] && ultra_monster_survive[i] == true) {
+        if (tmp == timeID6[i] && ultra_monster_survive[i] == true && ultra_monster[i]->life ==2 ) {
             ultra_monster[i]->SetKind(0);
         }
     }
@@ -405,9 +405,18 @@ void MyMainWindow::UpdateOne() {
             }
             if (ultra_monster[i]->GetHP() == 0) {
                 ultra_monster[i]->SetStrong(1);
-                ultra_monster[i]->SetKind(12);
+                if (ultra_monster[i]->life == 2) {
+                    ultra_monster[i]->SetKind(12);
+                    ultra_monster[i]->life--;
+                    ultra_monster[i]->SetHP(15);
+                }
+                else
+                {
+                    ultra_monster[i]->SetKind(6);
+                }
                 ultra_monster[i]->SetLay(0);
             }
+            qDebug() << ultra_monster[i]->GetKind();
             if (ultra_monster[i]->GetKind() == 6) {
                 ultra_monster[i]->Die();
                 ultra_monster_survive[i] = false;
@@ -435,7 +444,7 @@ void MyMainWindow::UpdateOne() {
                     ultra_monster[i]->SetHP(ultra_monster[i]->GetHP() - 30);
                     timeID5[i] = startTimer(2000);
                     ultra_monster[i]->SetStrong(1);
-                    if (ultra_monster[i]->GetLay() != 1) {
+                    if (ultra_monster[i]->GetLay() != 1 && ultra_monster[i]->life == 2) {
                         ultra_monster[i]->SetKind(0);
                     }
                 }
@@ -445,8 +454,10 @@ void MyMainWindow::UpdateOne() {
                 hero_one.SetKind(8);
                 ultra_monster[i]->x_speed_left = 15;
                 ultra_monster[i]->x_speed_right = 15;
+                ultra_monster[i]->y_speed = 10;
                 if (ultra_monster[i]->count_attack >= 15) {
                     hero_one.SetHP(hero_one.GetHP() - 20);
+                    ultra_monster[i]->SetHP(ultra_monster[i]->GetHP() + 10);
                     ultra_monster[i]->SetKind(9);
                     ultra_monster[i]->photo = QPixmap(":/image/Resource/image/zark/attacked/googuy_37.png");
                     timeID6[i] = startTimer(1000);
@@ -455,9 +466,29 @@ void MyMainWindow::UpdateOne() {
             if (ultra_monster[i]->GetKind() == 9) {
                 ultra_monster[i]->SetLay(1);
             }
-            if (ultra_monster[i]->GetKind() == 13) {
-                hero_one.SetHP(hero_one.GetHP() - 40);
-                ultra_monster[i]->SetKind(6);
+            if (ultra_monster[i]->GetKind() == 12) {
+                ultra_monster[i]->Attack2Animation();
+                if (ultra_monster[i]->count_attack >= 8) {
+                    ultra_monster[i]->x_speed_left = 30;
+                    ultra_monster[i]->x_speed_right = 30;
+                    ultra_monster[i]->y_speed = 20;
+                    ultra_monster[i]->SetKind(13);
+                }
+            }
+            if (ultra_monster[i]->GetKind() == 14) {
+                ultra_monster[i]->life++;
+                ultra_monster[i]->SetHP(50);
+                ultra_monster[i]->AttackAnimation();
+                hero_one.SetKind(8);
+                ultra_monster[i]->x_speed_left = 15;
+                ultra_monster[i]->x_speed_right = 15;
+                ultra_monster[i]->y_speed = 10;
+                if (ultra_monster[i]->count_attack >= 15) {
+                    hero_one.SetHP(hero_one.GetHP() - 20);
+                    ultra_monster[i]->SetKind(9);
+                    ultra_monster[i]->photo = QPixmap(":/image/Resource/image/zark/attacked/googuy_37.png");
+                    timeID6[i] = startTimer(1000);
+                }
             }
         }
     }

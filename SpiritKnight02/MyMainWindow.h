@@ -34,7 +34,7 @@ private:
     vector<UltraMonster*> ultra_monster;
     bool little_monster_survive[3];
     bool middle_monster_survive[3];
-    bool ultra_monster_survive[2];
+    bool ultra_monster_survive[3];
     Hero hero_one;
     LittleMonster* k;
     QTimer map_time;
