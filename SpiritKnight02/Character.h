@@ -18,6 +18,11 @@ class Character {
 public:
 	QRect attack_range;
 	QRect real_body;
+	int image_width;
+	int image_height;
+	int real_body_width;
+	int real_body_height;
+	double size_factor;
 	int attacknum;
 	int count_left;
 	int count_right;
@@ -25,6 +30,9 @@ public:
 	int count_attack;
 	int x_speed_right;
 	int x_speed_left;
+	int real_body_x;
+	int real_body_y;
+	int y_speed;
 	QPixmap photo;
 	Character();
 	void WalkLeft();
@@ -32,6 +40,7 @@ public:
 	void WalkTop();
 	void WalkDown();
 	void Attack();
+	void Attack2();
 	void Die();
 	void PathCreator(QString a, QString b, int c, int count, vector <QString> &picture);
 	QString FrameAnimation(vector <QString> picture, int& count);
@@ -39,6 +48,7 @@ public:
 	int GetY();
 	int GetStrong();
 	int GetKind();
+	bool GetLay();
 	int GetDirection();
 	double GetHP();
 	double GetMP();
@@ -48,6 +58,7 @@ public:
 	void SetX(int x);
 	void SetY(int y);
 	void SetKind(int kind);
+	void SetLay(bool lay);
 	void SetStrong(int strong);
 	void SetHP(double health_point);
 	void SetMP(double magic_point);
@@ -60,9 +71,9 @@ protected:
 	double magic_point;
 	double experience;
 	int kind;
+	bool lay = 0;
 	int x;
 	int y;
-	int y_speed;
 	int level;
 	int strong;
 	int direction;
@@ -70,6 +81,7 @@ protected:
 	Skill first_skill;
 	Skill second_skill;
 	Skill attack;
+	Skill be_attack;
 	Skill die;
 };
 
@@ -80,7 +92,7 @@ private:
 public:
 	Hero();
 	void Show();
-	void BeAttacked(LittleMonster mirror);
+	void BeAttacked(LittleMonster* monster[], bool monster_survive[]);
 	void BeAttackedAnimation();
 };
 
@@ -89,14 +101,32 @@ public:
 	LittleMonster();
 	void Move(Hero player);
 	void Attack();
+	void BeAttacked(Hero hero);
+	void BeAttackedAnimation();
 };
 
 class MiddleMonster : public Character {
+private:
+	Skill attack_two;
 public:
-
+	MiddleMonster();
+	void Move(Hero player);
+	void Attack();
+	void BeAttacked(Hero hero);
+	void BeAttackedAnimation();
+	void AttackAnimation();
 };
 
 class UltraMonster : public Character {
 public:
-
+private:
+	Skill attack_two;
+public:
+	UltraMonster();
+	void Move(Hero player);
+	void Attack();
+	void Attack2();
+	void BeAttacked(Hero hero);
+	void BeAttackedAnimation();
+	void AttackAnimation();
 };
