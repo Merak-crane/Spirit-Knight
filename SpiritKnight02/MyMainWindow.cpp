@@ -66,16 +66,10 @@ void MyMainWindow::paintEvent(QPaintEvent *event)
         hero_one.SetHP(0);
     }
     painter.drawPixmap(hero_one.GetX(), hero_one.GetY(), hero_one.image_width, hero_one.image_height, hero_one.photo);
-    painter.setPen(Qt::black);
-    painter.setBrush(Qt::white);
-    painter.drawRect(50, 40, 500, 20);
-    painter.drawRect(50, 75, 300, 15);
-    painter.setBrush(Qt::red);
-    painter.drawRect(50, 40, 500 * (double(hero_one.GetHP()) / hero_one.GetHPMAX()), 15);
-    painter.setBrush(Qt::blue);
-    painter.drawRect(50, 75, 300 * (double(hero_one.GetMP()) / hero_one.GetMPMAX()), 10);
-    painter.setBrush(Qt::red);
-    painter.setBrush(QBrush(Qt::NoBrush));
+    painter.drawPixmap(0, 0, 500, 150, QPixmap(":/image/Resource/image/main_character/hp.png"));
+    hp->setGeometry(155, 110, hero_one.GetHP() * 320 / hero_one.GetHPMAX(), 10);
+    mp->setGeometry(155, 122, hero_one.GetMP() * 320 / hero_one.GetMPMAX(), 10);
+    painter.drawPixmap(hero_one.GetX(), hero_one.GetY(), hero_one.image_width, hero_one.image_height, hero_one.photo);
 
     for (int i = 1; i < 3; i++) {
         if (little_monster_survive[i] == true) {
@@ -96,9 +90,9 @@ void MyMainWindow::paintEvent(QPaintEvent *event)
                 painter.drawRect(little_monster[i]->real_body);
                 painter.setBrush(Qt::red);
                 painter.drawPixmap(little_monster[i]->GetX(), little_monster[i]->GetY(), little_monster[i]->image_width, little_monster[i]->image_height, little_monster[i]->photo);
-                painter.drawRect(little_monster[i]->real_body_x, little_monster[i]->real_body_y + 50, 500 * (double(little_monster[i]->GetHP()) / little_monster[i]->GetHPMAX()), 15);
+                painter.drawRect(little_monster[i]->real_body_x, little_monster[i]->real_body_y + 65, 80 * (double(little_monster[i]->GetHP()) / little_monster[i]->GetHPMAX()), 15);
                 painter.setBrush(Qt::blue);
-                painter.drawRect(little_monster[i]->real_body_x, little_monster[i]->real_body_y, 300 * (double(little_monster[i]->GetMP()) / little_monster[i]->GetMPMAX()), 10);
+                painter.drawRect(little_monster[i]->real_body_x, little_monster[i]->real_body_y + 50, 80 * (double(little_monster[i]->GetMP()) / little_monster[i]->GetMPMAX()), 10);
                 painter.setBrush(QBrush(Qt::NoBrush));
                 painter.drawRect(little_monster[i]->attack_range);
             }
@@ -123,9 +117,9 @@ void MyMainWindow::paintEvent(QPaintEvent *event)
                 painter.drawRect(middle_monster[i]->real_body);
                 painter.setBrush(Qt::red);
                 painter.drawPixmap(middle_monster[i]->GetX(), middle_monster[i]->GetY(), middle_monster[i]->image_width, middle_monster[i]->image_height, middle_monster[i]->photo);
-                painter.drawRect(middle_monster[i]->real_body_x, middle_monster[i]->real_body_y + 50, 500 * (double(middle_monster[i]->GetHP()) / middle_monster[i]->GetHPMAX()), 15);
+                painter.drawRect(middle_monster[i]->real_body_x, middle_monster[i]->real_body_y + 65, 80 * (double(middle_monster[i]->GetHP()) / middle_monster[i]->GetHPMAX()), 15);
                 painter.setBrush(Qt::blue);
-                painter.drawRect(middle_monster[i]->real_body_x, middle_monster[i]->real_body_y, 300 * (double(middle_monster[i]->GetMP()) / middle_monster[i]->GetMPMAX()), 10);
+                painter.drawRect(middle_monster[i]->real_body_x, middle_monster[i]->real_body_y + 50, 80 * (double(middle_monster[i]->GetMP()) / middle_monster[i]->GetMPMAX()), 10);
                 painter.setBrush(QBrush(Qt::NoBrush));
                 painter.drawRect(middle_monster[i]->attack_range);
             }
@@ -150,9 +144,9 @@ void MyMainWindow::paintEvent(QPaintEvent *event)
                 painter.drawRect(ultra_monster[i]->real_body);
                 painter.setBrush(Qt::red);
                 painter.drawPixmap(ultra_monster[i]->GetX(), ultra_monster[i]->GetY(), ultra_monster[i]->image_width, ultra_monster[i]->image_height, ultra_monster[i]->photo);
-                painter.drawRect(ultra_monster[i]->real_body_x, ultra_monster[i]->real_body_y + 50, 500 * (double(ultra_monster[i]->GetHP()) / ultra_monster[i]->GetHPMAX()), 15);
+                painter.drawRect(ultra_monster[i]->real_body_x, ultra_monster[i]->real_body_y + 65, 80 * (double(ultra_monster[i]->GetHP()) / ultra_monster[i]->GetHPMAX()), 15);
                 painter.setBrush(Qt::blue);
-                painter.drawRect(ultra_monster[i]->real_body_x, ultra_monster[i]->real_body_y, 300 * (double(ultra_monster[i]->GetMP()) / ultra_monster[i]->GetMPMAX()), 10);
+                painter.drawRect(ultra_monster[i]->real_body_x, ultra_monster[i]->real_body_y + 50, 80 * (double(ultra_monster[i]->GetMP()) / ultra_monster[i]->GetMPMAX()), 10);
                 painter.setBrush(QBrush(Qt::NoBrush));
                 painter.drawRect(ultra_monster[i]->attack_range);
             }
