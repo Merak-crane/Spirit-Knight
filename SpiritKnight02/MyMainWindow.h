@@ -27,14 +27,13 @@ private:
     Ui::MyMainWindowClass ui;
     int map_choose;
     int timeID1;
-    int timeID3[3];
-    int timeID4[3];
-    int timeID5[2];
-    int timeID6[2];
     int timeIDm1;
     vector<int> little_monster_time;
     vector<LittleMonster*> little_monster;
     vector<bool> little_monster_survive;
+    vector<int> little_monster2_time;
+    vector<LittleMonster*> little_monster2;
+    vector<bool> little_monster2_survive;
     vector<int> middle_monster_time_one;
     vector<int> middle_monster_time_two;
     vector<MiddleMonster*> middle_monster;

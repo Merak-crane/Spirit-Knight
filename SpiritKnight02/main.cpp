@@ -16,9 +16,9 @@ int main(int argc, char *argv[])
 		QMessageBox::about(NULL, "Test", "Open File Failed");
 		//file.close();
 	}
-	Start s;
-	s.show();
-	/*MyMainWindow w(2);
-	w.show();*/
+	/*Start s;
+	s.show();*/
+	MyMainWindow w(3);
+	w.show();
     return a.exec();
 }

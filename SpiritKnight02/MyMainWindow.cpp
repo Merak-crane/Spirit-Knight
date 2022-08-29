@@ -26,43 +26,54 @@ MyMainWindow::MyMainWindow(int mode, QWidget *parent)
     if (mode == 1) {
         map_choose = 1;
     }
-    else
+    else if(mode == 2)
     {
         map_choose = -1;
     }
-        //for (int i = 1; i < 3; i++) {
-        //    middle_monster[i] = new MiddleMonster();
-        //    middle_monster_survive[i] = true;
-        //}
-        //for (int i = 1; i < ultra_monster.size(); i++) {
-        //    ultra_monster[i] = new UltraMonster;
-        //    ultra_monster_survive[i] = true;
-        //}
     int little_monster_num = 3;
     little_monster.resize(little_monster_num);
     little_monster_survive.resize(little_monster_num);
     little_monster_time.resize(little_monster_num);
     for (int i = 1; i < little_monster.size(); i++) {
         little_monster[i] = new LittleMonster();
-        little_monster_survive[i] = true;
+        little_monster_survive[i] = false;
     }
     int middle_monster_num = 2;
-    middle_monster.resize(middle_monster_num);
-    middle_monster_survive.resize(middle_monster_num);
-    middle_monster_time_one.resize(middle_monster_num);
-    middle_monster_time_two.resize(middle_monster_num);
-    for (int i = 1; i < middle_monster.size(); i++) {
-        middle_monster[i] = new MiddleMonster();
-        middle_monster_survive[i] = false;
-    }
-    int ultra_monster_num = 2;
-    ultra_monster.resize(ultra_monster_num);
-    ultra_monster_survive.resize(ultra_monster_num);
-    ultra_monster_time_one.resize(ultra_monster_num);
-    ultra_monster_time_two.resize(ultra_monster_num);
-    for (int i = 1; i < ultra_monster.size(); i++) {
-        ultra_monster[i] = new UltraMonster();
-        ultra_monster_survive[i] = false;
+    //middle_monster.resize(middle_monster_num);
+    //middle_monster_survive.resize(middle_monster_num);
+    //middle_monster_time_one.resize(middle_monster_num);
+    //middle_monster_time_two.resize(middle_monster_num);
+    //for (int i = 1; i < middle_monster.size(); i++) {
+    //    middle_monster[i] = new MiddleMonster();
+    //    middle_monster_survive[i] = false;
+    //}
+    int ultra_monster_num = 3;
+    //ultra_monster.resize(ultra_monster_num);
+    //ultra_monster_survive.resize(ultra_monster_num);
+    //ultra_monster_time_one.resize(ultra_monster_num);
+    //ultra_monster_time_two.resize(ultra_monster_num);
+    //for (int i = 1; i < ultra_monster.size(); i++) {
+    //    ultra_monster[i] = new UltraMonster();
+    //    ultra_monster_survive[i] = false;
+    //}
+    if (mode == 3) {
+        map_choose = 1;
+        middle_monster.resize(middle_monster_num);
+        middle_monster_survive.resize(middle_monster_num);
+        middle_monster_time_one.resize(middle_monster_num);
+        middle_monster_time_two.resize(middle_monster_num);
+        ultra_monster.resize(ultra_monster_num);
+        ultra_monster_survive.resize(ultra_monster_num);
+        ultra_monster_time_one.resize(ultra_monster_num);
+        ultra_monster_time_two.resize(ultra_monster_num);
+        for (int i = 1; i < middle_monster_num; i++) {
+            middle_monster[i] = new MiddleMonster();
+            middle_monster_survive[i] = false;
+        }
+        for (int i = 1; i < ultra_monster_num; i++) {
+            ultra_monster[i] = new UltraMonster;
+            ultra_monster_survive[i] = true;
+        }
     }
     hp = new QLabel(this);
     hp->setObjectName("HP");
@@ -264,7 +275,7 @@ void MyMainWindow::timerEvent(QTimerEvent* event) {
         }
     }
     for (int i = 1; i < ultra_monster.size(); i++) {
-        if (tmp == ultra_monster_time_two[i] && ultra_monster_survive[i] == true) {
+        if (tmp == ultra_monster_time_two[i] && ultra_monster_survive[i] == true && ultra_monster[i]->life == 2) {
             ultra_monster[i]->SetKind(0);
         }
     }
@@ -516,7 +527,7 @@ void MyMainWindow::UpdateOne(int mode) {
                     hero_one.SetHP(hero_one.GetHP() - 20);
                     ultra_monster[i]->SetKind(9);
                     ultra_monster[i]->photo = QPixmap(":/image/Resource/image/zark/attacked/googuy_37.png");
-                    timeID6[i] = startTimer(1000);
+                    ultra_monster_time_two[i] = startTimer(1000);
                 }
             }
         }
