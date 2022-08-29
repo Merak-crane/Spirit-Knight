@@ -1,6 +1,7 @@
 #pragma once
 #pragma execution_character_set("utf-8")  
 #include "MyMainWindow.h"
+#include "Player.h"
 #include <QWidget>
 #include <QPushButton>
 #include <QMediaPlaylist>
@@ -31,10 +32,12 @@ public:
     void ReturnBack();
     void ReturnOrigin();
     void Close();
+    //Player* local;
     int kind;
     int register_kind = 0;
     int identify_kind = 0;
     QString identify;
+    Player* local;
     QWidget* login_interface = new QWidget(this);
     QWidget* register_interface = new QWidget(this);
     QWidget* introduction_interface = new QWidget(this);

@@ -85,7 +85,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Bullet.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="Smtp.cpp" />
+    <ClCompile Include="Sorcerer.cpp" />
     <ClCompile Include="Start.cpp" />
     <QtRcc Include="Resource.qrc" />
     <QtUic Include="MyMainWindow.ui" />
@@ -97,6 +100,7 @@
   <ItemGroup>
     <ClInclude Include="Character.h" />
     <ClInclude Include="config.h" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="Smtp.h" />
     <QtMoc Include="Start.h" />
   </ItemGroup>

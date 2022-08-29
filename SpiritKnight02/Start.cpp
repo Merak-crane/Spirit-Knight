@@ -16,6 +16,7 @@
 #include <QSqlError>
 #include <QRegExpValidator>
 #include <QSqlTableModel>
+#include <QSqlRecord>
 Start::Start(QWidget *parent)
 	: QWidget(parent)
 {
@@ -262,12 +263,11 @@ Start::Start(QWidget *parent)
 	//connect(load3btn, &QPushButton::clicked, this, &Start::load_3);
 	connect(introduction, &QPushButton::clicked, this, &Start::OpenIntroduction);
 	connect(mode_one, &QPushButton::clicked, [=]() {
-		MyMainWindow* gamewindow = new MyMainWindow(1,this);
+		MyMainWindow* gamewindow = new MyMainWindow(1, local, this);
 		gamewindow->show();
 		});
 	connect(mode_two, &QPushButton::clicked, [=]() {
-		MyMainWindow* gamewindow = new MyMainWindow(2, this);
-		gamewindow->show();
+		MyMainWindow* gamewindow = new MyMainWindow(2, local, this);;
 		});
 	start_time.setInterval(1);
 	start_time.start();
@@ -439,6 +439,13 @@ void Start::LoginConfirm(){
 		row = model->rowCount();
 		if (row > 0) {//查询成功
 			QMessageBox::information(this,"提示","登录成功!");
+			model->setFilter(QString("name='%1'").arg(user_name));
+			model->select();
+			QSqlRecord record = model->record(0);
+			QString name = record.value("name").toString();
+			local = new Player(record.value("name").toString(), record.value("email").toString(), record.value("power").toString()
+				, record.value("level").toInt());
+			//local = new Player(username->text(),)
 			load_interface->hide();
 			login_interface->hide();
 			start_interface->hide();

@@ -3,6 +3,7 @@
 #include <QtWidgets/QMainWindow>
 #include "ui_MyMainWindow.h"
 #include "Character.h"
+#include "Player.h"
 #include <QTimer>
 #include <QLabel>
 
@@ -13,8 +14,10 @@ class MyMainWindow : public QMainWindow
 public:
     QLabel* hp;
     QLabel* mp;
+    QLabel* user_information_label;
+    Player* local;
     MyMainWindow(QWidget *parent = nullptr);
-    MyMainWindow(int mode, QWidget *parent = nullptr);
+    MyMainWindow(int mode, Player* local, QWidget *parent = nullptr);
     ~MyMainWindow();
     void paintEvent(QPaintEvent *event);
     void keyPressEvent(QKeyEvent* event);
@@ -33,6 +36,9 @@ private:
     int timeID5[2];
     int timeID6[2];
     int timeIDm1;
+    vector<int> sorcerer_one_time;
+    vector<SorcererOne*> sorcerer_one;
+    vector<bool> sorcerer_one_survive;
     vector<int> little_monster_time;
     vector<LittleMonster*> little_monster;
     vector<bool> little_monster_survive;

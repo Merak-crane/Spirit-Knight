@@ -224,7 +224,7 @@ Hero::Hero() {
     attack_range_y = 100;
     health_point_max = 20000;
     magic_point_max = 200;
-    health_point = 20;
+    health_point = 20000;
     magic_point = 100;
     photo = QPixmap(":/image/Resource/image/main_character/running3/zero4_5.png");
     PathCreator(":/image/Resource/image/main_character/running3/zero4_", ".png", 5, 13, running.skill_picture);

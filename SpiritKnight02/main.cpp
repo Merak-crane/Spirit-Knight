@@ -16,7 +16,10 @@ int main(int argc, char *argv[])
 		QMessageBox::about(NULL, "Test", "Open File Failed");
 		//file.close();
 	}
-	Start s;
-	s.show();
+	//Start s;
+	//s.show();
+	Player* o = new Player("222", "sss", "ss", 100);
+	MyMainWindow w(3,o);
+	w.show();
     return a.exec();
 }

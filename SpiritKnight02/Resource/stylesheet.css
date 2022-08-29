@@ -51,3 +51,9 @@ QLabel#MP{
 	padding-left: 10px;
 	font-size: 5px;
 }
+QLabel#user_information_label{
+	color: white;
+	font-weight: 600;
+	font-size: 30px;
+	font-style: italic;
+}
