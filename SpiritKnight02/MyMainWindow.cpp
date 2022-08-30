@@ -255,7 +255,7 @@ void MyMainWindow::paintEvent(QPaintEvent *event)
         hero_one.SetHP(0);
         painter->drawPixmap(0, 0, this->width(), this->height(), QPixmap(":/image/Resource/image/background/you_died.png"));
         died->setGeometry(450, 650, 400, 50);
-        died->setText("点击空格返回选择界面");
+        died->setText("点击Esc返回选择界面");
     }
     delete painter;
 }
@@ -283,7 +283,7 @@ void MyMainWindow::keyPressEvent(QKeyEvent* event) {
     case Qt::Key_K:
         hero_one.WalkDown();
         break;
-    case Qt::Key_Space:
+    case Qt::Key_Escape:
         if (hero_one.GetHP() == 0) {
             this->close();
         }

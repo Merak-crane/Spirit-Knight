@@ -36,7 +36,7 @@
       <Filter>Resource Files</Filter>
     </QtRcc>
     <QtUic Include="SetUp.ui">
-      <Filter>Source Files</Filter>
+      <Filter>Header Files</Filter>
     </QtUic>
   </ItemGroup>
   <ItemGroup>
