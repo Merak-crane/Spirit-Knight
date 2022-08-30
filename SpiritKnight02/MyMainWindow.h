@@ -6,6 +6,7 @@
 #include "Player.h"
 #include <QTimer>
 #include <QLabel>
+#include <QPushButton>
 
 class MyMainWindow : public QMainWindow
 {
@@ -14,6 +15,7 @@ class MyMainWindow : public QMainWindow
 public:
     QLabel* hp;
     QLabel* mp;
+    QLabel* died;
     QLabel* user_information_label;
     Player* local;
     MyMainWindow(QWidget *parent = nullptr);
@@ -36,6 +38,7 @@ private:
     int timeID5[2];
     int timeID6[2];
     int timeIDm1;
+    QPushButton* set_up_btn;
     vector<int> sorcerer_one_time;
     vector<SorcererOne*> sorcerer_one;
     vector<bool> sorcerer_one_survive;

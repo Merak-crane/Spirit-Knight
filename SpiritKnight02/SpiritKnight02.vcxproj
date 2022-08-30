@@ -87,6 +87,7 @@
   <ItemGroup>
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="SetUp.cpp" />
     <ClCompile Include="Smtp.cpp" />
     <ClCompile Include="Sorcerer.cpp" />
     <ClCompile Include="Start.cpp" />
@@ -96,11 +97,13 @@
     <ClCompile Include="Character.cpp" />
     <ClCompile Include="MyMainWindow.cpp" />
     <ClCompile Include="main.cpp" />
+    <QtUic Include="SetUp.ui" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Character.h" />
     <ClInclude Include="config.h" />
     <ClInclude Include="Player.h" />
+    <QtMoc Include="SetUp.h" />
     <ClInclude Include="Smtp.h" />
     <QtMoc Include="Start.h" />
   </ItemGroup>
