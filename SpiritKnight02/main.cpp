@@ -1,5 +1,7 @@
 
 #include "Start.h"
+#include "VideoInterface.h"
+#include "OriginInterface.h"
 #include <QtWidgets/QApplication>
 #include <QFile>
 #include <QMessageBox>
@@ -18,8 +20,10 @@ int main(int argc, char *argv[])
 	}
 	//Start s;
 	//s.show();
-	Player* o = new Player("222", "sss", "ss", 100);
-	MyMainWindow w(3,o);
-	w.show();
+	//Player* o = new Player("222", "sss", "ss", 100);
+	//MyMainWindow w(3,o);
+	//w.show();
+	OriginInterface v;
+	v.show();
     return a.exec();
 }
