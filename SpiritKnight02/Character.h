@@ -87,7 +87,45 @@ protected:
 };
 
 class LittleMonster;
-
+class Hero;
+class Bullet
+{
+public:
+	QPixmap photo;
+	QRect attack_range;
+	int image_width;
+	int image_height;
+	int real_body_width;
+	int real_body_height;
+	int real_body_x;
+	int real_body_y;
+	double size_factor;
+protected:
+	int x;
+	int y;
+	int direction;
+	int attack_range_x;
+	int attack_range_y;
+	int x_speed;
+};
+class BulletOne : public Bullet{
+private:
+public:
+	QPixmap photo;
+	BulletOne(int x, int y, int direction);
+	void Move();
+	void Disappear();
+};
+class SorcererOne : public Character {
+private:
+public:
+	vector<BulletOne*> bullet_collector;
+	SorcererOne();
+	void Move(Hero player);
+	void Attack();
+	void BeAttacked(Hero hero);
+	void BeAttackedAnimation();
+};
 class Hero : public Character {
 private:
 public:

@@ -16,6 +16,7 @@
 #include <QSqlError>
 #include <QRegExpValidator>
 #include <QSqlTableModel>
+#include <QSqlRecord>
 Start::Start(QWidget *parent)
 	: QWidget(parent)
 {
@@ -262,14 +263,11 @@ Start::Start(QWidget *parent)
 	//connect(load3btn, &QPushButton::clicked, this, &Start::load_3);
 	connect(introduction, &QPushButton::clicked, this, &Start::OpenIntroduction);
 	connect(mode_one, &QPushButton::clicked, [=]() {
-		MyMainWindow* gamewindow = new MyMainWindow(1);
+		MyMainWindow* gamewindow = new MyMainWindow(1, local, this);
 		gamewindow->show();
-		this->close();
 		});
 	connect(mode_two, &QPushButton::clicked, [=]() {
-		MyMainWindow* gamewindow = new MyMainWindow(2);
-		gamewindow->show();
-		this->close();
+		MyMainWindow* gamewindow = new MyMainWindow(2, local, this);;
 		});
 	start_time.setInterval(1);
 	start_time.start();
@@ -285,25 +283,27 @@ Start::Start(QWidget *parent)
 }
 
 Start::~Start()
-{}
+{
+}
 
 void Start::paintEvent(QPaintEvent* Event) {
-	QPainter painter1(this);
+	QPainter* painter1 = new QPainter(this);
 	if (kind == 0) {
-		painter1.drawPixmap(0, 0, this->width(), this->height(), QPixmap(":/image/Resource/image/background/background.png"));
+		painter1->drawPixmap(0, 0, this->width(), this->height(), QPixmap(":/image/Resource/image/background/background.png"));
 	}
 	if (kind == 1) {
-		painter1.drawPixmap(0, 0, this->width(), this->height(), QPixmap(":/image/Resource/image/background/background2.jpg"));
+		painter1->drawPixmap(0, 0, this->width(), this->height(), QPixmap(":/image/Resource/image/background/background2.jpg"));
 	}
 	if (kind == 2) {
-		painter1.drawPixmap(0, 0, this->width(), this->height(), QPixmap(":/image/Resource/image/background/modechoose.jpg"));
+		painter1->drawPixmap(0, 0, this->width(), this->height(), QPixmap(":/image/Resource/image/background/modechoose.jpg"));
 	}
 	if (kind == 4) {
-		painter1.drawPixmap(0, 0, this->width(), this->height(), QPixmap(":/image/Resource/image/background/background.jpeg"));
+		painter1->drawPixmap(0, 0, this->width(), this->height(), QPixmap(":/image/Resource/image/background/background.jpeg"));
 	}
 	if (kind == 5 || kind == 6) {
-		painter1.drawPixmap(0, 0, this->width(), this->height(), QPixmap(":/image/Resource/image/background/login.png"));
+		painter1->drawPixmap(0, 0, this->width(), this->height(), QPixmap(":/image/Resource/image/background/login.png"));
 	}
+	delete painter1;
 }
 
 void Start::ModeChoose(){
@@ -439,6 +439,13 @@ void Start::LoginConfirm(){
 		row = model->rowCount();
 		if (row > 0) {//查询成功
 			QMessageBox::information(this,"提示","登录成功!");
+			model->setFilter(QString("name='%1'").arg(user_name));
+			model->select();
+			QSqlRecord record = model->record(0);
+			QString name = record.value("name").toString();
+			local = new Player(record.value("name").toString(), record.value("email").toString(), record.value("power").toString()
+				, record.value("level").toInt());
+			//local = new Player(username->text(),)
 			load_interface->hide();
 			login_interface->hide();
 			start_interface->hide();

@@ -222,9 +222,9 @@ Hero::Hero() {
     real_body.setHeight(50);
     attack_range_x = 110;
     attack_range_y = 100;
-    health_point_max = 200;
+    health_point_max = 20000;
     magic_point_max = 200;
-    health_point = 100;
+    health_point = 20000;
     magic_point = 100;
     photo = QPixmap(":/image/Resource/image/main_character/running3/zero4_5.png");
     PathCreator(":/image/Resource/image/main_character/running3/zero4_", ".png", 5, 13, running.skill_picture);
@@ -448,7 +448,7 @@ UltraMonster::UltraMonster() {
     direction = 0;
     kind = 0;
     strong = 0;
-    health_point = 30;
+    health_point = 100;
     health_point_max = 100;
     attack_range_x = 100;
     attack_range_y = 100;
