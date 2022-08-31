@@ -91,21 +91,38 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Bullet.cpp" />
+    <ClCompile Include="LoadInterface.cpp" />
+    <ClCompile Include="LoginInterface.cpp" />
+    <ClCompile Include="ModeInterface.cpp" />
+    <ClCompile Include="OriginInterface.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="RegisterInterface.cpp" />
+    <ClCompile Include="SetUp.cpp" />
     <ClCompile Include="Smtp.cpp" />
     <ClCompile Include="Sorcerer.cpp" />
     <ClCompile Include="Start.cpp" />
+    <ClCompile Include="StartInterface.cpp" />
+    <ClCompile Include="VideoInterface.cpp" />
     <QtRcc Include="Resource.qrc" />
     <QtUic Include="MyMainWindow.ui" />
     <QtMoc Include="MyMainWindow.h" />
     <ClCompile Include="Character.cpp" />
     <ClCompile Include="MyMainWindow.cpp" />
     <ClCompile Include="main.cpp" />
+    <QtUic Include="SetUp.ui" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Character.h" />
     <ClInclude Include="config.h" />
+    <QtMoc Include="StartInterface.h" />
+    <QtMoc Include="VideoInterface.h" />
+    <QtMoc Include="OriginInterface.h" />
+    <QtMoc Include="LoginInterface.h" />
+    <QtMoc Include="ModeInterface.h" />
+    <QtMoc Include="LoadInterface.h" />
     <ClInclude Include="Player.h" />
+    <QtMoc Include="SetUp.h" />
+    <QtMoc Include="RegisterInterface.h" />
     <ClInclude Include="Smtp.h" />
     <QtMoc Include="Start.h" />
   </ItemGroup>

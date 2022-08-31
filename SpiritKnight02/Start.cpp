@@ -371,6 +371,7 @@ void Start::Register() {
 
 void Start::LoginUpdate() {
 	int pos = 0;
+	username->editingFinished();
 	QRegExp username_verify("^[0-9a-zA-Z_]+$");
 	QRegExpValidator* username_validator = new QRegExpValidator(username_verify);
 	username->setValidator(username_validator);

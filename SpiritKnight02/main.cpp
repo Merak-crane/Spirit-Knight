@@ -1,5 +1,7 @@
 
 #include "Start.h"
+#include "VideoInterface.h"
+#include "OriginInterface.h"
 #include <QtWidgets/QApplication>
 #include <QFile>
 #include <QMessageBox>
@@ -7,16 +9,16 @@
 int main(int argc, char *argv[])
 {
 
-	// ÉèÖÃÃ½Ìå
-	// ·½Ê½Ò»£º²»ÍÆ¼öÊ¹ÓÃ
-	//player->setMedia(QMediaContent(QUrl("../testMusic/ÄãµÄÃû×Ö.wav")));	
+	// è®¾ç½®åª’ä½“
+	// æ–¹å¼ä¸€ï¼šä¸æŽ¨èä½¿ç”¨
+	//player->setMedia(QMediaContent(QUrl("../testMusic/ä½ çš„åå­—.wav")));	
 
-	// ·½Ê½¶þ£ºÍÆ¼öÊ¹ÓÃ
+	// æ–¹å¼äºŒï¼šæŽ¨èä½¿ç”¨
 	/*player->setMedia(QUrl::fromLocalFile("D:\VS2019\Git\SpiritKnight02\Resource\sound\h_att01.wav"));*/
-	//player->setMedia(QUrl::fromLocalFile("D:\\music\\ÄãµÄÃû×Ö.mp3"));
+	//player->setMedia(QUrl::fromLocalFile("D:\\music\\ä½ çš„åå­—.mp3"));
 
-	//player->setVolume(50);	// ÉèÖÃÒôÆµ²¥·ÅµÄ³õÊ¼ÒôÁ¿´óÐ¡
-	//player->play();	// ¿ªÊ¼²¥·Å
+	//player->setVolume(50);	// è®¾ç½®éŸ³é¢‘æ’­æ”¾çš„åˆå§‹éŸ³é‡å¤§å°
+	//player->play();	// å¼€å§‹æ’­æ”¾
 
 	QApplication a(argc, argv);
 	QFile file(":/css/Resource/stylesheet.css");
@@ -28,10 +30,12 @@ int main(int argc, char *argv[])
 		QMessageBox::about(NULL, "Test", "Open File Failed");
 		//file.close();
 	}
-	Start s;
-	s.show();
-	/*Player* o = new Player("222", "sss", "ss", 100);
-	MyMainWindow w(3,o);
-	w.show();*/
+	//Start s;
+	//s.show();
+	//Player* o = new Player("222", "sss", "ss", 100);
+	//MyMainWindow w(3,o);
+	//w.show();
+	OriginInterface v;
+	v.show();
     return a.exec();
 }
