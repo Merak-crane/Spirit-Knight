@@ -18,11 +18,16 @@ SorcererOne::SorcererOne() {
     direction = 0;
     kind = 0;
     strong = 0;
+    bullet_num = 0;
     health_point = 100;
     health_point_max = 100;
     attack_range_x = 600;
     attack_range_y = 40;
     bullet_collector.resize(1);
+    //for (int i = 1; i < 10; i++)
+    //{
+    //    bullet_collector[i] = new BulletOne(100,100,100);
+    //}
     photo = QPixmap(":/image/Resource/image/bomber/stand/bomber_14.png");
     PathCreator(":/image/Resource/image/bomber/move/bomber_", ".png", 31, 4, running.skill_picture);
     PathCreator(":/image/Resource/image/bomber/side_attack/bomber_", ".png", 22, 3, attack.skill_picture);
@@ -70,10 +75,11 @@ void SorcererOne::Attack() {
         QImage mirroredImage = image.mirrored(true, false);
         photo = QPixmap::fromImage(mirroredImage);
     }
-    if (bullet_collector.size() < 3) {
-        BulletOne* new_bullet = new BulletOne(real_body_x, real_body_y, direction);
-        bullet_collector.push_back(new_bullet);
+    bullet_num++;
+    if (bullet_num > 10) {
+        bullet_num = 1;
     }
+    bullet_collector[bullet_num]->PositionUpdate(x, y, direction);
 }
 
 void SorcererOne::BeAttacked(Hero hero) {

@@ -33,7 +33,7 @@ MyMainWindow::MyMainWindow(int mode, Player* local, QWidget *parent)
         }
     });
     if (mode == 1) {
-        qDebug() << 1;
+        
         map_choose = 1;
         /*battle1 = new QSound(":/new/prefix1/Resource/sound/BGMmap.wav", this);
         battle1->play();
@@ -50,8 +50,8 @@ MyMainWindow::MyMainWindow(int mode, Player* local, QWidget *parent)
         sorcerer_one_survive.resize(sorcerer_one_num);
         sorcerer_one_time.resize(sorcerer_one_num);
         for (int i = 1; i < sorcerer_one.size(); i++) {
-        sorcerer_one[i] = new SorcererOne();
-        sorcerer_one_survive[i] = false;
+            sorcerer_one[i] = new SorcererOne;
+            sorcerer_one_survive[i] = true;
         }
     }
     int little_monster_num = 3;
@@ -68,7 +68,7 @@ MyMainWindow::MyMainWindow(int mode, Player* local, QWidget *parent)
     little_monster2_time.resize(little_monster_num);
     for (int i = 1; i < little_monster2.size(); i++) {
         little_monster2[i] = new LittleMonster(1);
-        little_monster2_survive[i] = true;
+        little_monster2_survive[i] = false;
     }
     int middle_monster_num = 2;
     middle_monster.resize(middle_monster_num);
@@ -776,7 +776,7 @@ void MyMainWindow::UpdateOne(int mode) {
                 little_monster_survive.resize(little_monster_num);
                 little_monster_time.resize(little_monster_num);
                 for (int i = 1; i < little_monster_num; i++) {
-                    little_monster[i] = new LittleMonster(1);
+                    little_monster[i] = new LittleMonster(0);
                     little_monster_survive[i] = true;
                 }
             }
@@ -804,7 +804,7 @@ void MyMainWindow::UpdateOne(int mode) {
                 little_monster_survive.resize(little_monster_num);
                 little_monster_time.resize(little_monster_num);
                 for (int i = 1; i < little_monster_num; i++) {
-                    little_monster[i] = new LittleMonster(1);
+                    little_monster[i] = new LittleMonster(0);
                     little_monster_survive[i] = true;
                 }
                 qDebug() << "好的";
@@ -839,7 +839,7 @@ void MyMainWindow::UpdateOne(int mode) {
             little_monster_survive.resize(little_monster_num);
             little_monster_time.resize(little_monster_num);
             for (int i = 1; i < little_monster_num; i++) {
-                little_monster[i] = new LittleMonster(1);
+                little_monster[i] = new LittleMonster(0);
                 little_monster_survive[i] = true;
             }
             if (map_choose < -9) {

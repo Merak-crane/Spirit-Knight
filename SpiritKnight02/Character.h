@@ -118,6 +118,7 @@ public:
 	bool bullet_survive = false;
 	BulletOne(int x, int y, int direction);
 	void Move();
+	void PositionUpdate(int x, int y, int direction);
 	void Disappear();
 };
 class SorcererOne : public Character {

@@ -34,6 +34,12 @@ void BulletOne::Move() {
 	}
 }
 
+void BulletOne::PositionUpdate(int x, int y, int direction) {
+	this->x = x;
+	this->y = y - 30;
+	this->direction = direction;
+}
+
 void BulletOne::Disappear() {
 	attack_range.moveTo(x + 10 - attack_range_x / 2, y + 20 - attack_range_y / 2);
 	attack_range.setWidth(attack_range_x);   //¹¥»÷¾ØÐÎ(Åö×²¼ì²â)
