@@ -1,4 +1,5 @@
 #include "SetUp.h"
+#include "StartInterface.h"
 #include <QPainter>
 #include <QDebug>
 #include <QDesktopWidget>
@@ -10,10 +11,11 @@
 #include <QSqlRecord>
 #include <QMessageBox>
 
-SetUp::SetUp(Hero hero, Player* local, int mode, int mapchoose, QWidget *parent)
+SetUp::SetUp(Hero hero, Player* local, int mode, int mapchoose, QWidget* parent)
 	: QWidget(parent)
 {
 	ui.setupUi(this);
+	this->parent = parent;
 	this->mode = mode;
 	this->mapchoose = mapchoose;
 	this->hero = hero;
@@ -45,7 +47,7 @@ SetUp::SetUp(Hero hero, Player* local, int mode, int mapchoose, QWidget *parent)
 
 	save->resize(240, 80);
 	save->move(100, 300);
-	QPixmap p15 = QPixmap(":/ui/Resource/image/ui/return.png");
+	QPixmap p15 = QPixmap(":/ui/Resource/image/ui/load.png");
 	save->setIcon(p15);
 	save->setIconSize(QSize(240, 80));
 	save->setFlat(true);
@@ -80,9 +82,9 @@ SetUp::SetUp(Hero hero, Player* local, int mode, int mapchoose, QWidget *parent)
 
 	connect(save, &QPushButton::clicked, this, &SetUp::Load);
 	connect(load_one, &QPushButton::clicked, this, &SetUp::LoadOne);
-	//connect(load_two, &QPushButton::clicked, this, &SetUp::LoadTwo);
-	//connect(load_three, &QPushButton::clicked, this, &SetUp::LoadThree);
-
+	connect(load_two, &QPushButton::clicked, this, &SetUp::LoadTwo);
+	connect(load_three, &QPushButton::clicked, this, &SetUp::LoadThree);
+	remind->setObjectName("remind");
 	remind->setGeometry(200, 100, 400, 50);
 	remind->setText("自选");
 	load_interface->hide();
@@ -114,6 +116,8 @@ void SetUp::LoadOne() {
 		QMessageBox::information(this, "提示", "存档失败!请联系管理员");
 	}
 	delete query;
+	parent->close();
+	delete this;
 }
 
 void SetUp::LoadTwo() {
@@ -129,6 +133,8 @@ void SetUp::LoadTwo() {
 		QMessageBox::information(this, "提示", "存档失败!请联系管理员");
 	}
 	delete query;
+	parent->close();
+	delete this;
 }
 
 void SetUp::LoadThree() {
@@ -144,7 +150,10 @@ void SetUp::LoadThree() {
 		QMessageBox::information(this, "提示", "存档失败!请联系管理员");
 	}
 	delete query;
+	parent->close();
+	delete this;
 }
+
 
 
 SetUp::~SetUp()

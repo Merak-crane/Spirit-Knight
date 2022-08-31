@@ -1,5 +1,6 @@
 #include "LoadInterface.h"
 #include "StartInterface.h"
+#include "MyMainWindow.h"
 #include <QDesktopWidget>
 #include <QDebug>
 
@@ -9,6 +10,7 @@ LoadInterface::LoadInterface(Player* local, QWidget *parent)
 	ui.setupUi(this);
 	this->setAttribute(Qt::WA_DeleteOnClose);
 	this->local = local;
+	qDebug() << local->GetUsername();
 	QDesktopWidget w;
 	int DeskWidth = w.width() / 2;
 	int DeskHeight = w.height() / 2;//获取设备的分辨率
@@ -45,14 +47,68 @@ LoadInterface::LoadInterface(Player* local, QWidget *parent)
 	returnbtn_load->setFlat(true);
 
 	connect(returnbtn_load, &QPushButton::clicked, this, &LoadInterface::ReturnBack);
-	//connect(load_one, &QPushButton::clicked, this, &LoadInterface::load_1);
-	//connect(load_two, &QPushButton::clicked, this, &LoadInterface::load_2);
-	//connect(load_three, &QPushButton::clicked, this, &LoadInterface::load_3);
+	connect(load_one, &QPushButton::clicked, this, &LoadInterface::LoadOne);
+	connect(load_two, &QPushButton::clicked, this, &LoadInterface::LoadTwo);
+	connect(load_three, &QPushButton::clicked, this, &LoadInterface::LoadThree);
 }
 
 void LoadInterface::ReturnBack() {
 	StartInterface* load = new StartInterface(local);
 	load->show();
+	this->close();
+}
+
+void LoadInterface::LoadOne() {
+	QSqlTableModel* model = new QSqlTableModel;
+	QString user = local->GetUsername();
+	model->setTable("gameload");
+	model->setFilter(QString("username='%1' and load_num=1").arg(user));//查询存档
+	model->select();
+	QSqlRecord record = model->record(0);
+	QString username = record.value("username").toString();
+	int hp = record.value("hp").toInt();
+	int mp = record.value("mp").toInt();
+	int exp = record.value("exp").toInt();
+	int level = record.value("level").toInt();
+	local = new Player(username, hp, mp, exp, level);
+	MyMainWindow* w = new MyMainWindow(record.value("mode").toInt(),local, record.value("mapchoose").toInt());
+	w->show();
+	this->close();
+}
+
+void LoadInterface::LoadTwo() {
+	QSqlTableModel* model = new QSqlTableModel;
+	QString user = local->GetUsername();
+	model->setTable("gameload");
+	model->setFilter(QString("username='%1' and load_num=2").arg(user));//查询存档
+	model->select();
+	QSqlRecord record = model->record(0);
+	QString username = record.value("username").toString();
+	int hp = record.value("hp").toInt();
+	int mp = record.value("mp").toInt();
+	int exp = record.value("exp").toInt();
+	int level = record.value("level").toInt();
+	local = new Player(username, hp, mp, exp, level);
+	MyMainWindow* w = new MyMainWindow(record.value("mode").toInt(), local, record.value("mapchoose").toInt());
+	w->show();
+	this->close();
+}
+
+void LoadInterface::LoadThree() {
+	QSqlTableModel* model = new QSqlTableModel;
+	QString user = local->GetUsername();
+	model->setTable("gameload");
+	model->setFilter(QString("username='%1' and load_num=3").arg(user));//查询存档
+	model->select();
+	QSqlRecord record = model->record(0);
+	QString username = record.value("username").toString();
+	int hp = record.value("hp").toInt();
+	int mp = record.value("mp").toInt();
+	int exp = record.value("exp").toInt();
+	int level = record.value("level").toInt();
+	local = new Player(username, hp, mp, exp, level);
+	MyMainWindow* w = new MyMainWindow(record.value("mode").toInt(), local, record.value("mapchoose").toInt());
+	w->show();
 	this->close();
 }
 

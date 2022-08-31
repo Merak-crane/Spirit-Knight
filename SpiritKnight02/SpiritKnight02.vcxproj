@@ -109,7 +109,6 @@
     <ClCompile Include="Character.cpp" />
     <ClCompile Include="MyMainWindow.cpp" />
     <ClCompile Include="main.cpp" />
-    <QtUic Include="SetUp.ui" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Character.h" />
@@ -121,8 +120,8 @@
     <QtMoc Include="ModeInterface.h" />
     <QtMoc Include="LoadInterface.h" />
     <ClInclude Include="Player.h" />
-    <QtMoc Include="SetUp.h" />
     <QtMoc Include="RegisterInterface.h" />
+    <QtMoc Include="SetUp.h" />
     <ClInclude Include="Smtp.h" />
     <QtMoc Include="Start.h" />
   </ItemGroup>

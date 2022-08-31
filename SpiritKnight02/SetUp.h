@@ -1,4 +1,5 @@
 #pragma once
+
 #pragma execution_character_set("utf-8")  
 #include "ui_SetUp.h"
 #include "Character.h"
@@ -19,6 +20,7 @@ public:
 	Hero hero;
 	Player* local;
 	QLabel* remind = new QLabel(this);
+	QWidget* parent;
 	QWidget* load_interface = new QWidget(this);
 	QWidget* set_interface = new QWidget(this);
 	QPushButton* back = new QPushButton(set_interface);

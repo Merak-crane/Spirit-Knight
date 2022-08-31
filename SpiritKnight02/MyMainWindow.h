@@ -20,7 +20,7 @@ public:
     QLabel* user_information_label;
     Player* local;
     MyMainWindow(QWidget *parent = nullptr);
-    MyMainWindow(int mode, Player* local, QWidget *parent = nullptr);
+    MyMainWindow(int mode, Player* local, int mapchoose = 0, QWidget *parent = nullptr);
     ~MyMainWindow();
     void paintEvent(QPaintEvent *event);
     void keyPressEvent(QKeyEvent* event);

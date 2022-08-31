@@ -5,6 +5,13 @@
 #include "Player.h"
 #include <QPushButton>
 #include <QPainter>
+#include <QMessageBox>
+#include <QSqlDatabase>
+#include <QSqlQuery>
+#include <QSqlError>
+#include <QRegExpValidator>
+#include <QSqlTableModel>
+#include <QSqlRecord>
 
 class LoadInterface : public QWidget
 {
@@ -14,6 +21,9 @@ public:
 	LoadInterface(Player* local,QWidget *parent = nullptr);
 	~LoadInterface();
 	void ReturnBack();
+	void LoadOne();
+	void LoadTwo();
+	void LoadThree();
 private:
 	Ui::LoadInterfaceClass ui;
 	Player* local;

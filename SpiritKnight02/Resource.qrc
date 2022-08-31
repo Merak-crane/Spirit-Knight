@@ -213,5 +213,18 @@
         <file>Resource/image/ui/return.png</file>
         <file>Resource/image/ui/returnback.png</file>
         <file>Resource/image/ui/start.png</file>
+        <file>Resource/image/zark/dash/googuy_52.png</file>
+        <file>Resource/image/zark/dash/googuy_53.png</file>
+        <file>Resource/image/zark/dash/googuy_54.png</file>
+        <file>Resource/image/zark/dash/googuy_55.png</file>
+        <file>Resource/image/zark/dash/googuy_56.png</file>
+        <file>Resource/image/zark/dash/googuy_57.png</file>
+        <file>Resource/image/zark/dash/googuy_58.png</file>
+        <file>Resource/image/zark/dash/googuy_59.png</file>
+        <file>Resource/image/zark/dash/googuy_60.png</file>
+        <file>Resource/image/zark/dash/googuy_61.png</file>
+        <file>Resource/image/zark/dash/googuy_62.png</file>
+        <file>Resource/image/zark/dash/googuy_63.png</file>
+        <file>Resource/image/ui/load.png</file>
     </qresource>
 </RCC>
