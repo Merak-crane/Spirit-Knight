@@ -1,3 +1,4 @@
+#include"MyMainWindow.h"
 #include "Character.h"
 #include <QPainter>
 #include <QDebug>
@@ -140,7 +141,6 @@ int Character::GetY() {
 int Character::GetKind() {
     return kind;
 }
-
 bool Character::GetLay() {
     return lay;
 }
@@ -222,9 +222,9 @@ Hero::Hero() {
     real_body.setHeight(50);
     attack_range_x = 110;
     attack_range_y = 100;
-    health_point_max = 20000;
+    health_point_max = 200;
     magic_point_max = 200;
-    health_point = 20000;
+    health_point = 200;
     magic_point = 100;
     photo = QPixmap(":/image/Resource/image/main_character/running3/zero4_5.png");
     PathCreator(":/image/Resource/image/main_character/running3/zero4_", ".png", 5, 13, running.skill_picture);
@@ -246,7 +246,7 @@ void Hero::BeAttacked(vector<LittleMonster*> monster, vector<bool> monster_survi
         }
     }
 }
-LittleMonster::LittleMonster() {
+LittleMonster::LittleMonster(int type) {
     x = (rand() % ( 1200 + 1)) + 0;
     y = (rand() % ( 600 + 1)) + 0;
     real_body_width = 59 * size_factor;
@@ -267,11 +267,21 @@ LittleMonster::LittleMonster() {
     health_point_max = 100;
     attack_range_x = 100;
     attack_range_y = 100;
-    photo = QPixmap(":/image/Resource/image/little_monter/attack1/panther_47.png");
-    PathCreator(":/image/Resource/image/little_monter/run1/panther_", ".png", 11, 6, running.skill_picture);
-    PathCreator(":/image/Resource/image/little_monter/attack1/panther_", ".png", 47, 10, attack.skill_picture);
-    PathCreator(":/image/Resource/image/little_monter/beattack/panther_", ".png", 33, 9, be_attack.skill_picture);
-    PathCreator(":/image/Resource/image/little_monter/beattack/panther_", ".png", 33, 9, die.skill_picture);
+    if (type == 0) {
+        photo = QPixmap(":/image/Resource/image/little_monter/attack1/panther_47.png");
+        PathCreator(":/image/Resource/image/little_monter/run1/panther_", ".png", 11, 6, running.skill_picture);
+        PathCreator(":/image/Resource/image/little_monter/attack1/panther_", ".png", 47, 10, attack.skill_picture);
+        PathCreator(":/image/Resource/image/little_monter/beattack/panther_", ".png", 33, 9, be_attack.skill_picture);
+        PathCreator(":/image/Resource/image/little_monter/beattack/panther_", ".png", 33, 9, die.skill_picture);
+    }
+    else if (type == 1)
+    {
+        photo = QPixmap(":/image/Resource/image/snake_L/stand/hewligg_0.png");
+        PathCreator(":/image/Resource/image/snake_L/move/hewligg_", ".png", 22, 6, running.skill_picture);
+        PathCreator(":/image/Resource/image/snake_L/attack/hewligg_", ".png", 28, 7, attack.skill_picture);
+        PathCreator(":/image/Resource/image/snake_L/beattacked/hewligg_", ".png", 4, 2, be_attack.skill_picture);
+        PathCreator(":/image/Resource/image/snake_L/beattacked/hewligg_", ".png", 4, 2, die.skill_picture);
+    }
 }
 
 void LittleMonster::Move(Hero player) {

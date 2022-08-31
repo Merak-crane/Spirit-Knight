@@ -6,7 +6,7 @@
 #include "Player.h"
 #include <QTimer>
 #include <QLabel>
-
+#include <QSound>
 class MyMainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -25,7 +25,8 @@ public:
     void UpdateOne(int mode);
     void timerEvent(QTimerEvent* event);
     void UpdateM(MiddleMonster* []);
-
+   /* QSound* froestBGM, * battle1;
+    QSound* h_satt;*/
 private:
     Ui::MyMainWindowClass ui;
     int map_choose;

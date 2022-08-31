@@ -157,6 +157,40 @@
         <file>Resource/image/zark/dash/googuy_61.png</file>
         <file>Resource/image/zark/dash/googuy_62.png</file>
         <file>Resource/image/zark/dash/googuy_63.png</file>
+        <file>Resource/image/bomber/bullet/foxtar_90.png</file>
+        <file>Resource/image/bomber/bullet/foxtar_91.png</file>
+        <file>Resource/image/bomber/bullet/foxtar_92.png</file>
+        <file>Resource/image/bomber/bullet/foxtar_93.png</file>
+        <file>Resource/image/bomber/bullet/foxtar_94.png</file>
+        <file>Resource/image/bomber/beattacked/bomber_16.png</file>
+        <file>Resource/image/bomber/beattacked/bomber_17.png</file>
+        <file>Resource/image/bomber/beattacked/bomber_18.png</file>
+        <file>Resource/image/bomber/side_attack/bomber_22.png</file>
+        <file>Resource/image/bomber/side_attack/bomber_23.png</file>
+        <file>Resource/image/bomber/side_attack/bomber_24.png</file>
+        <file>Resource/image/bomber/stand/bomber_14.png</file>
+        <file>Resource/image/bomber/move/bomber_31.png</file>
+        <file>Resource/image/bomber/move/bomber_32.png</file>
+        <file>Resource/image/bomber/move/bomber_33.png</file>
+        <file>Resource/image/bomber/move/bomber_34.png</file>
+        <file>Resource/image/snake_L/attack/hewligg_28.png</file>
+        <file>Resource/image/snake_L/attack/hewligg_29.png</file>
+        <file>Resource/image/snake_L/attack/hewligg_30.png</file>
+        <file>Resource/image/snake_L/attack/hewligg_31.png</file>
+        <file>Resource/image/snake_L/attack/hewligg_32.png</file>
+        <file>Resource/image/snake_L/attack/hewligg_33.png</file>
+        <file>Resource/image/snake_L/attack/hewligg_34.png</file>
+        <file>Resource/image/snake_L/beattacked/hewligg_4.png</file>
+        <file>Resource/image/snake_L/beattacked/hewligg_5.png</file>
+        <file>Resource/image/snake_L/move/hewligg_22.png</file>
+        <file>Resource/image/snake_L/move/hewligg_23.png</file>
+        <file>Resource/image/snake_L/move/hewligg_24.png</file>
+        <file>Resource/image/snake_L/move/hewligg_25.png</file>
+        <file>Resource/image/snake_L/move/hewligg_26.png</file>
+        <file>Resource/image/snake_L/move/hewligg_27.png</file>
+        <file>Resource/image/snake_L/stand/hewligg_0.png</file>
+        <file>Resource/image/snake_L/stand/hewligg_1.png</file>
+        <file>Resource/image/snake_L/stand/hewligg_2.png</file>
     </qresource>
     <qresource prefix="/css">
         <file>Resource/stylesheet.css</file>
