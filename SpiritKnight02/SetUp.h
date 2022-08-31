@@ -1,6 +1,8 @@
 #pragma once
 #pragma execution_character_set("utf-8")  
 #include "ui_SetUp.h"
+#include "Character.h"
+#include "Player.h"
 #include <QPushButton>
 #include <QWidget>
 #include <QLabel>
@@ -10,8 +12,12 @@ class SetUp : public QWidget
 	Q_OBJECT
 
 public:
-	SetUp(QWidget *parent = nullptr);
+	SetUp(Hero hero, Player* local, int mode, int mapchoose, QWidget *parent = nullptr);
 	~SetUp();
+	int mode;
+	int mapchoose;
+	Hero hero;
+	Player* local;
 	QLabel* remind = new QLabel(this);
 	QWidget* load_interface = new QWidget(this);
 	QWidget* set_interface = new QWidget(this);

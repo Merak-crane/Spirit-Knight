@@ -51,11 +51,13 @@ public:
 	int GetKind();
 	bool GetLay();
 	int GetDirection();	
+	int GetLevel();
 	double GetHP();
 	double GetMP();
 	double GetHPMAX();
 	double GetMPMAX();
 	void SetDirection(int direction);
+	void SetLevel(int level);
 	void SetX(int x);
 	void SetY(int y);
 	void SetKind(int kind);
@@ -128,11 +130,14 @@ public:
 };
 class Hero : public Character {
 private:
+	int exp;
 public:
 	Hero();
 	void Show();
 	void BeAttacked(vector<LittleMonster*> monster, vector<bool> monster_survive);
 	void BeAttackedAnimation();
+	void SetExp(int exp);
+	int GetExp();
 };
 
 class LittleMonster: public Character {

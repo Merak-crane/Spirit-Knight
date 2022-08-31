@@ -101,7 +101,7 @@ MyMainWindow::MyMainWindow(int mode, Player* local, QWidget *parent)
     set_up_btn->setIconSize(QSize(240, 80));
     set_up_btn->setFlat(true);
     connect(set_up_btn, &QPushButton::clicked, [=]() {
-        SetUp* set = new SetUp(this);
+        SetUp* set = new SetUp(hero_one, local, mode, map_choose, this);
         set->show();
         });
 }

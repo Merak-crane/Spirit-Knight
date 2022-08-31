@@ -2,11 +2,34 @@
 #include <QPainter>
 #include <QDebug>
 #include <QDesktopWidget>
+#include <QSqlDatabase>
+#include <QSqlQuery>
+#include <QSqlError>
+#include <QRegExpValidator>
+#include <QSqlTableModel>
+#include <QSqlRecord>
+#include <QMessageBox>
 
-SetUp::SetUp(QWidget *parent)
+SetUp::SetUp(Hero hero, Player* local, int mode, int mapchoose, QWidget *parent)
 	: QWidget(parent)
 {
 	ui.setupUi(this);
+	this->mode = mode;
+	this->mapchoose = mapchoose;
+	this->hero = hero;
+	this->local = local;
+	QSqlDatabase data_base = QSqlDatabase::addDatabase("QMYSQL");//添加驱动
+	data_base.setHostName("175.178.64.219");  //设置主机地址
+	data_base.setPort(3306);  //mysql设置端口
+	data_base.setDatabaseName("gametest");  //设置数据库名称
+	if (!data_base.open())//打开数据库
+	{
+		qDebug() << "connect failed";
+		qDebug() << data_base.lastError();//.databaseText()  输出错误信息
+	}
+	else
+		qDebug() << "success";
+	data_base.close();//关闭数据库
 	QDesktopWidget* desktop = QApplication::desktop();
 	this->setFixedSize(600, 400);//设置窗口大小
 	this->setWindowTitle(QString::fromUtf16(u"设置"));//设置窗口标题
@@ -57,8 +80,8 @@ SetUp::SetUp(QWidget *parent)
 
 	connect(save, &QPushButton::clicked, this, &SetUp::Load);
 	connect(load_one, &QPushButton::clicked, this, &SetUp::LoadOne);
-	connect(load_two, &QPushButton::clicked, this, &SetUp::LoadTwo);
-	connect(load_three, &QPushButton::clicked, this, &SetUp::LoadThree);
+	//connect(load_two, &QPushButton::clicked, this, &SetUp::LoadTwo);
+	//connect(load_three, &QPushButton::clicked, this, &SetUp::LoadThree);
 
 	remind->setGeometry(200, 100, 400, 50);
 	remind->setText("自选");
@@ -79,8 +102,50 @@ void SetUp::Load() {
 }
 
 void SetUp::LoadOne() {
-
+	QSqlTableModel* model = new QSqlTableModel;
+	model->setTable("gameload");//选择数据表
+	QString cmd = QString("insert into gameload(username, load_num, mode, map_choose, hp, mp, exp, level)values ('%1',%2,%3,%4,%5,%6,%7,%8)")
+		.arg(local->GetUsername()).arg(1).arg(mode).arg(mapchoose).arg(hero.GetHP()).arg(hero.GetMP()).arg(hero.GetExp()).arg(hero.GetLevel());
+	QSqlQuery* query = new QSqlQuery;
+	if (query->exec(cmd)) {
+		QMessageBox::information(this, "提示", "存档成功!");
+	}
+	else {
+		QMessageBox::information(this, "提示", "存档失败!请联系管理员");
+	}
+	delete query;
 }
+
+void SetUp::LoadTwo() {
+	QSqlTableModel* model = new QSqlTableModel;
+	model->setTable("gameload");//选择数据表
+	QString cmd = QString("insert into gameload(username, load_num, mode, map_choose, hp, mp, exp, level)values ('%1',%2,%3,%4,%5,%6,%7,%8)")
+		.arg(local->GetUsername()).arg(2).arg(mode).arg(mapchoose).arg(hero.GetHP()).arg(hero.GetMP()).arg(hero.GetExp()).arg(hero.GetLevel());
+	QSqlQuery* query = new QSqlQuery;
+	if (query->exec(cmd)) {
+		QMessageBox::information(this, "提示", "存档成功!");
+	}
+	else {
+		QMessageBox::information(this, "提示", "存档失败!请联系管理员");
+	}
+	delete query;
+}
+
+void SetUp::LoadThree() {
+	QSqlTableModel* model = new QSqlTableModel;
+	model->setTable("gameload");//选择数据表
+	QString cmd = QString("insert into gameload(username, load_num, mode, map_choose, hp, mp, exp, level)values ('%1',%2,%3,%4,%5,%6,%7,%8)")
+		.arg(local->GetUsername()).arg(3).arg(mode).arg(mapchoose).arg(hero.GetHP()).arg(hero.GetMP()).arg(hero.GetExp()).arg(hero.GetLevel());
+	QSqlQuery* query = new QSqlQuery;
+	if (query->exec(cmd)) {
+		QMessageBox::information(this, "提示", "存档成功!");
+	}
+	else {
+		QMessageBox::information(this, "提示", "存档失败!请联系管理员");
+	}
+	delete query;
+}
+
 
 SetUp::~SetUp()
 {}

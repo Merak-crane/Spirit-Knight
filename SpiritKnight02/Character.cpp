@@ -152,6 +152,10 @@ int Character::GetDirection() {
     return direction;
 }
 
+int Character::GetLevel() {
+    return level;
+}
+
 double Character::GetMP() {
     return magic_point;
 }
@@ -167,6 +171,7 @@ double Character::GetMPMAX() {
 double Character::GetHPMAX() {
     return health_point_max;
 }
+
 
 void Character::SetX(int X) {
     this->x = x;
@@ -190,6 +195,10 @@ void Character::SetStrong(int strong) {
 
 void Character::SetDirection(int direction) {
     this->direction = direction;
+}
+
+void Character::SetLevel(int level) {
+    this->level = level;
 }
 
 void Character::SetMP(double magic_point) {
@@ -234,6 +243,15 @@ Hero::Hero() {
 void Hero::Show() {
 
 }
+
+void Hero::SetExp(int exp) {
+    this->exp = exp;
+}
+
+int Hero::GetExp() {
+    return exp;
+}
+
 void Hero::BeAttacked(vector<LittleMonster*> monster, vector<bool> monster_survive) {
     for (int i = 1; i < 3; i++)
     {
