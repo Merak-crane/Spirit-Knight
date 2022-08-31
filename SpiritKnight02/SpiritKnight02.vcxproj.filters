@@ -35,9 +35,6 @@
     <QtRcc Include="Resource.qrc">
       <Filter>Resource Files</Filter>
     </QtRcc>
-    <QtUic Include="SetUp.ui">
-      <Filter>Header Files</Filter>
-    </QtUic>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -61,9 +58,6 @@
     <ClCompile Include="Bullet.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="SetUp.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="OriginInterface.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -85,6 +79,9 @@
     <ClCompile Include="LoadInterface.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SetUp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Character.h">
@@ -102,9 +99,6 @@
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="Start.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
-    <QtMoc Include="SetUp.h">
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="OriginInterface.h">
@@ -126,6 +120,9 @@
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="LoadInterface.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="SetUp.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>

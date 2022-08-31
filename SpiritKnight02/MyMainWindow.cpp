@@ -9,9 +9,16 @@
 #include "time.h"
 #include <QKeyEvent>
 #include <QMessageBox>
-MyMainWindow::MyMainWindow(int mode, Player* local, QWidget *parent)
+MyMainWindow::MyMainWindow(int mode, Player* local, int mapchoose, QWidget *parent)
     : QMainWindow(parent)
 {  
+    if (mapchoose != 0) {
+        qDebug() << "s";
+        this->map_choose = mapchoose;
+        hero_one.SetHP(local->GetHP());
+        hero_one.SetMP(local->GetMP());
+        hero_one.SetLevel(local->GetLevel());
+    }
     this->local = local;
     close_num = 3;
     srand((unsigned)time(NULL));
@@ -33,12 +40,14 @@ MyMainWindow::MyMainWindow(int mode, Player* local, QWidget *parent)
             //this->close();
         }
     });
-    if (mode == 1) {
-        map_choose = 1;
-    }
-    else
-    {
-        map_choose = -1;
+    if (mapchoose == 0){
+        if (mode == 1) {
+            this->map_choose = 1;
+        }
+        else
+        {
+            this->map_choose = -1;
+        }
     }
         //for (int i = 1; i < 3; i++) {
         //    middle_monster[i] = new MiddleMonster();
@@ -65,7 +74,7 @@ MyMainWindow::MyMainWindow(int mode, Player* local, QWidget *parent)
         middle_monster[i] = new MiddleMonster();
         middle_monster_survive[i] = false;
     }
-    if (mode == 3) {
+    if (mode == 3 && mapchoose == 0) {
         map_choose = 1;
         int sorcerer_one_num = 2;
         sorcerer_one.resize(sorcerer_one_num);

@@ -38,11 +38,11 @@ ModeInterface::ModeInterface(Player* local, QWidget *parent)
 	returnbtn_mode->setFlat(true);
 
 	connect(mode_one, &QPushButton::clicked, [=]() {
-		MyMainWindow* gamewindow = new MyMainWindow(1, local, this);
+		MyMainWindow* gamewindow = new MyMainWindow(1, local, 0, this);
 		gamewindow->show();
 		});
 	connect(mode_two, &QPushButton::clicked, [=]() {
-		MyMainWindow* gamewindow = new MyMainWindow(2, local, this);
+		MyMainWindow* gamewindow = new MyMainWindow(2, local, 0, this);
 		});
 	connect(returnbtn_mode, &QPushButton::clicked, this, &ModeInterface::ReturnBack);
 }

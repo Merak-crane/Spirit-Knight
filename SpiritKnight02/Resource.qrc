@@ -191,5 +191,6 @@
         <file>Resource/image/zark/dash/googuy_61.png</file>
         <file>Resource/image/zark/dash/googuy_62.png</file>
         <file>Resource/image/zark/dash/googuy_63.png</file>
+        <file>Resource/image/ui/load.png</file>
     </qresource>
 </RCC>

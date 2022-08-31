@@ -136,6 +136,7 @@ void LoginInterface::LoginConfirm() {
 			QString name = record.value("name").toString();
 			local = new Player(record.value("name").toString(), record.value("email").toString(), record.value("power").toString()
 				, record.value("level").toInt());
+			qDebug() << local->GetUsername();
 			this->close();
 			StartInterface* login = new StartInterface(local);
 			login->show();
