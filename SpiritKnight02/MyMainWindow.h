@@ -8,6 +8,7 @@
 #include <QLabel>
 #include <QPushButton>
 
+#include <QSound>
 class MyMainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -27,16 +28,13 @@ public:
     void UpdateOne(int mode);
     void timerEvent(QTimerEvent* event);
     void UpdateM(MiddleMonster* []);
-
+   /* QSound* froestBGM, * battle1;
+    QSound* h_satt;*/
 private:
     Ui::MyMainWindowClass ui;
     int map_choose;
     int close_num;
     int timeID1;
-    int timeID3[3];
-    int timeID4[3];
-    int timeID5[2];
-    int timeID6[2];
     int timeIDm1;
     QPushButton* set_up_btn;
     vector<int> sorcerer_one_time;
@@ -45,6 +43,9 @@ private:
     vector<int> little_monster_time;
     vector<LittleMonster*> little_monster;
     vector<bool> little_monster_survive;
+    vector<int> little_monster2_time;
+    vector<LittleMonster*> little_monster2;
+    vector<bool> little_monster2_survive;
     vector<int> middle_monster_time_one;
     vector<int> middle_monster_time_two;
     vector<MiddleMonster*> middle_monster;

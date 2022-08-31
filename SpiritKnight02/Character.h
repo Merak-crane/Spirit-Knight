@@ -34,6 +34,7 @@ public:
 	int real_body_y;
 	int y_speed;
 	int life = 2;
+	int bullet_num = 0;
 	QPixmap photo;
 	Character();
 	void WalkLeft();
@@ -102,6 +103,8 @@ public:
 	int real_body_x;
 	int real_body_y;
 	double size_factor;
+	int GetX();
+	int GetY();
 protected:
 	int x;
 	int y;
@@ -114,6 +117,7 @@ class BulletOne : public Bullet{
 private:
 public:
 	QPixmap photo;
+	bool bullet_survive = false;
 	BulletOne(int x, int y, int direction);
 	void Move();
 	void Disappear();
@@ -121,6 +125,7 @@ public:
 class SorcererOne : public Character {
 private:
 public:
+	int bullet_num;
 	vector<BulletOne*> bullet_collector;
 	SorcererOne();
 	void Move(Hero player);
@@ -142,7 +147,7 @@ public:
 
 class LittleMonster: public Character {
 public:
-	LittleMonster();
+	LittleMonster(int type);
 	void Move(Hero player);
 	void Attack();
 	void BeAttacked(Hero hero);

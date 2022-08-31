@@ -1,3 +1,4 @@
+#include"MyMainWindow.h"
 #include "Character.h"
 #include <QPainter>
 #include <QDebug>
@@ -52,13 +53,13 @@ void Character::Attack() {
     if (attacknum == 1) {
         if (direction == 0) {
             attack_range.moveTo(real_body_x - real_body_width / 2 - 25,real_body_y - real_body_height / 2 - 50);
-            attack_range.setWidth(attack_range_x + real_body_width);   //¹¥»÷¾ØĞÎ(Åö×²¼ì²â)
+            attack_range.setWidth(attack_range_x + real_body_width);   //Â¹Â¥Â»Ã·Â¾Ã˜ÃÃ(Ã…Ã¶Ã—Â²Â¼Ã¬Â²Ã¢)
             attack_range.setHeight(attack_range_y + real_body_width / 2);
             photo = QPixmap(FrameAnimation(attack.skill_picture, count_attack));
         }
         else {
             attack_range.moveTo(real_body_x - real_body_width / 2 + 25 - attack_range_x, real_body_y - real_body_height / 2-50);
-            attack_range.setWidth(attack_range_x + real_body_width);   //¹¥»÷¾ØĞÎ(Åö×²¼ì²â)
+            attack_range.setWidth(attack_range_x + real_body_width);   //Â¹Â¥Â»Ã·Â¾Ã˜ÃÃ(Ã…Ã¶Ã—Â²Â¼Ã¬Â²Ã¢)
             attack_range.setHeight(attack_range_y + real_body_width / 2);
             QImage image(FrameAnimation(attack.skill_picture, count_attack));
             QImage mirroredImage = image.mirrored(true, false);
@@ -140,7 +141,6 @@ int Character::GetY() {
 int Character::GetKind() {
     return kind;
 }
-
 bool Character::GetLay() {
     return lay;
 }
@@ -227,7 +227,7 @@ Hero::Hero() {
     count_top = 0;
     strong = 0;
     real_body.moveTo(real_body_x, real_body_y);
-    real_body.setWidth(50);   //¹¥»÷¾ØĞÎ(Åö×²¼ì²â)
+    real_body.setWidth(50);   //Â¹Â¥Â»Ã·Â¾Ã˜ÃÃ(Ã…Ã¶Ã—Â²Â¼Ã¬Â²Ã¢)
     real_body.setHeight(50);
     attack_range_x = 110;
     attack_range_y = 100;
@@ -264,7 +264,7 @@ void Hero::BeAttacked(vector<LittleMonster*> monster, vector<bool> monster_survi
         }
     }
 }
-LittleMonster::LittleMonster() {
+LittleMonster::LittleMonster(int type) {
     x = (rand() % ( 1200 + 1)) + 0;
     y = (rand() % ( 600 + 1)) + 0;
     real_body_width = 59 * size_factor;
@@ -285,11 +285,21 @@ LittleMonster::LittleMonster() {
     health_point_max = 100;
     attack_range_x = 100;
     attack_range_y = 100;
-    photo = QPixmap(":/image/Resource/image/little_monter/attack1/panther_47.png");
-    PathCreator(":/image/Resource/image/little_monter/run1/panther_", ".png", 11, 6, running.skill_picture);
-    PathCreator(":/image/Resource/image/little_monter/attack1/panther_", ".png", 47, 10, attack.skill_picture);
-    PathCreator(":/image/Resource/image/little_monter/beattack/panther_", ".png", 33, 9, be_attack.skill_picture);
-    PathCreator(":/image/Resource/image/little_monter/beattack/panther_", ".png", 33, 9, die.skill_picture);
+    if (type == 0) {
+        photo = QPixmap(":/image/Resource/image/little_monter/attack1/panther_47.png");
+        PathCreator(":/image/Resource/image/little_monter/run1/panther_", ".png", 11, 6, running.skill_picture);
+        PathCreator(":/image/Resource/image/little_monter/attack1/panther_", ".png", 47, 10, attack.skill_picture);
+        PathCreator(":/image/Resource/image/little_monter/beattack/panther_", ".png", 33, 9, be_attack.skill_picture);
+        PathCreator(":/image/Resource/image/little_monter/beattack/panther_", ".png", 33, 9, die.skill_picture);
+    }
+    else if (type == 1)
+    {
+        photo = QPixmap(":/image/Resource/image/snake_L/stand/hewligg_0.png");
+        PathCreator(":/image/Resource/image/snake_L/move/hewligg_", ".png", 22, 6, running.skill_picture);
+        PathCreator(":/image/Resource/image/snake_L/attack/hewligg_", ".png", 28, 7, attack.skill_picture);
+        PathCreator(":/image/Resource/image/snake_L/beattacked/hewligg_", ".png", 4, 2, be_attack.skill_picture);
+        PathCreator(":/image/Resource/image/snake_L/beattacked/hewligg_", ".png", 4, 2, die.skill_picture);
+    }
 }
 
 void LittleMonster::Move(Hero player) {
@@ -328,13 +338,13 @@ void LittleMonster::BeAttacked(Hero hero) {
 void LittleMonster::Attack() {
     if (direction == 0) {
         attack_range.moveTo(real_body_x - real_body_width / 2, real_body_y - real_body_height / 2);
-        attack_range.setWidth(attack_range_x + real_body_width);   //¹¥»÷¾ØĞÎ(Åö×²¼ì²â)
+        attack_range.setWidth(attack_range_x + real_body_width);   //Â¹Â¥Â»Ã·Â¾Ã˜ÃÃ(Ã…Ã¶Ã—Â²Â¼Ã¬Â²Ã¢)
         attack_range.setHeight(attack_range_y + real_body_width / 2);
         photo = QPixmap(FrameAnimation(attack.skill_picture, count_attack));
     }
     else {
         attack_range.moveTo(real_body_x - real_body_width / 2 - attack_range_x, real_body_y - real_body_height / 2);
-        attack_range.setWidth(attack_range_x);   //¹¥»÷¾ØĞÎ(Åö×²¼ì²â)
+        attack_range.setWidth(attack_range_x);   //Â¹Â¥Â»Ã·Â¾Ã˜ÃÃ(Ã…Ã¶Ã—Â²Â¼Ã¬Â²Ã¢)
         attack_range.setHeight(attack_range_y);
         QImage image(FrameAnimation(attack.skill_picture, count_attack));
         QImage mirroredImage = image.mirrored(true, false);
@@ -422,9 +432,9 @@ void MiddleMonster::AttackAnimation() {
         x += x_speed_right;
         real_body_x += x_speed_right;
         attack_range.moveTo(real_body_x - attack_range_x / 2, real_body_y - attack_range_y / 2);
-        attack_range.setWidth(attack_range_x);   //¹¥»÷¾ØĞÎ(Åö×²¼ì²â)
+        attack_range.setWidth(attack_range_x);   //Â¹Â¥Â»Ã·Â¾Ã˜ÃÃ(Ã…Ã¶Ã—Â²Â¼Ã¬Â²Ã¢)
         attack_range.setHeight(attack_range_y);
-        //attack_range.setWidth(attack_range_x + real_body_width);   //¹¥»÷¾ØĞÎ(Åö×²¼ì²â)
+        //attack_range.setWidth(attack_range_x + real_body_width);   //Â¹Â¥Â»Ã·Â¾Ã˜ÃÃ(Ã…Ã¶Ã—Â²Â¼Ã¬Â²Ã¢)
         //attack_range.setHeight(attack_range_y + real_body_width / 2);
         photo = QPixmap(FrameAnimation(attack.skill_picture, count_attack));
     }
@@ -432,7 +442,7 @@ void MiddleMonster::AttackAnimation() {
         x -= x_speed_left;
         real_body_x -= x_speed_left;
         attack_range.moveTo(real_body_x - attack_range_x / 2 , real_body_y - attack_range_y / 2);
-        attack_range.setWidth(attack_range_x);   //¹¥»÷¾ØĞÎ(Åö×²¼ì²â)
+        attack_range.setWidth(attack_range_x);   //Â¹Â¥Â»Ã·Â¾Ã˜ÃÃ(Ã…Ã¶Ã—Â²Â¼Ã¬Â²Ã¢)
         attack_range.setHeight(attack_range_y);
         QImage image(FrameAnimation(attack.skill_picture, count_attack));
         QImage mirroredImage = image.mirrored(true, false);
@@ -557,13 +567,13 @@ void UltraMonster::Attack2(){
 void UltraMonster::AttackAnimation() {
 if (direction == 0) {
         attack_range.moveTo(real_body_x - real_body_width / 2, real_body_y - real_body_height / 2);
-        attack_range.setWidth(attack_range_x + real_body_width);   //¹¥»÷¾ØĞÎ(Åö×²¼ì²â)
+        attack_range.setWidth(attack_range_x + real_body_width);   //Â¹Â¥Â»Ã·Â¾Ã˜ÃÃ(Ã…Ã¶Ã—Â²Â¼Ã¬Â²Ã¢)
         attack_range.setHeight(attack_range_y + real_body_width / 2);
         photo = QPixmap(FrameAnimation(attack.skill_picture, count_attack));
     }
     else {
         attack_range.moveTo(real_body_x - real_body_width / 2 - attack_range_x, real_body_y - real_body_height / 2);
-        attack_range.setWidth(attack_range_x);   //¹¥»÷¾ØĞÎ(Åö×²¼ì²â)
+        attack_range.setWidth(attack_range_x);   //Â¹Â¥Â»Ã·Â¾Ã˜ÃÃ(Ã…Ã¶Ã—Â²Â¼Ã¬Â²Ã¢)
         attack_range.setHeight(attack_range_y);
         QImage image(FrameAnimation(attack.skill_picture, count_attack));
         QImage mirroredImage = image.mirrored(true, false);

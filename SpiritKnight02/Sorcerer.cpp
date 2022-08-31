@@ -20,17 +20,16 @@ SorcererOne::SorcererOne() {
     strong = 0;
     health_point = 100;
     health_point_max = 100;
-    attack_range_x = 1000;
+    attack_range_x = 600;
     attack_range_y = 40;
     bullet_collector.resize(1);
-    photo = QPixmap(":/image/Resource/image/little_monter/attack1/panther_47.png");
-    PathCreator(":/image/Resource/image/little_monter/run1/panther_", ".png", 11, 6, running.skill_picture);
-    PathCreator(":/image/Resource/image/little_monter/attack1/panther_", ".png", 47, 10, attack.skill_picture);
-    PathCreator(":/image/Resource/image/little_monter/beattack/panther_", ".png", 33, 9, be_attack.skill_picture);
-    PathCreator(":/image/Resource/image/little_monter/beattack/panther_", ".png", 33, 9, die.skill_picture);
+    photo = QPixmap(":/image/Resource/image/bomber/stand/bomber_14.png");
+    PathCreator(":/image/Resource/image/bomber/move/bomber_", ".png", 31, 4, running.skill_picture);
+    PathCreator(":/image/Resource/image/bomber/side_attack/bomber_", ".png", 22, 3, attack.skill_picture);
+    PathCreator(":/image/Resource/image/bomber/beattacked/bomber_", ".png", 16, 3, be_attack.skill_picture);
+    PathCreator(":/image/Resource/image/bomber/beattacked/bomber_", ".png", 16, 3, die.skill_picture);
 }
 void SorcererOne::Move(Hero player) {
-    qDebug() << "ss";
     if (kind != 5) {
         if (x < player.GetX() + attack_range_x && x > player.GetX() - attack_range_x && y < player.GetY() + attack_range_y && y > player.GetY() - attack_range_y)
         {
@@ -47,23 +46,34 @@ void SorcererOne::Move(Hero player) {
             if (y > player.GetY()) {
                 WalkTop();
             }
-            if (x >= player.GetX()) {
+            if (x >= player.GetX() - 500) {
                 WalkLeft();
             }
-            if (x < player.GetX()) {
+            if (x < player.GetX() + 500) {
                 WalkRight();
             }
         }
     }
     for (int i = 1; i < bullet_collector.size(); i++)
     {
+        bullet_collector[i]->Move();
         bullet_collector[i]->Disappear();
     }
 }
 
 void SorcererOne::Attack() {
-    BulletOne* new_bullet = new BulletOne(x, y, direction);
-    bullet_collector.push_back(new_bullet);
+    if (direction == 0) {
+        photo = QPixmap(FrameAnimation(attack.skill_picture, count_attack));
+    }
+    else {
+        QImage image(FrameAnimation(attack.skill_picture, count_attack));
+        QImage mirroredImage = image.mirrored(true, false);
+        photo = QPixmap::fromImage(mirroredImage);
+    }
+    if (bullet_collector.size() < 3) {
+        BulletOne* new_bullet = new BulletOne(real_body_x, real_body_y, direction);
+        bullet_collector.push_back(new_bullet);
+    }
 }
 
 void SorcererOne::BeAttacked(Hero hero) {
