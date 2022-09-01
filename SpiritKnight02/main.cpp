@@ -1,5 +1,3 @@
-
-#include "Start.h"
 #include "VideoInterface.h"
 #include "OriginInterface.h"
 #include <QtWidgets/QApplication>
@@ -8,6 +6,7 @@
 #include <QLinearGradient>
 int main(int argc, char *argv[])
 {
+
 
 	// 设置媒体
 	// 方式一：不推荐使用

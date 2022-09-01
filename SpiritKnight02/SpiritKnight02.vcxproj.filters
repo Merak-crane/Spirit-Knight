@@ -35,9 +35,6 @@
     <QtRcc Include="Resource.qrc">
       <Filter>Resource Files</Filter>
     </QtRcc>
-    <QtUic Include="SetUp.ui">
-      <Filter>Header Files</Filter>
-    </QtUic>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -47,9 +44,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Smtp.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Start.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Player.cpp">
@@ -101,9 +95,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <QtMoc Include="Start.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
     <QtMoc Include="SetUp.h">
       <Filter>Header Files</Filter>
     </QtMoc>

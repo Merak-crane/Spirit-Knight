@@ -12,7 +12,7 @@ LoginInterface::LoginInterface(Player* local, QWidget *parent)
 	int DeskWidth = w.width() / 2;
 	int DeskHeight = w.height() / 2;//获取设备的分辨率
 	this->setFixedSize(DeskWidth, DeskHeight);//设置窗口大小
-	this->setWindowTitle(QString::fromUtf16(u"英灵骑士"));//设置窗口标题
+	this->setWindowTitle("Mega Man E");//设置窗口标题
 	this->setWindowIcon(QIcon(":/icon/Resource/icon/htmlogo.png"));//设置窗口logo
 
 	QSqlDatabase data_base = QSqlDatabase::addDatabase("QMYSQL");//添加驱动

@@ -33,7 +33,7 @@ SetUp::SetUp(Hero hero, Player* local, int mode, int mapchoose, QWidget *parent)
 	data_base.close();//关闭数据库
 	QDesktopWidget* desktop = QApplication::desktop();
 	this->setFixedSize(600, 400);//设置窗口大小
-	this->setWindowTitle(QString::fromUtf16(u"设置"));//设置窗口标题
+	this->setWindowTitle("Mega Man E");//设置窗口标题
 	this->setWindowIcon(QIcon(":/icon/Resource/icon/htmlogo.png"));//设置窗口logo
 	this->setWindowFlags(Qt::CustomizeWindowHint);
 	this->move((parent->width() - this->width()) / 2, (parent->height() - this->height()) / 2);
@@ -41,7 +41,7 @@ SetUp::SetUp(Hero hero, Player* local, int mode, int mapchoose, QWidget *parent)
 	close->move(450, 50);
 	QPixmap p12 = QPixmap(":/ui/Resource/image/ui/close.png");
 	close->setIcon(p12);
-	close->setIconSize(QSize(120, 40));
+	close->setIconSize(QSize(120, 80));
 	close->setFlat(true);
 
 	save->resize(240, 80);
@@ -87,7 +87,7 @@ SetUp::SetUp(Hero hero, Player* local, int mode, int mapchoose, QWidget *parent)
 	connect(back, &QPushButton::clicked, this, &SetUp::Back);
 
 	remind->setGeometry(190, 50, 400, 50);
-	remind->setText("选择存档或退出");
+	remind->setText("Make your choice");
 	remind->setObjectName("remind");
 	load_interface->hide();
 	set_interface->show();
@@ -102,7 +102,7 @@ void SetUp::paintEvent(QPaintEvent* event) {
 void SetUp::Load() {
 	delete set_interface;
 	load_interface->show();
-	remind->setText("选择存档位置");
+	remind->setText("Select archive location");
 }
 
 void SetUp::Close() {
@@ -122,10 +122,10 @@ void SetUp::LoadOne() {
 		.arg(local->GetUsername()).arg(1).arg(mode).arg(mapchoose).arg(hero.GetHP()).arg(hero.GetMP()).arg(hero.GetExp()).arg(hero.GetLevel());
 	QSqlQuery* query = new QSqlQuery;
 	if (query->exec(cmd)) {
-		QMessageBox::information(this, "提示", "存档成功!");
+		QMessageBox::information(this, "information", "success!");
 	}
 	else {
-		QMessageBox::information(this, "提示", "存档失败!请联系管理员");
+		QMessageBox::information(this, "information", "Archiving failed! Please contact the administrator");
 	}
 	delete query;
 }
@@ -137,10 +137,10 @@ void SetUp::LoadTwo() {
 		.arg(local->GetUsername()).arg(2).arg(mode).arg(mapchoose).arg(hero.GetHP()).arg(hero.GetMP()).arg(hero.GetExp()).arg(hero.GetLevel());
 	QSqlQuery* query = new QSqlQuery;
 	if (query->exec(cmd)) {
-		QMessageBox::information(this, "提示", "存档成功!");
+		QMessageBox::information(this, "information", "success!!");
 	}
 	else {
-		QMessageBox::information(this, "提示", "存档失败!请联系管理员");
+		QMessageBox::information(this, "information", "Archiving failed! Please contact the administrator");
 	}
 	delete query;
 }

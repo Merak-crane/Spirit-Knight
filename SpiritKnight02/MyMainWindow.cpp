@@ -1,10 +1,10 @@
+
 #include "MyMainWindow.h"
 #include "config.h"
 #include <QDesktopWidget>
 #include <QDebug>
 #include <QPainter>
 #include "stdio.h"
-#include "start.h"
 #include "SetUp.h"
 #include "time.h"
 #include <QKeyEvent>
@@ -29,7 +29,7 @@ MyMainWindow::MyMainWindow(int mode, Player* local, int mapchoose, QWidget *pare
     int DeskWidth = w.width() / 2;
     int DeskHeight = w.height() / 2;//获取设备的分辨率
     this->setFixedSize(DeskWidth, DeskHeight);//设置窗口大小
-    this->setWindowTitle(QString::fromUtf16(u"英灵骑士"));//设置窗口标题
+    this->setWindowTitle("Mega Man E");//设置窗口标题
     this->setWindowIcon(QIcon(":/icon/Resource/icon/htmlogo.png"));//设置窗口logo
 
     map_time.setInterval(GAME_RATE);
@@ -137,8 +137,6 @@ void MyMainWindow::paintEvent(QPaintEvent *event)
     else if (map_choose == 8) {
         painter->drawPixmap(0, 0, this->width(), this->height(), QPixmap(":/image/Resource/image/background/battleback8.png"));
     }
-    painter->drawRect(hero_one.attack_range);
-    painter->drawRect(hero_one.real_body);
     if ( hero_one.GetKind() == 0 && hero_one.GetDirection() == 1) {
         QImage image(":/image/Resource/image/main_character/running3/zero4_5.png");
         QImage mirroredImage = image.mirrored(true, false);
@@ -173,14 +171,12 @@ void MyMainWindow::paintEvent(QPaintEvent *event)
                     little_monster[i]->SetKind(6);
                 }
                 if (little_monster[i]->GetKind() != 6) {
-                    painter->drawRect(little_monster[i]->real_body);
                     painter->setBrush(Qt::red);
                     painter->drawPixmap(little_monster[i]->GetX(), little_monster[i]->GetY(), little_monster[i]->image_width, little_monster[i]->image_height, little_monster[i]->photo);
                     painter->drawRect(little_monster[i]->real_body_x - 30, little_monster[i]->real_body_y + 65, 80 * (double(little_monster[i]->GetHP()) / little_monster[i]->GetHPMAX()), 15);
                     painter->setBrush(Qt::blue);
                     painter->drawRect(little_monster[i]->real_body_x - 30, little_monster[i]->real_body_y + 50, 80 * (double(little_monster[i]->GetMP()) / little_monster[i]->GetMPMAX()), 10);
                     painter->setBrush(QBrush(Qt::NoBrush));
-                    painter->drawRect(little_monster[i]->attack_range);
                 }
             }
         }
@@ -201,14 +197,12 @@ void MyMainWindow::paintEvent(QPaintEvent *event)
                     little_monster2[i]->SetKind(6);
                 }
                 if (little_monster2[i]->GetKind() != 6) {
-                    painter->drawRect(little_monster2[i]->real_body);
                     painter->setBrush(Qt::red);
                     painter->drawPixmap(little_monster2[i]->GetX(), little_monster2[i]->GetY(), little_monster2[i]->image_width, little_monster2[i]->image_height, little_monster2[i]->photo);
                     painter->drawRect(little_monster2[i]->real_body_x - 30, little_monster2[i]->real_body_y + 65, 80 * (double(little_monster2[i]->GetHP()) / little_monster2[i]->GetHPMAX()), 15);
                     painter->setBrush(Qt::blue);
                     painter->drawRect(little_monster2[i]->real_body_x - 30, little_monster2[i]->real_body_y + 50, 80 * (double(little_monster2[i]->GetMP()) / little_monster2[i]->GetMPMAX()), 10);
                     painter->setBrush(QBrush(Qt::NoBrush));
-                    painter->drawRect(little_monster2[i]->attack_range);
                 }
             }
         }
@@ -230,14 +224,12 @@ void MyMainWindow::paintEvent(QPaintEvent *event)
                     qDebug() << middle_monster[i]->GetKind();
                 }
                 if (middle_monster[i]->GetKind() != 6) {
-                    painter->drawRect(middle_monster[i]->real_body);
                     painter->setBrush(Qt::red);
                     painter->drawPixmap(middle_monster[i]->GetX(), middle_monster[i]->GetY(), middle_monster[i]->image_width, middle_monster[i]->image_height, middle_monster[i]->photo);
                     painter->drawRect(middle_monster[i]->real_body_x - 30, middle_monster[i]->real_body_y + 65, 80 * (double(middle_monster[i]->GetHP()) / middle_monster[i]->GetHPMAX()), 15);
                     painter->setBrush(Qt::blue);
                     painter->drawRect(middle_monster[i]->real_body_x - 30, middle_monster[i]->real_body_y + 50, 80 * (double(middle_monster[i]->GetMP()) / middle_monster[i]->GetMPMAX()), 10);
                     painter->setBrush(QBrush(Qt::NoBrush));
-                    painter->drawRect(middle_monster[i]->attack_range);
                 }
             }
         }
@@ -282,14 +274,12 @@ void MyMainWindow::paintEvent(QPaintEvent *event)
                     sorcerer_one[i]->SetKind(6);
                 }
                 if (sorcerer_one[i]->GetKind() != 6) {
-                    painter->drawRect(sorcerer_one[i]->real_body);
                     painter->setBrush(Qt::red);
                     painter->drawPixmap(sorcerer_one[i]->GetX(), sorcerer_one[i]->GetY(), sorcerer_one[i]->image_width, sorcerer_one[i]->image_height, sorcerer_one[i]->photo);
                     painter->drawRect(sorcerer_one[i]->real_body_x - 30, sorcerer_one[i]->real_body_y + 65, 80 * (double(sorcerer_one[i]->GetHP()) / sorcerer_one[i]->GetHPMAX()), 15);
                     painter->setBrush(Qt::blue);
                     painter->drawRect(sorcerer_one[i]->real_body_x - 30, sorcerer_one[i]->real_body_y + 50, 80 * (double(sorcerer_one[i]->GetMP()) / sorcerer_one[i]->GetMPMAX()), 10);
                     painter->setBrush(QBrush(Qt::NoBrush));
-                    painter->drawRect(sorcerer_one[i]->attack_range);
                 }
             }
         }
@@ -311,14 +301,12 @@ void MyMainWindow::paintEvent(QPaintEvent *event)
                     qDebug() << ultra_monster[i]->GetKind();
                 }
                 if (ultra_monster[i]->GetKind() != 6) {
-                    painter->drawRect(ultra_monster[i]->real_body);
                     painter->setBrush(Qt::red);
                     painter->drawPixmap(ultra_monster[i]->GetX(), ultra_monster[i]->GetY(), ultra_monster[i]->image_width, ultra_monster[i]->image_height, ultra_monster[i]->photo);
                     painter->drawRect(ultra_monster[i]->real_body_x, ultra_monster[i]->real_body_y + 65, 240 * (double(ultra_monster[i]->GetHP()) / ultra_monster[i]->GetHPMAX()), 15);
                     painter->setBrush(Qt::blue);
                     painter->drawRect(ultra_monster[i]->real_body_x, ultra_monster[i]->real_body_y + 50, 80 * (double(ultra_monster[i]->GetMP()) / ultra_monster[i]->GetMPMAX()), 10);
                     painter->setBrush(QBrush(Qt::NoBrush));
-                    painter->drawRect(ultra_monster[i]->attack_range);
                 }
             }
         }
@@ -327,11 +315,11 @@ void MyMainWindow::paintEvent(QPaintEvent *event)
         hero_one.SetHP(0);
         painter->drawPixmap(0, 0, this->width(), this->height(), QPixmap(":/image/Resource/image/background/you_died.png"));
         died->setGeometry(450, 650, 400, 50);
-        died->setText("点击Esc返回选择界面");
+        died->setText("Click ESC to return");
     }
     else if (map_choose == 8) {
         died->setGeometry(450, 650, 400, 50);
-        died->setText("您已通关，点击Esc返回选择界面");
+        died->setText("Win! click ESC to return");
     }
     delete painter;
 }
@@ -862,7 +850,7 @@ void MyMainWindow::UpdateOne(int mode) {
             ultra_monster_time_two.resize(ultra_monster_num);
             for (int i = 1; i < ultra_monster.size(); i++) {
                 ultra_monster[i] = new UltraMonster();
-                ultra_monster_survive[i] = false;
+                ultra_monster_survive[i] = true;
             }
         }
         int ultra_monster_die_num = 0;
@@ -1341,7 +1329,7 @@ void MyMainWindow::UpdateOne(int mode) {
             }
         }
         int ultra_monster_die_num = 0;
-        if (map_choose == -7) {
+        if (map_choose <= -7) {
             for (int i = 1; i < ultra_monster.size(); i++) {
                 if (ultra_monster_survive[i] == true) {
                     ultra_monster[i]->Move(hero_one);
@@ -1452,7 +1440,7 @@ void MyMainWindow::UpdateOne(int mode) {
             ultra_monster_time_two.resize(ultra_monster_num);
             for (int i = 1; i < ultra_monster.size(); i++) {
                 ultra_monster[i] = new UltraMonster();
-                ultra_monster_survive[i] = false;
+                ultra_monster_survive[i] = true;
             }
         }
     }
