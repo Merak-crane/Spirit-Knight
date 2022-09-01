@@ -88,11 +88,6 @@ RegisterInterface::RegisterInterface(QWidget *parent)
 	connect(returnbtn_register, &QPushButton::clicked, this, &RegisterInterface::ReturnOrigin);
 }
 
-void RegisterInterface::paintEvent(QPaintEvent* event) {
-	QPainter* painter = new QPainter(this);
-	painter->end();
-}
-
 void RegisterInterface::ReturnOrigin() {
 	OriginInterface* back = new OriginInterface;
 	back->show();
@@ -248,6 +243,12 @@ void RegisterInterface::RegisterConfirm() {
 	else {
 		QMessageBox::critical(this, "无法进入下一阶段", "资料填写不当");
 	}
+}
+
+void RegisterInterface::paintEvent(QPaintEvent* event) {
+	QPainter* painter = new QPainter(this);
+	painter->drawPixmap(0, 0, this->width(), this->height(), QPixmap(":/image/Resource/image/background/login.png"));
+	painter->end();
 }
 
 RegisterInterface::~RegisterInterface()

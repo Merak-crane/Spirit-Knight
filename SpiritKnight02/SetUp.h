@@ -16,6 +16,7 @@ public:
 	~SetUp();
 	int mode;
 	int mapchoose;
+	QWidget* parent;
 	Hero hero;
 	Player* local;
 	QLabel* remind = new QLabel(this);
@@ -32,6 +33,8 @@ public:
 	void LoadOne();
 	void LoadTwo();
 	void LoadThree();
+	void Close();
+	void Back();
 
 private:
 	Ui::SetUpClass ui;

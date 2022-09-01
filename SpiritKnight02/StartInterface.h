@@ -18,6 +18,7 @@ public:
 	void OpenLoad();
 	void OpenIntroduction();
 	void ModeChoose();
+	void paintEvent(QPaintEvent* event);
 private:
 	Ui::StartInterfaceClass ui;
 	Player* local;

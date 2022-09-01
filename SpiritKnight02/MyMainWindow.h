@@ -1,5 +1,5 @@
 #pragma once
-
+#pragma execution_character_set("utf-8")  
 #include <QtWidgets/QMainWindow>
 #include "ui_MyMainWindow.h"
 #include "Character.h"
@@ -20,7 +20,7 @@ public:
     QLabel* user_information_label;
     Player* local;
     MyMainWindow(QWidget *parent = nullptr);
-    MyMainWindow(int mode, Player* local, QWidget *parent = nullptr);
+    MyMainWindow(int mode, Player* local, int mapchoose = 0, QWidget* parent = nullptr);
     ~MyMainWindow();
     void paintEvent(QPaintEvent *event);
     void keyPressEvent(QKeyEvent* event);

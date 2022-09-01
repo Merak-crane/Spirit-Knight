@@ -32,10 +32,10 @@ int main(int argc, char *argv[])
 	}
 	//Start s;
 	//s.show();
-	//Player* o = new Player("222", "sss", "ss", 100);
-	//MyMainWindow w(3,o);
-	//w.show();
-	OriginInterface v;
-	v.show();
+	Player* o = new Player("222", "sss", "ss", 100);
+	MyMainWindow w(3,o);
+	w.show();
+	//VideoInterface v;
+	//v.show();
     return a.exec();
 }

@@ -49,6 +49,12 @@ StartInterface::StartInterface(Player* local, QWidget *parent)
 	connect(continued, &QPushButton::clicked, this, &StartInterface::OpenLoad);
 }
 
+void StartInterface::paintEvent(QPaintEvent* event) {
+	QPainter* painter = new QPainter(this);
+	painter->drawPixmap(0, 0, this->width(), this->height(), QPixmap(":/image/Resource/image/background/background.jpeg"));
+	painter->end();
+}
+
 void StartInterface::OpenLoad(){
 	LoadInterface* load = new LoadInterface(local);
 	load->show();

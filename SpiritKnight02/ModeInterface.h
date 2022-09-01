@@ -13,6 +13,7 @@ class ModeInterface : public QWidget
 public:
 	ModeInterface(Player* local, QWidget *parent = nullptr);
 	~ModeInterface();
+	void paintEvent(QPaintEvent* event);
 	void ReturnBack();
 private:
 	Ui::ModeInterfaceClass ui;
