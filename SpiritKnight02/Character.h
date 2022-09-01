@@ -1,4 +1,5 @@
 #pragma once
+#pragma execution_character_set("utf-8")  
 #include <vector>
 #include <string>
 #include <QPainter>
@@ -52,11 +53,13 @@ public:
 	int GetKind();
 	bool GetLay();
 	int GetDirection();	
+	int GetLevel();
 	double GetHP();
 	double GetMP();
 	double GetHPMAX();
 	double GetMPMAX();
 	void SetDirection(int direction);
+	void SetLevel(int level);
 	void SetX(int x);
 	void SetY(int y);
 	void SetKind(int kind);
@@ -103,6 +106,7 @@ public:
 	double size_factor;
 	int GetX();
 	int GetY();
+	void BulletUpdate(int x, int y, int direction);
 protected:
 	int x;
 	int y;
@@ -118,7 +122,7 @@ public:
 	bool bullet_survive = false;
 	BulletOne(int x, int y, int direction);
 	void Move();
-	void Disappear();
+	bool Disappear();
 };
 class SorcererOne : public Character {
 private:
@@ -133,11 +137,14 @@ public:
 };
 class Hero : public Character {
 private:
+	int exp;
 public:
 	Hero();
 	void Show();
 	void BeAttacked(vector<LittleMonster*> monster, vector<bool> monster_survive);
 	void BeAttackedAnimation();
+	void SetExp(int exp);
+	int GetExp();
 };
 
 class LittleMonster: public Character {

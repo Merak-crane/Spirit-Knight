@@ -18,6 +18,7 @@ SorcererOne::SorcererOne() {
     direction = 0;
     kind = 0;
     strong = 0;
+    bullet_num = 0;
     health_point = 100;
     health_point_max = 100;
     attack_range_x = 600;
@@ -33,7 +34,7 @@ void SorcererOne::Move(Hero player) {
     if (kind != 5) {
         if (x < player.GetX() + attack_range_x && x > player.GetX() - attack_range_x && y < player.GetY() + attack_range_y && y > player.GetY() - attack_range_y)
         {
-            if (x <= player.GetX()) direction = 0;
+            if (x <= player.GetX()) { direction = 0; }
             else { direction = 1; }
             SetKind(4);
             Attack();
@@ -57,7 +58,7 @@ void SorcererOne::Move(Hero player) {
     for (int i = 1; i < bullet_collector.size(); i++)
     {
         bullet_collector[i]->Move();
-        bullet_collector[i]->Disappear();
+        bool p = bullet_collector[i]->Disappear();
     }
 }
 
@@ -70,9 +71,37 @@ void SorcererOne::Attack() {
         QImage mirroredImage = image.mirrored(true, false);
         photo = QPixmap::fromImage(mirroredImage);
     }
-    if (bullet_collector.size() < 3) {
+    if (bullet_collector.size() < 11) {
         BulletOne* new_bullet = new BulletOne(real_body_x, real_body_y, direction);
         bullet_collector.push_back(new_bullet);
+        bullet_num++;
+    }
+    else
+    {
+        if (kind != 4) {
+            if (bullet_num < 10) {
+                bullet_collector[bullet_num]->BulletUpdate(real_body_x, real_body_y - 30, direction);
+            }
+            else
+            {
+                bullet_num = 1;
+                bullet_collector[bullet_num]->BulletUpdate(real_body_x, real_body_y - 30, direction);
+            }
+            bullet_num++;
+        }
+        else if (kind == 4) {
+            if (bullet_num < 10 && bullet_collector[bullet_num]->Disappear()) {
+                qDebug() << bullet_num << "Сʱ";
+                bullet_collector[bullet_num]->BulletUpdate(real_body_x, real_body_y - 30, direction);
+                bullet_num++;
+            }
+            else if(bullet_collector[1]->Disappear())
+            {
+                bullet_num = 1;
+                bullet_collector[bullet_num]->BulletUpdate(real_body_x, real_body_y - 30, direction);
+                bullet_num++;
+            }
+        }
     }
 }
 

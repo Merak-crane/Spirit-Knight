@@ -57,3 +57,16 @@ QLabel#user_information_label{
 	font-size: 30px;
 	font-style: italic;
 }
+QLabel#died{
+	color: white;
+	font-size: FangSong;
+	font-weight: 1000;
+	font-size: 30px;
+	font-style: italic;
+}
+QLabel#remind{
+	color: white;
+	font-size: FangSong;
+	font-weight: 800;
+	font-size: 30px;
+}

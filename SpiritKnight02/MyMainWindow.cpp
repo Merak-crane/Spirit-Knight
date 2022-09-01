@@ -1,17 +1,24 @@
-﻿#include "MyMainWindow.h"
+#include "MyMainWindow.h"
 #include "config.h"
 #include <QDesktopWidget>
 #include <QDebug>
 #include <QPainter>
 #include "stdio.h"
 #include "start.h"
+#include "SetUp.h"
 #include "time.h"
 #include <QKeyEvent>
 #include <QMessageBox>
-MyMainWindow::MyMainWindow(int mode, Player* local, QWidget *parent)
+MyMainWindow::MyMainWindow(int mode, Player* local, int mapchoose, QWidget *parent)
     : QMainWindow(parent)
 {  
     this->local = local;
+    if (mapchoose != 0) {
+        this->map_choose = mapchoose;
+        hero_one.SetHP(local->GetHP());
+        hero_one.SetMP(local->GetMP());
+        hero_one.SetLevel(local->GetLevel());
+    }
     close_num = 3;
     srand((unsigned)time(NULL));
     QDesktopWidget w;
@@ -32,18 +39,17 @@ MyMainWindow::MyMainWindow(int mode, Player* local, QWidget *parent)
             //this->close();
         }
     });
-    if (mode == 1) {
-        qDebug() << 1;
+    if (mode == 1 && mapchoose == 0) {
         map_choose = 1;
         /*battle1 = new QSound(":/new/prefix1/Resource/sound/BGMmap.wav", this);
         battle1->play();
         battle1->setLoops(-1);*/
     }
-    else if(mode == 2)
+    else if(mode == 2 && mapchoose == 0)
     {
         map_choose = -1;
     }
-    if (mode == 3) {
+    if (mode == 3 && mapchoose == 0) {
         map_choose = 1;
         int sorcerer_one_num = 3;
         sorcerer_one.resize(sorcerer_one_num);
@@ -51,7 +57,7 @@ MyMainWindow::MyMainWindow(int mode, Player* local, QWidget *parent)
         sorcerer_one_time.resize(sorcerer_one_num);
         for (int i = 1; i < sorcerer_one.size(); i++) {
         sorcerer_one[i] = new SorcererOne();
-        sorcerer_one_survive[i] = false;
+        sorcerer_one_survive[i] = true;
         }
     }
     int little_monster_num = 3;
@@ -88,12 +94,25 @@ MyMainWindow::MyMainWindow(int mode, Player* local, QWidget *parent)
         ultra_monster[i] = new UltraMonster();
         ultra_monster_survive[i] = false;
     }
+    died = new QLabel(this);
+    died->setObjectName("died");
     hp = new QLabel(this);
     hp->setObjectName("HP");
     mp = new QLabel(this);
     mp->setObjectName("MP");
     user_information_label = new QLabel(this);
     user_information_label->setObjectName("user_information_label");
+    set_up_btn = new QPushButton(this);
+    set_up_btn->resize(240, 80);
+    set_up_btn->move(1000, 50);
+    QPixmap p1 = QPixmap(":/ui/Resource/image/ui/setup.png");
+    set_up_btn->setIcon(p1);
+    set_up_btn->setIconSize(QSize(240, 80));
+    set_up_btn->setFlat(true);
+    connect(set_up_btn, &QPushButton::clicked, [=]() {
+        SetUp* set = new SetUp(hero_one, local, mode, map_choose, this);
+        set->show();
+        });
 }
 
 MyMainWindow::~MyMainWindow()
@@ -124,9 +143,6 @@ void MyMainWindow::paintEvent(QPaintEvent *event)
     }
     else if ( hero_one.GetKind() == 0 && hero_one.GetDirection() == 0) {
         hero_one.photo = QPixmap(":/image/Resource/image/main_character/running3/zero4_5.png");
-    }
-    if ( hero_one.GetHP() <= 0) {
-        hero_one.SetHP(0);
     }
     painter->drawPixmap(hero_one.GetX(), hero_one.GetY(), hero_one.image_width, hero_one.image_height, hero_one.photo);
     painter->drawPixmap(0, 0, 500, 150, QPixmap(":/image/Resource/image/main_character/hp.png"));
@@ -192,17 +208,17 @@ void MyMainWindow::paintEvent(QPaintEvent *event)
     for (int i = 1; i < sorcerer_one.size(); i++) {
         for (int m = 1; m < sorcerer_one[i]->bullet_collector.size(); m++) {
             if (sorcerer_one_survive[i] == true) {
-                if (sorcerer_one[i]->GetDirection() == 1) {
+                if (sorcerer_one[i]->GetDirection() == 0) {
                     QImage image(":/image/Resource/image/bomber/bullet/foxtar_90.png");
                     QImage mirroredImage = image.mirrored(true, false);
                     sorcerer_one[i]->bullet_collector[m]->photo = QPixmap::fromImage(mirroredImage);
                 }
-                else if (sorcerer_one[i]->GetDirection() == 0) {
+                else if (sorcerer_one[i]->GetDirection() == 1) {
                     sorcerer_one[i]->bullet_collector[m]->photo = QPixmap(":/image/Resource/image/bomber/bullet/foxtar_90.png");
                 }
             }
             //painter->drawRect(sorcerer_one[i]->bullet_collector[m]);
-        /*painter->setBrush(Qt::red);*/
+            /*painter->setBrush(Qt::red);*/
             painter->drawPixmap(sorcerer_one[i]->bullet_collector[m]->GetX(), sorcerer_one[i]->bullet_collector[m]->GetY(), sorcerer_one[i]->bullet_collector[m]->image_width, sorcerer_one[i]->bullet_collector[m]->image_height, sorcerer_one[i]->bullet_collector[m]->photo);
             painter->drawRect(sorcerer_one[i]->bullet_collector[m]->attack_range);
             /*painter->drawRect(little_monster[i]->real_body_x - 30, little_monster[i]->real_body_y + 65, 80 * (double(little_monster[i]->GetHP()) / little_monster[i]->GetHPMAX()), 15);
@@ -293,6 +309,12 @@ void MyMainWindow::paintEvent(QPaintEvent *event)
             }
         }
     }
+    if (hero_one.GetHP() <= 0) {
+        hero_one.SetHP(0);
+        painter->drawPixmap(0, 0, this->width(), this->height(), QPixmap(":/image/Resource/image/background/you_died.png"));
+        died->setGeometry(450, 650, 400, 50);
+        died->setText("点击Esc返回选择界面");
+    }
     delete painter;
 }
 //以下是键盘敲击事件函数，影响角色行为
@@ -318,6 +340,11 @@ void MyMainWindow::keyPressEvent(QKeyEvent* event) {
         break;
     case Qt::Key_K:
         hero_one.WalkDown();
+        break;
+    case Qt::Key_Escape:
+        if (hero_one.GetHP() == 0) {
+            this->close();
+        }
         break;
     default:
         break;
@@ -396,12 +423,9 @@ void MyMainWindow::timerEvent(QTimerEvent* event) {
 }
 //以下是更新函数，主要更新角色属性，怪物属性，加载动作动画等
 void MyMainWindow::UpdateOne(int mode) {
-    if (hero_one.GetHP() == 0 && close_num == 3) {
+    if (hero_one.GetHP() == 0 ) {
         hero_one.SetStrong(1);
         hero_one.SetKind(6);
-        timeID1 = startTimer(30000);
-        qDebug() << "p";
-        close_num++;
     }
     if (hero_one.GetStrong() == 0) {
         hero_one.BeAttacked(little_monster, little_monster_survive);
@@ -748,7 +772,6 @@ void MyMainWindow::UpdateOne(int mode) {
     }
     for (int i = 1; i < sorcerer_one.size(); i++) {
         for (int m = 1; m < sorcerer_one[i]->bullet_collector.size(); m++) {
-            qDebug() << hero_one.GetStrong();
             if (hero_one.GetStrong() == 0) {
                 if (sorcerer_one[i]->bullet_collector[m]->attack_range.intersects(hero_one.real_body)) {
                     hero_one.SetHP(hero_one.GetHP() - 1);

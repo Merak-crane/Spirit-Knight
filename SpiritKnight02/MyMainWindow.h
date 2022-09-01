@@ -1,11 +1,13 @@
 #pragma once
-
+#pragma execution_character_set("utf-8")  
 #include <QtWidgets/QMainWindow>
 #include "ui_MyMainWindow.h"
 #include "Character.h"
 #include "Player.h"
 #include <QTimer>
 #include <QLabel>
+#include <QPushButton>
+
 #include <QSound>
 class MyMainWindow : public QMainWindow
 {
@@ -14,10 +16,11 @@ class MyMainWindow : public QMainWindow
 public:
     QLabel* hp;
     QLabel* mp;
+    QLabel* died;
     QLabel* user_information_label;
     Player* local;
     MyMainWindow(QWidget *parent = nullptr);
-    MyMainWindow(int mode, Player* local, QWidget *parent = nullptr);
+    MyMainWindow(int mode, Player* local, int mapchoose = 0, QWidget* parent = nullptr);
     ~MyMainWindow();
     void paintEvent(QPaintEvent *event);
     void keyPressEvent(QKeyEvent* event);
@@ -33,6 +36,7 @@ private:
     int close_num;
     int timeID1;
     int timeIDm1;
+    QPushButton* set_up_btn;
     vector<int> sorcerer_one_time;
     vector<SorcererOne*> sorcerer_one;
     vector<bool> sorcerer_one_survive;
