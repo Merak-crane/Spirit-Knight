@@ -43,6 +43,7 @@ ModeInterface::ModeInterface(Player* local, QWidget *parent)
 		});
 	connect(mode_two, &QPushButton::clicked, [=]() {
 		MyMainWindow* gamewindow = new MyMainWindow(2, local, 0, this);
+		gamewindow->show();
 		});
 	connect(returnbtn_mode, &QPushButton::clicked, this, &ModeInterface::ReturnBack);
 }

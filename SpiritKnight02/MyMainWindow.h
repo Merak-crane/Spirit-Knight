@@ -34,7 +34,7 @@ public:
 private:
     Ui::MyMainWindowClass ui;
     int map_choose;
-    int close_num;
+    int mode;
     int timeID1;
     int timeIDm1;
     QPushButton* set_up_btn;
