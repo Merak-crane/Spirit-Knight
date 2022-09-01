@@ -25,7 +25,7 @@ public:
     void paintEvent(QPaintEvent *event);
     void keyPressEvent(QKeyEvent* event);
     void keyReleaseEvent(QKeyEvent* event);
-    void UpdateOne(int mode);
+    void UpdateOne();
     void timerEvent(QTimerEvent* event);
     void UpdateM(MiddleMonster* []);
    /* QSound* froestBGM, * battle1;

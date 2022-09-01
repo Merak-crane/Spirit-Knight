@@ -118,6 +118,7 @@ void SetUp::Back() {
 void SetUp::LoadOne() {
 	QSqlTableModel* model = new QSqlTableModel;
 	model->setTable("gameload");//选择数据表
+	mode += 3;
 	QString cmd = QString("insert into gameload(username, load_num, mode, map_choose, hp, mp, exp, level)values ('%1',%2,%3,%4,%5,%6,%7,%8)")
 		.arg(local->GetUsername()).arg(1).arg(mode).arg(mapchoose).arg(hero.GetHP()).arg(hero.GetMP()).arg(hero.GetExp()).arg(hero.GetLevel());
 	QSqlQuery* query = new QSqlQuery;
@@ -133,6 +134,7 @@ void SetUp::LoadOne() {
 void SetUp::LoadTwo() {
 	QSqlTableModel* model = new QSqlTableModel;
 	model->setTable("gameload");//选择数据表
+	mode += 3;
 	QString cmd = QString("insert into gameload(username, load_num, mode, map_choose, hp, mp, exp, level)values ('%1',%2,%3,%4,%5,%6,%7,%8)")
 		.arg(local->GetUsername()).arg(2).arg(mode).arg(mapchoose).arg(hero.GetHP()).arg(hero.GetMP()).arg(hero.GetExp()).arg(hero.GetLevel());
 	QSqlQuery* query = new QSqlQuery;
@@ -148,6 +150,7 @@ void SetUp::LoadTwo() {
 void SetUp::LoadThree() {
 	QSqlTableModel* model = new QSqlTableModel;
 	model->setTable("gameload");//选择数据表
+	mode += 3;
 	QString cmd = QString("insert into gameload(username, load_num, mode, map_choose, hp, mp, exp, level)values ('%1',%2,%3,%4,%5,%6,%7,%8)")
 		.arg(local->GetUsername()).arg(3).arg(mode).arg(mapchoose).arg(hero.GetHP()).arg(hero.GetMP()).arg(hero.GetExp()).arg(hero.GetLevel());
 	QSqlQuery* query = new QSqlQuery;

@@ -10,8 +10,8 @@ RegisterInterface::RegisterInterface(QWidget *parent)
 	//ui.setupUi(this);
 	register_kind = 0;
 	QDesktopWidget w;
-	int DeskWidth = w.width() / 2;
-	int DeskHeight = w.height() / 2;//获取设备的分辨率
+	int DeskWidth = 1280;
+	int DeskHeight = 800;//获取设备的分辨率
 	this->setFixedSize(DeskWidth, DeskHeight);//设置窗口大小
 	this->setWindowTitle("Mega Man E");//设置窗口标题
 	this->setWindowIcon(QIcon(":/icon/Resource/icon/htmlogo.png"));//设置窗口logo
@@ -95,7 +95,7 @@ void RegisterInterface::ReturnOrigin() {
 
 void RegisterInterface::RegisterUpdate() {
 	QSqlTableModel* model = new QSqlTableModel;
-	model->setTable("test01");//选择数据表
+	model->setTable("gameuser");//选择数据表
 	int pos = 0;
 
 	QRegExp email_verify("[a-zA-Z0-9-_]+@[a-zA-Z0-9_]+\\.[a-zA-Z]+");
@@ -140,7 +140,7 @@ void RegisterInterface::RegisterUpdate() {
 		}
 		else if (username_text.length() >= 3 && username_validator->validate(username_text, pos) == QValidator::Acceptable)
 		{
-			model->setFilter(QString("name='%1'").arg(username_text));//设置查询过滤选项，此处查询用户名
+			model->setFilter(QString("username='%1'").arg(username_text));//设置查询过滤选项，此处查询用户名
 			model->select();//获取查询数据
 			int row_username = model->rowCount();
 			if (row_username > 0) {//查询到用户名已在数据库中
@@ -224,8 +224,8 @@ void RegisterInterface::RegisterUpdate() {
 
 void RegisterInterface::RegisterConfirm() {
 	if (register_kind == 2) {
-		QString cmd = QString("insert into test01 values ('%1','%2','%3','%4','%5','%6')")
-			.arg(3).arg(username2->text()).arg(password2->text()).arg(1).arg("player").arg(email->text());
+		QString cmd = QString("insert into gameuser(username,password,email,level,exp,power) values ('%1','%2','%3','%4','%5','%6')")
+			.arg(username2->text()).arg(password2->text()).arg(email->text()).arg(1).arg(0).arg("player");
 		QSqlQuery* query = new QSqlQuery;
 
 		if (query->exec(cmd)) {

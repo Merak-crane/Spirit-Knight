@@ -18,8 +18,8 @@ LoadInterface::LoadInterface(Player* local, QWidget *parent)
 	this->setAttribute(Qt::WA_DeleteOnClose);
 	this->local = local;
 	QDesktopWidget w;
-	int DeskWidth = w.width() / 2;
-	int DeskHeight = w.height() / 2;//获取设备的分辨率
+	int DeskWidth = 1280;
+	int DeskHeight = 800;//获取设备的分辨率
 	this->setFixedSize(DeskWidth, DeskHeight);//设置窗口大小
 	this->setWindowTitle("Mega Man E");//设置窗口标题
 	this->setWindowIcon(QIcon(":/icon/Resource/icon/htmlogo.png"));//设置窗口logo
@@ -78,12 +78,13 @@ void LoadInterface::LoadOne() {
 	model->select();
 	QSqlRecord record = model->record(0);
 	QString username = record.value("username").toString();
+	int mode = record.value("mode").toInt();
 	int hp = record.value("hp").toInt();
 	int mp = record.value("mp").toInt();
 	int exp = record.value("exp").toInt();
 	int level = record.value("level").toInt();
 	local = new Player(username, hp, mp, exp, level);
-	MyMainWindow* w = new MyMainWindow(record.value("mode").toInt(), local, record.value("mapchoose").toInt());
+	MyMainWindow* w = new MyMainWindow(mode, local, record.value("map_choose").toInt());
 	w->show();
 	this->close();
 }
@@ -96,12 +97,13 @@ void LoadInterface::LoadTwo() {
 	model->select();
 	QSqlRecord record = model->record(0);
 	QString username = record.value("username").toString();
+	int mode = record.value("mode").toInt();
 	int hp = record.value("hp").toInt();
 	int mp = record.value("mp").toInt();
 	int exp = record.value("exp").toInt();
 	int level = record.value("level").toInt();
 	local = new Player(username, hp, mp, exp, level);
-	MyMainWindow* w = new MyMainWindow(record.value("mode").toInt(), local, record.value("mapchoose").toInt());
+	MyMainWindow* w = new MyMainWindow(mode, local, record.value("map_choose").toInt());
 	w->show();
 	this->close();
 }
@@ -114,12 +116,13 @@ void LoadInterface::LoadThree() {
 	model->select();
 	QSqlRecord record = model->record(0);
 	QString username = record.value("username").toString();
+	int mode = record.value("mode").toInt();
 	int hp = record.value("hp").toInt();
 	int mp = record.value("mp").toInt();
 	int exp = record.value("exp").toInt();
 	int level = record.value("level").toInt();
 	local = new Player(username, hp, mp, exp, level);
-	MyMainWindow* w = new MyMainWindow(record.value("mode").toInt(), local, record.value("mapchoose").toInt());
+	MyMainWindow* w = new MyMainWindow(mode, local, record.value("map_choose").toInt());
 	w->show();
 	this->close();
 }

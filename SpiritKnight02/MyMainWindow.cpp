@@ -9,6 +9,12 @@
 #include "time.h"
 #include <QKeyEvent>
 #include <QMessageBox>
+#include <QSqlDatabase>
+#include <QSqlQuery>
+#include <QSqlError>
+#include <QRegExpValidator>
+#include <QSqlTableModel>
+#include <QSqlRecord>
 MyMainWindow::MyMainWindow(int mode, Player* local, int mapchoose, QWidget *parent)
     : QMainWindow(parent)
 {  
@@ -17,17 +23,18 @@ MyMainWindow::MyMainWindow(int mode, Player* local, int mapchoose, QWidget *pare
     hero_one.StatusUpdate();
     this->local = local;
     if (mapchoose != 0) {
-        this->map_choose = mapchoose;
         hero_one.SetHP(local->GetHP());
         hero_one.SetMP(local->GetMP());
         hero_one.SetLevel(local->GetLevel());
         hero_one.SetExp(local->GetEXP());
+        this->map_choose = mapchoose;
+        UpdateOne();
     }
 
     srand((unsigned)time(NULL));
     QDesktopWidget w;
-    int DeskWidth = w.width() / 2;
-    int DeskHeight = w.height() / 2;//获取设备的分辨率
+    int DeskWidth = 1280;
+    int DeskHeight = 800;//获取设备的分辨率
     this->setFixedSize(DeskWidth, DeskHeight);//设置窗口大小
     this->setWindowTitle("Mega Man E");//设置窗口标题
     this->setWindowIcon(QIcon(":/icon/Resource/icon/htmlogo.png"));//设置窗口logo
@@ -37,7 +44,7 @@ MyMainWindow::MyMainWindow(int mode, Player* local, int mapchoose, QWidget *pare
    /* QMediaPlayer* player = new QMediaPlayer;*/
     connect(&map_time, &QTimer::timeout, [=]() {
         update();
-        UpdateOne(mode);
+        UpdateOne();
     });
 
     if (mode == 1 && mapchoose == 0) {
@@ -66,15 +73,15 @@ MyMainWindow::MyMainWindow(int mode, Player* local, int mapchoose, QWidget *pare
             little_monster_survive[i] = true;
         }
     }
-    if (mode == 3 && mapchoose == 0) {
+    else if (mode == 3 && mapchoose == 0) {
         map_choose = 1;
         int sorcerer_one_num = 3;
         sorcerer_one.resize(sorcerer_one_num);
         sorcerer_one_survive.resize(sorcerer_one_num);
         sorcerer_one_time.resize(sorcerer_one_num);
         for (int i = 1; i < sorcerer_one.size(); i++) {
-        sorcerer_one[i] = new SorcererOne();
-        sorcerer_one_survive[i] = true;
+            sorcerer_one[i] = new SorcererOne();
+            sorcerer_one_survive[i] = true;
         }
     }
 
@@ -221,7 +228,6 @@ void MyMainWindow::paintEvent(QPaintEvent *event)
                 if (middle_monster[i]->GetHP() <= 0) {
                     middle_monster[i]->SetHP(0);
                     middle_monster[i]->SetKind(6);
-                    qDebug() << middle_monster[i]->GetKind();
                 }
                 if (middle_monster[i]->GetKind() != 6) {
                     painter->setBrush(Qt::red);
@@ -298,7 +304,6 @@ void MyMainWindow::paintEvent(QPaintEvent *event)
                 if (ultra_monster[i]->GetHP() <= 0) {
                     ultra_monster[i]->SetHP(0);
                     /*  ultra_monster[i]->SetKind(6);*/
-                    qDebug() << ultra_monster[i]->GetKind();
                 }
                 if (ultra_monster[i]->GetKind() != 6) {
                     painter->setBrush(Qt::red);
@@ -315,6 +320,12 @@ void MyMainWindow::paintEvent(QPaintEvent *event)
         hero_one.SetHP(0);
         painter->drawPixmap(0, 0, this->width(), this->height(), QPixmap(":/image/Resource/image/background/you_died.png"));
         died->setGeometry(450, 650, 400, 50);
+        QSqlTableModel* model = new QSqlTableModel;
+        model->setTable("test01");//选择数据表
+        QString cmd = QString("update test01 set level = %1 where username = '%2')")
+            .arg(hero_one.GetLevel()).arg(local->GetUsername());
+        QSqlQuery* query = new QSqlQuery;
+        query->exec(cmd);
         died->setText("Click ESC to return");
     }
     else if (map_choose == 8) {
@@ -343,9 +354,6 @@ void MyMainWindow::keyPressEvent(QKeyEvent* event) {
     case Qt::Key_J:
         hero_one.attacknum = 1;
         hero_one.SetKind(4);
-        break;
-    case Qt::Key_K:
-        hero_one.WalkDown();
         break;
     case Qt::Key_Escape:
         if (hero_one.GetHP() == 0 || map_choose == 8) {
@@ -379,10 +387,6 @@ void MyMainWindow::keyReleaseEvent(QKeyEvent* event) {
 }
 void MyMainWindow::timerEvent(QTimerEvent* event) {
     int tmp = event->timerId();
-    //if (tmp == timeID1) {
-    //    close_num = 2;
-    //    qDebug() << "o";
-    //}
     if (tmp == timeID1) {
         hero_one.SetStrong(0);
     }
@@ -428,10 +432,7 @@ void MyMainWindow::timerEvent(QTimerEvent* event) {
     }
 }
 //以下是更新函数，主要更新角色属性，怪物属性，加载动作动画等
-void MyMainWindow::UpdateOne(int mode) {
-    if (mode == 1 && map_choose == 1) {
-
-    }
+void MyMainWindow::UpdateOne() {
     if (hero_one.GetHP() == 0 ) {
         hero_one.SetStrong(1);
         hero_one.SetKind(6);
@@ -439,9 +440,6 @@ void MyMainWindow::UpdateOne(int mode) {
     if (hero_one.GetExp() >= hero_one.GetExpmax()) {
         hero_one.SetLevel(hero_one.GetLevel() + 1);
         hero_one.SetExp(hero_one.GetExp() - 1000);
-    }
-    if (hero_one.GetStrong() == 0) {
-        hero_one.BeAttacked(little_monster, little_monster_survive);
     }
     hero_one.real_body.moveTo(hero_one.real_body_x - hero_one.real_body_width / 2, hero_one.real_body_y - hero_one.real_body_height / 2);
     hero_one.real_body.setWidth(hero_one.real_body_width);   //攻击矩形(碰撞检测)
@@ -469,7 +467,7 @@ void MyMainWindow::UpdateOne(int mode) {
     }
     if (hero_one.GetKind() == 5) {
         hero_one.BeAttackedAnimation();
-        if (hero_one.count_attack > 10) {
+        if (hero_one.count_be_attack > 10) {
             timeID1 = startTimer(600);
             hero_one.SetKind(0);
         }
@@ -483,6 +481,260 @@ void MyMainWindow::UpdateOne(int mode) {
         hero_one.x_speed_right = 0;
         hero_one.y_speed = 0;
         timeIDm1 = startTimer(800);
+    }
+    if (mode >= 4) {
+        mode -= 3;
+        if (mode == 1) {
+            if (map_choose == 1) {
+                int little_monster1_num = 3;
+                little_monster.resize(little_monster1_num);
+                little_monster_survive.resize(little_monster1_num);
+                little_monster_time.resize(little_monster1_num);
+                for (int i = 1; i < little_monster.size(); i++) {
+                    little_monster[i] = new LittleMonster(0);
+                    little_monster_survive[i] = true;
+                }
+            }
+            if (map_choose == 2) {
+                int little_monster1_num = 3;
+                little_monster.resize(little_monster1_num);
+                little_monster_survive.resize(little_monster1_num);
+                little_monster_time.resize(little_monster1_num);
+                for (int i = 1; i < little_monster.size(); i++) {
+                    little_monster[i] = new LittleMonster(0);
+                    little_monster_survive[i] = true;
+                }
+                int little_monster2_num = 3;
+                little_monster2.resize(little_monster2_num);
+                little_monster2_survive.resize(little_monster2_num);
+                little_monster2_time.resize(little_monster2_num);
+                for (int i = 1; i < little_monster2.size(); i++) {
+                    little_monster2[i] = new LittleMonster(1);
+                    little_monster2_survive[i] = true;
+                }
+            }
+            if (map_choose == 3) {
+                int little_monster2_num = 6;
+                little_monster2.resize(little_monster2_num);
+                little_monster2_survive.resize(little_monster2_num);
+                little_monster2_time.resize(little_monster2_num);
+                for (int i = 1; i < little_monster2.size(); i++) {
+                    little_monster2[i] = new LittleMonster(1);
+                    little_monster2_survive[i] = true;
+                }
+                int middle_monster_num = 2;
+                middle_monster.resize(middle_monster_num);
+                middle_monster_survive.resize(middle_monster_num);
+                middle_monster_time_one.resize(middle_monster_num);
+                middle_monster_time_two.resize(middle_monster_num);
+                for (int i = 1; i < middle_monster.size(); i++) {
+                    middle_monster[i] = new MiddleMonster();
+                    middle_monster_survive[i] = true;
+                }
+            }
+            if (map_choose == 4) {
+                int little_monster2_num = 9;
+                little_monster2.resize(little_monster2_num);
+                little_monster2_survive.resize(little_monster2_num);
+                little_monster2_time.resize(little_monster2_num);
+                for (int i = 1; i < little_monster2.size(); i++) {
+                    little_monster2[i] = new LittleMonster(1);
+                    little_monster2_survive[i] = true;
+                }
+                int middle_monster_num = 2;
+                middle_monster.resize(middle_monster_num);
+                middle_monster_survive.resize(middle_monster_num);
+                middle_monster_time_one.resize(middle_monster_num);
+                middle_monster_time_two.resize(middle_monster_num);
+                for (int i = 1; i < middle_monster.size(); i++) {
+                    middle_monster[i] = new MiddleMonster();
+                    middle_monster_survive[i] = true;
+                }
+                int sorcerer_one_num = 2;
+                sorcerer_one.resize(sorcerer_one_num);
+                sorcerer_one_survive.resize(sorcerer_one_num);
+                sorcerer_one_time.resize(sorcerer_one_num);
+                for (int i = 1; i < sorcerer_one.size(); i++) {
+                    sorcerer_one[i] = new SorcererOne();
+                    sorcerer_one_survive[i] = true;
+                }
+            }
+            if (map_choose == 5) {
+                int middle_monster_num = 4;
+                middle_monster.resize(middle_monster_num);
+                middle_monster_survive.resize(middle_monster_num);
+                middle_monster_time_one.resize(middle_monster_num);
+                middle_monster_time_two.resize(middle_monster_num);
+                for (int i = 1; i < middle_monster.size(); i++) {
+                    middle_monster[i] = new MiddleMonster();
+                    middle_monster_survive[i] = true;
+                }
+                int sorcerer_one_num = 5;
+                sorcerer_one.resize(sorcerer_one_num);
+                sorcerer_one_survive.resize(sorcerer_one_num);
+                sorcerer_one_time.resize(sorcerer_one_num);
+                for (int i = 1; i < sorcerer_one.size(); i++) {
+                    sorcerer_one[i] = new SorcererOne();
+                    sorcerer_one_survive[i] = true;
+                }
+            }
+            if (map_choose == 6) {
+                int middle_monster_num = 6;
+                middle_monster.resize(middle_monster_num);
+                middle_monster_survive.resize(middle_monster_num);
+                middle_monster_time_one.resize(middle_monster_num);
+                middle_monster_time_two.resize(middle_monster_num);
+                for (int i = 1; i < middle_monster.size(); i++) {
+                    middle_monster[i] = new MiddleMonster();
+                    middle_monster_survive[i] = true;
+                }
+                int sorcerer_one_num = 7;
+                sorcerer_one.resize(sorcerer_one_num);
+                sorcerer_one_survive.resize(sorcerer_one_num);
+                sorcerer_one_time.resize(sorcerer_one_num);
+                for (int i = 1; i < sorcerer_one.size(); i++) {
+                    sorcerer_one[i] = new SorcererOne();
+                    sorcerer_one_survive[i] = true;
+                }
+            }
+            if (map_choose == 7) {
+                int ultra_monster_num = 2;
+                ultra_monster.resize(ultra_monster_num);
+                ultra_monster_survive.resize(ultra_monster_num);
+                ultra_monster_time_one.resize(ultra_monster_num);
+                ultra_monster_time_two.resize(ultra_monster_num);
+                for (int i = 1; i < ultra_monster.size(); i++) {
+                    ultra_monster[i] = new UltraMonster();
+                    ultra_monster_survive[i] = true;
+                }
+            }
+        }
+
+        if (mode == 2) {
+            if (map_choose == -1) {
+                int little_monster1_num = 3;
+                little_monster.resize(little_monster1_num);
+                little_monster_survive.resize(little_monster1_num);
+                little_monster_time.resize(little_monster1_num);
+                for (int i = 1; i < little_monster.size(); i++) {
+                    little_monster[i] = new LittleMonster(0);
+                    little_monster_survive[i] = true;
+                }
+            }
+        }
+        if (map_choose == -2) {
+            int little_monster1_num = 3;
+            little_monster.resize(little_monster1_num);
+            little_monster_survive.resize(little_monster1_num);
+            little_monster_time.resize(little_monster1_num);
+            for (int i = 1; i < little_monster.size(); i++) {
+                little_monster[i] = new LittleMonster(0);
+                little_monster_survive[i] = true;
+            }
+            int little_monster2_num = 3;
+            little_monster2.resize(little_monster2_num);
+            little_monster2_survive.resize(little_monster2_num);
+            little_monster2_time.resize(little_monster2_num);
+            for (int i = 1; i < little_monster2.size(); i++) {
+                little_monster2[i] = new LittleMonster(1);
+                little_monster2_survive[i] = true;
+            }
+        }
+        if (map_choose == -3) {
+            int little_monster2_num = 6;
+            little_monster2.resize(little_monster2_num);
+            little_monster2_survive.resize(little_monster2_num);
+            little_monster2_time.resize(little_monster2_num);
+            for (int i = 1; i < little_monster2.size(); i++) {
+                little_monster2[i] = new LittleMonster(1);
+                little_monster2_survive[i] = true;
+            }
+            int middle_monster_num = 2;
+            middle_monster.resize(middle_monster_num);
+            middle_monster_survive.resize(middle_monster_num);
+            middle_monster_time_one.resize(middle_monster_num);
+            middle_monster_time_two.resize(middle_monster_num);
+            for (int i = 1; i < middle_monster.size(); i++) {
+                middle_monster[i] = new MiddleMonster();
+                middle_monster_survive[i] = true;
+            }
+        }
+        if (map_choose == -4) {
+            int little_monster2_num = 9;
+            little_monster2.resize(little_monster2_num);
+            little_monster2_survive.resize(little_monster2_num);
+            little_monster2_time.resize(little_monster2_num);
+            for (int i = 1; i < little_monster2.size(); i++) {
+                little_monster2[i] = new LittleMonster(1);
+                little_monster2_survive[i] = true;
+            }
+            int middle_monster_num = 2;
+            middle_monster.resize(middle_monster_num);
+            middle_monster_survive.resize(middle_monster_num);
+            middle_monster_time_one.resize(middle_monster_num);
+            middle_monster_time_two.resize(middle_monster_num);
+            for (int i = 1; i < middle_monster.size(); i++) {
+                middle_monster[i] = new MiddleMonster();
+                middle_monster_survive[i] = true;
+            }
+            int sorcerer_one_num = 2;
+            sorcerer_one.resize(sorcerer_one_num);
+            sorcerer_one_survive.resize(sorcerer_one_num);
+            sorcerer_one_time.resize(sorcerer_one_num);
+            for (int i = 1; i < sorcerer_one.size(); i++) {
+                sorcerer_one[i] = new SorcererOne();
+                sorcerer_one_survive[i] = true;
+            }
+        }
+        if (map_choose == -5) {
+            int middle_monster_num = 4;
+            middle_monster.resize(middle_monster_num);
+            middle_monster_survive.resize(middle_monster_num);
+            middle_monster_time_one.resize(middle_monster_num);
+            middle_monster_time_two.resize(middle_monster_num);
+            for (int i = 1; i < middle_monster.size(); i++) {
+                middle_monster[i] = new MiddleMonster();
+                middle_monster_survive[i] = true;
+            }
+            int sorcerer_one_num = 5;
+            sorcerer_one.resize(sorcerer_one_num);
+            sorcerer_one_survive.resize(sorcerer_one_num);
+            sorcerer_one_time.resize(sorcerer_one_num);
+            for (int i = 1; i < sorcerer_one.size(); i++) {
+                sorcerer_one[i] = new SorcererOne();
+                sorcerer_one_survive[i] = true;
+            }
+        }
+        if (map_choose == -6) {
+            int middle_monster_num = 6;
+            middle_monster.resize(middle_monster_num);
+            middle_monster_survive.resize(middle_monster_num);
+            middle_monster_time_one.resize(middle_monster_num);
+            middle_monster_time_two.resize(middle_monster_num);
+            for (int i = 1; i < middle_monster.size(); i++) {
+                middle_monster[i] = new MiddleMonster();
+                middle_monster_survive[i] = true;
+            }
+            int sorcerer_one_num = 7;
+            sorcerer_one.resize(sorcerer_one_num);
+            sorcerer_one_survive.resize(sorcerer_one_num);
+            sorcerer_one_time.resize(sorcerer_one_num);
+            for (int i = 1; i < sorcerer_one.size(); i++) {
+                sorcerer_one[i] = new SorcererOne();
+                sorcerer_one_survive[i] = true;
+            }
+        }
+        if (map_choose <= -7) {
+            int ultra_monster_num = map_choose * (-1) - 5;
+            ultra_monster.resize(ultra_monster_num);
+            ultra_monster_survive.resize(ultra_monster_num);
+            ultra_monster_time_one.resize(ultra_monster_num);
+            ultra_monster_time_two.resize(ultra_monster_num);
+            for (int i = 1; i < ultra_monster.size(); i++) {
+                ultra_monster[i] = new UltraMonster();
+                ultra_monster_survive[i] = true;
+            }
+        }
     }
     int little_monster_die_num = 0;
     if (mode == 1) {
@@ -504,7 +756,6 @@ void MyMainWindow::UpdateOne(int mode) {
                         little_monster[i]->SetStrong(1);
                         little_monster[i]->SetKind(6);
                     }
-                    qDebug() << little_monster[i]->GetKind();
                     if (little_monster[i]->GetKind() == 6) {
                         little_monster[i]->Die();
                         little_monster_survive[i] = false;
@@ -541,7 +792,6 @@ void MyMainWindow::UpdateOne(int mode) {
                     little_monster_die_num++;
                 }
             }
-            qDebug() << little_monster_die_num << little_monster.size() - 1;
             if (map_choose == 1 && little_monster_die_num == little_monster.size() - 1) {
                 map_choose++;
                 int little_monster1_num = 3;
@@ -584,7 +834,7 @@ void MyMainWindow::UpdateOne(int mode) {
                     if (little_monster2[i]->GetKind() == 6) {
                         little_monster2[i]->Die();
                         little_monster2_survive[i] = false;
-                        hero_one.SetExp(hero_one.GetExp() + 500);
+                        hero_one.SetExp(hero_one.GetExp() + 50);
                         delete little_monster2[i];
                     }
                     if (little_monster2[i]->GetKind() != 4) {
@@ -874,7 +1124,6 @@ void MyMainWindow::UpdateOne(int mode) {
                         }
                         ultra_monster[i]->SetLay(0);
                     }
-                    qDebug() << ultra_monster[i]->GetKind();
                     if (ultra_monster[i]->GetKind() == 6) {
                         ultra_monster[i]->Die();
                         ultra_monster_survive[i] = false;
@@ -980,7 +1229,6 @@ void MyMainWindow::UpdateOne(int mode) {
                         little_monster[i]->SetStrong(1);
                         little_monster[i]->SetKind(6);
                     }
-                    qDebug() << little_monster[i]->GetKind();
                     if (little_monster[i]->GetKind() == 6) {
                         little_monster[i]->Die();
                         little_monster_survive[i] = false;
@@ -1059,7 +1307,7 @@ void MyMainWindow::UpdateOne(int mode) {
                     if (little_monster2[i]->GetKind() == 6) {
                         little_monster2[i]->Die();
                         little_monster2_survive[i] = false;
-                        hero_one.SetExp(hero_one.GetExp() + 500);
+                        hero_one.SetExp(hero_one.GetExp() + 50);
                         delete little_monster2[i];
                     }
                     if (little_monster2[i]->GetKind() != 4) {
@@ -1349,7 +1597,6 @@ void MyMainWindow::UpdateOne(int mode) {
                         }
                         ultra_monster[i]->SetLay(0);
                     }
-                    qDebug() << ultra_monster[i]->GetKind();
                     if (ultra_monster[i]->GetKind() == 6) {
                         ultra_monster[i]->Die();
                         ultra_monster_survive[i] = false;

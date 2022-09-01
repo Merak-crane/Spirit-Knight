@@ -140,6 +140,7 @@ private:
 	int exp;
 	int expmax;
 public:
+	int count_be_attack;
 	Hero();
 	void StatusUpdate();
 	void Show();

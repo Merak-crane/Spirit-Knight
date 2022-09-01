@@ -110,23 +110,13 @@ void Character::Die() {
 
 void Hero::BeAttackedAnimation() {
     if (direction == 0) {
-        photo = QPixmap(FrameAnimation(die.skill_picture, count_attack));
+        photo = QPixmap(FrameAnimation(die.skill_picture, count_be_attack));
     }
     else {
-        QImage image(FrameAnimation(die.skill_picture, count_attack));
+        QImage image(FrameAnimation(die.skill_picture, count_be_attack));
         QImage mirroredImage = image.mirrored(true, false);
         photo = QPixmap::fromImage(mirroredImage);
     }
-    //if (attacknum == 2) {
-    //    if (direction == 0) {
-    //        photo = QPixmap(FrameAnimation(first_skill.skill_picture, count_attack));
-    //    }
-    //    else {
-    //        QImage image(FrameAnimation(second_skill.skill_picture, count_attack));
-    //        QImage mirroredImage = image.mirrored(true, false);
-    //        photo = QPixmap::fromImage(mirroredImage);
-    //    }
-    //}
 }
 
 
@@ -213,6 +203,7 @@ void Character::SetHP(double health_point) {
 Hero::Hero() {
     x = 500;
     y = 500;
+    count_be_attack = 0;
     real_body_width = 38 * size_factor;
     real_body_height = 41 * size_factor;
     real_body_x = x + image_width / 2;

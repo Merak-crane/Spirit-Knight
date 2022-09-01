@@ -8,8 +8,8 @@ LoginInterface::LoginInterface(Player* local, QWidget *parent)
 {
 	//ui.setupUi(this);
 	QDesktopWidget w;
-	int DeskWidth = w.width() / 2;
-	int DeskHeight = w.height() / 2;//获取设备的分辨率
+	int DeskWidth = 1280;
+	int DeskHeight = 800;//获取设备的分辨率
 	this->setFixedSize(DeskWidth, DeskHeight);//设置窗口大小
 	this->setWindowTitle("Mega Man E");//设置窗口标题
 	this->setWindowIcon(QIcon(":/icon/Resource/icon/htmlogo.png"));//设置窗口logo
@@ -117,23 +117,23 @@ void LoginInterface::LoginConfirm() {
 	QString pass_word = password->text();
 
 	QSqlTableModel* model = new QSqlTableModel;
-	model->setTable("test01");
-	model->setFilter(QString("name='%1'").arg(user_name));//查询用户名
+	model->setTable("gameuser");
+	model->setFilter(QString("username='%1'").arg(user_name));//查询用户名
 	model->select();
 
 	int row = model->rowCount();
 	if (row > 0) {//查询成功
 		row = 0;
-		model->setFilter(QString("name='%1' and password='%2'").arg(user_name).arg(pass_word));//查询用户与密码
+		model->setFilter(QString("username='%1' and password='%2'").arg(user_name).arg(pass_word));//查询用户与密码
 		model->select();
 		row = model->rowCount();
 		if (row > 0) {//查询成功
 			QMessageBox::information(this, "提示", "登录成功!");
-			model->setFilter(QString("name='%1'").arg(user_name));
+			model->setFilter(QString("username='%1'").arg(user_name));
 			model->select();
 			QSqlRecord record = model->record(0);
-			QString name = record.value("name").toString();
-			local = new Player(record.value("name").toString(), record.value("email").toString(), record.value("power").toString()
+			QString name = record.value("username").toString();
+			local = new Player(record.value("username").toString(), record.value("email").toString(), record.value("power").toString()
 				, record.value("level").toInt());
 			StartInterface* login = new StartInterface(local);
 			login->show();

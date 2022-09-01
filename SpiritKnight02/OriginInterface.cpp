@@ -8,8 +8,8 @@ OriginInterface::OriginInterface(QWidget *parent)
 	//ui.setupUi(this);
 	this->parent = parent;
 	QDesktopWidget w;
-	int DeskWidth = w.width() / 2;
-	int DeskHeight = w.height() / 2;//获取设备的分辨率
+	int DeskWidth = 1280;
+	int DeskHeight = 800;//获取设备的分辨率
 	this->setFixedSize(DeskWidth, DeskHeight);//设置窗口大小
 	this->setWindowTitle("Mega Man E");//设置窗口标题
 	this->setWindowIcon(QIcon(":/icon/Resource/icon/htmlogo.png"));//设置窗口logo
