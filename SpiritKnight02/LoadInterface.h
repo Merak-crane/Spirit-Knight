@@ -13,6 +13,7 @@ class LoadInterface : public QWidget
 public:
 	LoadInterface(Player* local,QWidget *parent = nullptr);
 	~LoadInterface();
+	void paintEvent(QPaintEvent* event);
 	void ReturnBack();
 	void LoadOne();
 	void LoadTwo();

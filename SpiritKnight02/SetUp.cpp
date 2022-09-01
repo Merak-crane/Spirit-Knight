@@ -14,6 +14,7 @@ SetUp::SetUp(Hero hero, Player* local, int mode, int mapchoose, QWidget *parent)
 	: QWidget(parent)
 {
 	ui.setupUi(this);
+	this->parent = parent;
 	this->mode = mode;
 	this->mapchoose = mapchoose;
 	this->hero = hero;
@@ -36,11 +37,11 @@ SetUp::SetUp(Hero hero, Player* local, int mode, int mapchoose, QWidget *parent)
 	this->setWindowIcon(QIcon(":/icon/Resource/icon/htmlogo.png"));//设置窗口logo
 	this->setWindowFlags(Qt::CustomizeWindowHint);
 	this->move((parent->width() - this->width()) / 2, (parent->height() - this->height()) / 2);
-	close->resize(240, 80);
-	close->move(300, 50);
-	QPixmap p12 = QPixmap(":/ui/Resource/image/ui/returnback.png");
+	close->resize(120, 40);
+	close->move(450, 50);
+	QPixmap p12 = QPixmap(":/ui/Resource/image/ui/close.png");
 	close->setIcon(p12);
-	close->setIconSize(QSize(240, 80));
+	close->setIconSize(QSize(120, 40));
 	close->setFlat(true);
 
 	save->resize(240, 80);
@@ -53,28 +54,28 @@ SetUp::SetUp(Hero hero, Player* local, int mode, int mapchoose, QWidget *parent)
 	back->resize(240, 80);
 	back->move(300, 300);
 	QPixmap p16 = QPixmap(":/ui/Resource/image/ui/return.png");
-	back->setIcon(p15);
+	back->setIcon(p16);
 	back->setIconSize(QSize(240, 80));
 	back->setFlat(true);
 
 	load_one->resize(240, 80);
-	load_one->move(200, 100);
-	QPixmap p17 = QPixmap(":/ui/Resource/image/ui/load2.png");
-	load_one->setIcon(p15);
+	load_one->move(180, 100);
+	QPixmap p17 = QPixmap(":/ui/Resource/image/ui/load1.png");
+	load_one->setIcon(p17);
 	load_one->setIconSize(QSize(240, 80));
 	load_one->setFlat(true);
 
 	load_two->resize(240, 80);
-	load_two->move(200, 200);
-	QPixmap p18 = QPixmap(":/ui/Resource/image/ui/load3.png");
-	load_two->setIcon(p15);
+	load_two->move(180, 200);
+	QPixmap p18 = QPixmap(":/ui/Resource/image/ui/load2.png");
+	load_two->setIcon(p18);
 	load_two->setIconSize(QSize(240, 80));
 	load_two->setFlat(true);
 
 	load_three->resize(240, 80);
-	load_three->move(200, 300);
+	load_three->move(180, 300);
 	QPixmap p19 = QPixmap(":/ui/Resource/image/ui/load3.png");
-	load_three->setIcon(p15);
+	load_three->setIcon(p19);
 	load_three->setIconSize(QSize(240, 80));
 	load_three->setFlat(true);
 
@@ -82,9 +83,10 @@ SetUp::SetUp(Hero hero, Player* local, int mode, int mapchoose, QWidget *parent)
 	connect(load_one, &QPushButton::clicked, this, &SetUp::LoadOne);
 	connect(load_two, &QPushButton::clicked, this, &SetUp::LoadTwo);
 	connect(load_three, &QPushButton::clicked, this, &SetUp::LoadThree);
-	connect(load_three, &QPushButton::clicked, this, &SetUp::LoadThree);
+	connect(close, &QPushButton::clicked, this, &SetUp::Close);
+	connect(back, &QPushButton::clicked, this, &SetUp::Back);
 
-	remind->setGeometry(200, 100, 400, 50);
+	remind->setGeometry(190, 50, 400, 50);
 	remind->setText("选择存档或退出");
 	remind->setObjectName("remind");
 	load_interface->hide();
@@ -101,6 +103,16 @@ void SetUp::Load() {
 	delete set_interface;
 	load_interface->show();
 	remind->setText("选择存档位置");
+}
+
+void SetUp::Close() {
+	delete set_interface;
+	delete this;
+}
+
+void SetUp::Back() {
+	parent->close();
+
 }
 
 void SetUp::LoadOne() {

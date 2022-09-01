@@ -263,11 +263,11 @@ Start::Start(QWidget *parent)
 	//connect(load3btn, &QPushButton::clicked, this, &Start::load_3);
 	connect(introduction, &QPushButton::clicked, this, &Start::OpenIntroduction);
 	connect(mode_one, &QPushButton::clicked, [=]() {
-		MyMainWindow* gamewindow = new MyMainWindow(1, local, this);
+		MyMainWindow* gamewindow = new MyMainWindow(1, local, 0, this);
 		gamewindow->show();
 		});
 	connect(mode_two, &QPushButton::clicked, [=]() {
-		MyMainWindow* gamewindow = new MyMainWindow(2, local, this);;
+		MyMainWindow* gamewindow = new MyMainWindow(2, local, 0, this);;
 		});
 	start_time.setInterval(1);
 	start_time.start();

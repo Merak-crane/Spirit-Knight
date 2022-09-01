@@ -151,15 +151,16 @@ void LoginInterface::LoginConfirm() {
 	delete model;
 }
 
-void LoginInterface::paintEvent(QPaintEvent* event) {
-	QPainter* painter = new QPainter(this);
-	painter->end();
-}
-
 void LoginInterface::ReturnOrigin() {
 	OriginInterface* back = new OriginInterface;
 	back->show();
 	this->close();
+}
+
+void LoginInterface::paintEvent(QPaintEvent* event) {
+	QPainter* painter = new QPainter(this);
+	painter->drawPixmap(0, 0, this->width(), this->height(), QPixmap(":/image/Resource/image/background/login.png"));
+	painter->end();
 }
 
 LoginInterface::~LoginInterface()

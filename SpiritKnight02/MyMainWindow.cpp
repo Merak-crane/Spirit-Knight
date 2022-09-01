@@ -13,6 +13,12 @@ MyMainWindow::MyMainWindow(int mode, Player* local, int mapchoose, QWidget *pare
     : QMainWindow(parent)
 {  
     this->local = local;
+    if (mapchoose != 0) {
+        this->map_choose = mapchoose;
+        hero_one.SetHP(local->GetHP());
+        hero_one.SetMP(local->GetMP());
+        hero_one.SetLevel(local->GetLevel());
+    }
     close_num = 3;
     srand((unsigned)time(NULL));
     QDesktopWidget w;
@@ -33,18 +39,17 @@ MyMainWindow::MyMainWindow(int mode, Player* local, int mapchoose, QWidget *pare
             //this->close();
         }
     });
-    if (mode == 1) {
-        qDebug() << 1;
+    if (mode == 1 && mapchoose == 0) {
         map_choose = 1;
         /*battle1 = new QSound(":/new/prefix1/Resource/sound/BGMmap.wav", this);
         battle1->play();
         battle1->setLoops(-1);*/
     }
-    else if(mode == 2)
+    else if(mode == 2 && mapchoose == 0)
     {
         map_choose = -1;
     }
-    if (mode == 3) {
+    if (mode == 3 && mapchoose == 0) {
         map_choose = 1;
         int sorcerer_one_num = 3;
         sorcerer_one.resize(sorcerer_one_num);
@@ -100,7 +105,7 @@ MyMainWindow::MyMainWindow(int mode, Player* local, int mapchoose, QWidget *pare
     set_up_btn = new QPushButton(this);
     set_up_btn->resize(240, 80);
     set_up_btn->move(1000, 50);
-    QPixmap p1 = QPixmap(":/ui/Resource/image/ui/load2.png");
+    QPixmap p1 = QPixmap(":/ui/Resource/image/ui/setup.png");
     set_up_btn->setIcon(p1);
     set_up_btn->setIconSize(QSize(240, 80));
     set_up_btn->setFlat(true);

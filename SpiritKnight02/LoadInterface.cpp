@@ -64,6 +64,12 @@ void LoadInterface::ReturnBack() {
 	this->close();
 }
 
+void LoadInterface::paintEvent(QPaintEvent* event) {
+	QPainter* painter = new QPainter(this);
+	painter->drawPixmap(0, 0, this->width(), this->height(), QPixmap(":/image/Resource/image/background/modechoose.jpg"));
+	painter->end();
+}
+
 void LoadInterface::LoadOne() {
 	QSqlTableModel* model = new QSqlTableModel;
 	QString user = local->GetUsername();

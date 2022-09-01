@@ -32,7 +32,7 @@ OriginInterface::OriginInterface(QWidget *parent)
 
 void OriginInterface::paintEvent(QPaintEvent* event){
 	QPainter* painter = new QPainter(this);
-	//painter->drawPixmap(0, 0, this->width(), this->height(), QPixmap(":/image/Resource/image/background/background.png"));
+	painter->drawPixmap(0, 0, this->width(), this->height(), QPixmap(":/image/Resource/image/background/background.png"));
 	painter->end();
 }
 
