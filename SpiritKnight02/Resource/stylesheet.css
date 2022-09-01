@@ -51,6 +51,13 @@ QLabel#MP{
 	padding-left: 10px;
 	font-size: 5px;
 }
+QLabel#EXP{
+	background-color: #f9dc00;
+	border: 3px solid rgb(211, 198, 19);
+	border-radius: 3px;
+	padding-left: 10px;
+	font-size: 5px;
+}
 QLabel#user_information_label{
 	color: white;
 	font-weight: 600;

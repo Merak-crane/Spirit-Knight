@@ -91,7 +91,6 @@ void SorcererOne::Attack() {
         }
         else if (kind == 4) {
             if (bullet_num < 10 && bullet_collector[bullet_num]->Disappear()) {
-                qDebug() << bullet_num << "Сʱ";
                 bullet_collector[bullet_num]->BulletUpdate(real_body_x, real_body_y - 30, direction);
                 bullet_num++;
             }

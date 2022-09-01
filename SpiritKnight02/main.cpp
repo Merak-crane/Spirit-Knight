@@ -32,7 +32,7 @@ int main(int argc, char *argv[])
 	}
 	//Start s;
 	//s.show();
-	Player* o = new Player("222", "sss", "ss", 100);
+	Player* o = new Player("222", "sss", "ss", 60);
 	MyMainWindow w(3,o);
 	w.show();
 	//VideoInterface v;

@@ -221,35 +221,50 @@ Hero::Hero() {
     x_speed_right = 50;
     y_speed = 40;
     kind = 0;
+    exp = 30;
+    expmax = 1000;
     count_attack = 0;
     count_left = 0;
     count_right = 0;
     count_top = 0;
     strong = 0;
+    level = 1;
     real_body.moveTo(real_body_x, real_body_y);
     real_body.setWidth(50);   //¹¥»÷¾ØÐÎ(Åö×²¼ì²â)
     real_body.setHeight(50);
     attack_range_x = 110;
     attack_range_y = 100;
-    health_point_max = 2000;
-    magic_point_max = 200;
-    health_point = 2000;
-    magic_point = 100;
     photo = QPixmap(":/image/Resource/image/main_character/running3/zero4_5.png");
     PathCreator(":/image/Resource/image/main_character/running3/zero4_", ".png", 5, 13, running.skill_picture);
     PathCreator(":/image/Resource/image/main_character/slice1/zero2_", ".png", 18, 11, attack.skill_picture);
     PathCreator(":/image/Resource/image/main_character/die/zero1_", ".png", 16, 11, die.skill_picture);
 }
+
 void Hero::Show() {
 
+}
+
+void Hero::StatusUpdate() {
+    health_point_max = 200 * level;
+    magic_point_max = 200 * level;
+    health_point = 200 * level;
+    magic_point = 200 * level;
 }
 
 void Hero::SetExp(int exp) {
     this->exp = exp;
 }
 
+void Hero::SetExpmax(int expmax) {
+    this->expmax = expmax;
+}
+
 int Hero::GetExp() {
     return exp;
+}
+
+int Hero::GetExpmax() {
+    return expmax;
 }
 
 void Hero::BeAttacked(vector<LittleMonster*> monster, vector<bool> monster_survive) {

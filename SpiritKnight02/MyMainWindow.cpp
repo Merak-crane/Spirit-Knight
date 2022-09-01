@@ -12,12 +12,15 @@
 MyMainWindow::MyMainWindow(int mode, Player* local, int mapchoose, QWidget *parent)
     : QMainWindow(parent)
 {  
+    hero_one.SetLevel(local->GetLevel());
+    hero_one.StatusUpdate();
     this->local = local;
     if (mapchoose != 0) {
         this->map_choose = mapchoose;
         hero_one.SetHP(local->GetHP());
         hero_one.SetMP(local->GetMP());
         hero_one.SetLevel(local->GetLevel());
+        hero_one.SetExp(local->GetEXP());
     }
     close_num = 3;
     srand((unsigned)time(NULL));
@@ -100,6 +103,8 @@ MyMainWindow::MyMainWindow(int mode, Player* local, int mapchoose, QWidget *pare
     hp->setObjectName("HP");
     mp = new QLabel(this);
     mp->setObjectName("MP");
+    exp = new QLabel(this);
+    exp->setObjectName("EXP");
     user_information_label = new QLabel(this);
     user_information_label->setObjectName("user_information_label");
     set_up_btn = new QPushButton(this);
@@ -148,8 +153,9 @@ void MyMainWindow::paintEvent(QPaintEvent *event)
     painter->drawPixmap(0, 0, 500, 150, QPixmap(":/image/Resource/image/main_character/hp.png"));
     hp->setGeometry(155, 110, hero_one.GetHP() * 320 / hero_one.GetHPMAX(), 10);
     mp->setGeometry(155, 122, hero_one.GetMP() * 320 / hero_one.GetMPMAX(), 10);
+    exp->setGeometry(155, 134, hero_one.GetExp() * 320 / hero_one.GetExpmax(), 10);
     user_information_label->setGeometry(175, 45, 200, 80);
-    QString information = QString("%1 Lv. %2").arg(local->GetUsername()).arg(local->GetLevel());
+    QString information = QString("%1 Lv. %2").arg(local->GetUsername()).arg(hero_one.GetLevel());
     user_information_label->setText(information);
     painter->drawPixmap(hero_one.GetX(), hero_one.GetY(), hero_one.image_width, hero_one.image_height, hero_one.photo);
 
@@ -427,6 +433,10 @@ void MyMainWindow::UpdateOne(int mode) {
         hero_one.SetStrong(1);
         hero_one.SetKind(6);
     }
+    if (hero_one.GetExp() >= hero_one.GetExpmax()) {
+        hero_one.SetLevel(hero_one.GetLevel() + 1);
+        hero_one.SetExp(hero_one.GetExp() - 1000);
+    }
     if (hero_one.GetStrong() == 0) {
         hero_one.BeAttacked(little_monster, little_monster_survive);
     }
@@ -492,6 +502,7 @@ void MyMainWindow::UpdateOne(int mode) {
             if (little_monster[i]->GetKind() == 6) {
                 little_monster[i]->Die();
                 little_monster_survive[i] = false;
+                hero_one.SetExp(hero_one.GetExp() + 10);
                 delete little_monster[i];
             }
             if (little_monster[i]->GetKind() != 4) {
@@ -540,6 +551,7 @@ void MyMainWindow::UpdateOne(int mode) {
             if (little_monster2[i]->GetKind() == 6) {
                 little_monster2[i]->Die();
                 little_monster2_survive[i] = false;
+                hero_one.SetExp(hero_one.GetExp() + 500);
                 delete little_monster2[i];
             }
             if (little_monster2[i]->GetKind() != 4) {
@@ -589,6 +601,7 @@ void MyMainWindow::UpdateOne(int mode) {
             if (middle_monster[i]->GetKind() == 6) {
                 middle_monster[i]->Die();
                 middle_monster_survive[i] = false;
+                hero_one.SetExp(hero_one.GetExp() + 20);
                 delete middle_monster[i];
             }
             if (middle_monster[i]->GetKind() != 4) {
@@ -656,6 +669,7 @@ void MyMainWindow::UpdateOne(int mode) {
             if (ultra_monster[i]->GetKind() == 6) {
                 ultra_monster[i]->Die();
                 ultra_monster_survive[i] = false;
+                hero_one.SetExp(hero_one.GetExp() + 100);
                 delete ultra_monster[i];
             }
             if (ultra_monster[i]->GetKind() != 4) {
@@ -741,6 +755,7 @@ void MyMainWindow::UpdateOne(int mode) {
             if (sorcerer_one[i]->GetKind() == 6) {
                 sorcerer_one[i]->Die();
                 sorcerer_one_survive[i] = false;
+                hero_one.SetExp(hero_one.GetExp() + 30);
                 delete sorcerer_one[i];
             }
             if (sorcerer_one[i]->GetKind() != 4) {
@@ -799,7 +814,7 @@ void MyMainWindow::UpdateOne(int mode) {
                 little_monster_survive.resize(little_monster_num);
                 little_monster_time.resize(little_monster_num);
                 for (int i = 1; i < little_monster_num; i++) {
-                    little_monster[i] = new LittleMonster(1);
+                    little_monster[i] = new LittleMonster(0);
                     little_monster_survive[i] = true;
                 }
             }
