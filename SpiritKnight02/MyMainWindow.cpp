@@ -57,7 +57,7 @@ MyMainWindow::MyMainWindow(int mode, Player* local, int mapchoose, QWidget *pare
         sorcerer_one_time.resize(sorcerer_one_num);
         for (int i = 1; i < sorcerer_one.size(); i++) {
         sorcerer_one[i] = new SorcererOne();
-        sorcerer_one_survive[i] = false;
+        sorcerer_one_survive[i] = true;
         }
     }
     int little_monster_num = 3;
@@ -208,17 +208,17 @@ void MyMainWindow::paintEvent(QPaintEvent *event)
     for (int i = 1; i < sorcerer_one.size(); i++) {
         for (int m = 1; m < sorcerer_one[i]->bullet_collector.size(); m++) {
             if (sorcerer_one_survive[i] == true) {
-                if (sorcerer_one[i]->GetDirection() == 1) {
+                if (sorcerer_one[i]->GetDirection() == 0) {
                     QImage image(":/image/Resource/image/bomber/bullet/foxtar_90.png");
                     QImage mirroredImage = image.mirrored(true, false);
                     sorcerer_one[i]->bullet_collector[m]->photo = QPixmap::fromImage(mirroredImage);
                 }
-                else if (sorcerer_one[i]->GetDirection() == 0) {
+                else if (sorcerer_one[i]->GetDirection() == 1) {
                     sorcerer_one[i]->bullet_collector[m]->photo = QPixmap(":/image/Resource/image/bomber/bullet/foxtar_90.png");
                 }
             }
             //painter->drawRect(sorcerer_one[i]->bullet_collector[m]);
-        /*painter->setBrush(Qt::red);*/
+            /*painter->setBrush(Qt::red);*/
             painter->drawPixmap(sorcerer_one[i]->bullet_collector[m]->GetX(), sorcerer_one[i]->bullet_collector[m]->GetY(), sorcerer_one[i]->bullet_collector[m]->image_width, sorcerer_one[i]->bullet_collector[m]->image_height, sorcerer_one[i]->bullet_collector[m]->photo);
             painter->drawRect(sorcerer_one[i]->bullet_collector[m]->attack_range);
             /*painter->drawRect(little_monster[i]->real_body_x - 30, little_monster[i]->real_body_y + 65, 80 * (double(little_monster[i]->GetHP()) / little_monster[i]->GetHPMAX()), 15);
@@ -772,7 +772,6 @@ void MyMainWindow::UpdateOne(int mode) {
     }
     for (int i = 1; i < sorcerer_one.size(); i++) {
         for (int m = 1; m < sorcerer_one[i]->bullet_collector.size(); m++) {
-            qDebug() << hero_one.GetStrong();
             if (hero_one.GetStrong() == 0) {
                 if (sorcerer_one[i]->bullet_collector[m]->attack_range.intersects(hero_one.real_body)) {
                     hero_one.SetHP(hero_one.GetHP() - 1);

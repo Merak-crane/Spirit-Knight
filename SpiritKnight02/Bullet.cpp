@@ -24,6 +24,12 @@ int Bullet::GetY() {
 	return y;
 }
 
+void Bullet::BulletUpdate(int x, int y, int direction) {
+	this->x = x;
+	this->y = y;
+	this->direction = direction;
+}
+
 void BulletOne::Move() {
 	if (direction == 0) {
 		x += x_speed;
@@ -34,11 +40,12 @@ void BulletOne::Move() {
 	}
 }
 
-void BulletOne::Disappear() {
+bool BulletOne::Disappear() {
 	attack_range.moveTo(x + 10 - attack_range_x / 2, y + 20 - attack_range_y / 2);
 	attack_range.setWidth(attack_range_x);   //¹¥»÷¾ØÐÎ(Åö×²¼ì²â)
 	attack_range.setHeight(attack_range_y);
 	if (x > 1280 || x < 0) {
 		//delete this;
+		return true;
 	}
 }
