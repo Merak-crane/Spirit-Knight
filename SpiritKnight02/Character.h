@@ -138,13 +138,17 @@ public:
 class Hero : public Character {
 private:
 	int exp;
+	int expmax;
 public:
 	Hero();
+	void StatusUpdate();
 	void Show();
 	void BeAttacked(vector<LittleMonster*> monster, vector<bool> monster_survive);
 	void BeAttackedAnimation();
 	void SetExp(int exp);
 	int GetExp();
+	void SetExpmax(int expmax);
+	int GetExpmax();
 };
 
 class LittleMonster: public Character {

@@ -16,6 +16,7 @@ class MyMainWindow : public QMainWindow
 public:
     QLabel* hp;
     QLabel* mp;
+    QLabel* exp;
     QLabel* died;
     QLabel* user_information_label;
     Player* local;
