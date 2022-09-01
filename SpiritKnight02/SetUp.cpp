@@ -80,8 +80,8 @@ SetUp::SetUp(Hero hero, Player* local, int mode, int mapchoose, QWidget *parent)
 
 	connect(save, &QPushButton::clicked, this, &SetUp::Load);
 	connect(load_one, &QPushButton::clicked, this, &SetUp::LoadOne);
-	//connect(load_two, &QPushButton::clicked, this, &SetUp::LoadTwo);
-	//connect(load_three, &QPushButton::clicked, this, &SetUp::LoadThree);
+	connect(load_two, &QPushButton::clicked, this, &SetUp::LoadTwo);
+	connect(load_three, &QPushButton::clicked, this, &SetUp::LoadThree);
 
 	remind->setGeometry(200, 100, 400, 50);
 	remind->setText("втя║");
