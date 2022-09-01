@@ -776,7 +776,7 @@ void MyMainWindow::UpdateOne(int mode) {
                 little_monster_survive.resize(little_monster_num);
                 little_monster_time.resize(little_monster_num);
                 for (int i = 1; i < little_monster_num; i++) {
-                    little_monster[i] = new LittleMonster(1);
+                    little_monster[i] = new LittleMonster(0);
                     little_monster_survive[i] = true;
                 }
             }
@@ -804,7 +804,7 @@ void MyMainWindow::UpdateOne(int mode) {
                 little_monster_survive.resize(little_monster_num);
                 little_monster_time.resize(little_monster_num);
                 for (int i = 1; i < little_monster_num; i++) {
-                    little_monster[i] = new LittleMonster(1);
+                    little_monster[i] = new LittleMonster(0);
                     little_monster_survive[i] = true;
                 }
                 qDebug() << "好的";
@@ -839,7 +839,7 @@ void MyMainWindow::UpdateOne(int mode) {
             little_monster_survive.resize(little_monster_num);
             little_monster_time.resize(little_monster_num);
             for (int i = 1; i < little_monster_num; i++) {
-                little_monster[i] = new LittleMonster(1);
+                little_monster[i] = new LittleMonster(0);
                 little_monster_survive[i] = true;
             }
             if (map_choose < -9) {
