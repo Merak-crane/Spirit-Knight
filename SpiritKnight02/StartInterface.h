@@ -1,7 +1,6 @@
 #pragma once
 
 #include <QWidget>
-#include "ui_StartInterface.h"
 #include "ModeInterface.h"
 #include "LoadInterface.h"
 #include "Player.h"
@@ -20,7 +19,6 @@ public:
 	void ModeChoose();
 	void paintEvent(QPaintEvent* event);
 private:
-	Ui::StartInterfaceClass ui;
 	Player* local;
 	QPushButton* start = new QPushButton(this);
 	QPushButton* continued = new QPushButton(this);

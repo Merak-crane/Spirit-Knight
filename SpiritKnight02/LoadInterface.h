@@ -1,7 +1,6 @@
 #pragma once
 
 #include <QWidget>
-#include "ui_LoadInterface.h"
 #include "Player.h"
 #include <QPushButton>
 #include <QPainter>
@@ -19,7 +18,6 @@ public:
 	void LoadTwo();
 	void LoadThree();
 private:
-	Ui::LoadInterfaceClass ui;
 	Player* local;
 	QPushButton* load_one = new QPushButton(this);
 	QPushButton* load_two = new QPushButton(this);

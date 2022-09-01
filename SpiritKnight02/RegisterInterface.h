@@ -1,7 +1,6 @@
 #pragma once
 
 #include <QWidget>
-#include "ui_RegisterInterface.h"
 #include "Player.h"
 #include <QPushButton>
 #include <QLineEdit>
@@ -29,7 +28,6 @@ public:
     void RegisterConfirm();
 
 private:
-	Ui::RegisterInterfaceClass ui;
     int register_kind;
     QString identify;
     Player* local;

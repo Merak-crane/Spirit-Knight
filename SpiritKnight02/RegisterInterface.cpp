@@ -7,7 +7,7 @@
 RegisterInterface::RegisterInterface(QWidget *parent)
 	: QWidget(parent)
 {
-	ui.setupUi(this);
+	//ui.setupUi(this);
 	register_kind = 0;
 	this->setAttribute(Qt::WA_DeleteOnClose);
 	QDesktopWidget w;

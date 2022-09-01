@@ -14,7 +14,7 @@
 LoadInterface::LoadInterface(Player* local, QWidget *parent)
 	: QWidget(parent)
 {
-	ui.setupUi(this);
+	//ui.setupUi(this);
 	this->setAttribute(Qt::WA_DeleteOnClose);
 	this->local = local;
 	QDesktopWidget w;
