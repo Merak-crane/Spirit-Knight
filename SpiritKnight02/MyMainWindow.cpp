@@ -9,7 +9,7 @@
 #include "time.h"
 #include <QKeyEvent>
 #include <QMessageBox>
-MyMainWindow::MyMainWindow(int mode, Player* local, QWidget *parent)
+MyMainWindow::MyMainWindow(int mode, Player* local, int mapchoose, QWidget *parent)
     : QMainWindow(parent)
 {  
     this->local = local;
