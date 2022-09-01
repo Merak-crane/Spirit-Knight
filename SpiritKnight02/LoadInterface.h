@@ -14,6 +14,9 @@ public:
 	LoadInterface(Player* local,QWidget *parent = nullptr);
 	~LoadInterface();
 	void ReturnBack();
+	void LoadOne();
+	void LoadTwo();
+	void LoadThree();
 private:
 	Ui::LoadInterfaceClass ui;
 	Player* local;

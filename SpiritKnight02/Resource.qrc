@@ -213,5 +213,6 @@
         <file>Resource/image/ui/return.png</file>
         <file>Resource/image/ui/returnback.png</file>
         <file>Resource/image/ui/start.png</file>
+        <file>Resource/image/ui/save.png</file>
     </qresource>
 </RCC>

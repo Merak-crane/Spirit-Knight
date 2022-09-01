@@ -15,4 +15,7 @@ private:
 	QString email;
 	QString power;
 	int level;
+	int hp;
+	int mp;
+	int exp;
 };

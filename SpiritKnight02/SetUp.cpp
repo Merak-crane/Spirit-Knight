@@ -45,7 +45,7 @@ SetUp::SetUp(Hero hero, Player* local, int mode, int mapchoose, QWidget *parent)
 
 	save->resize(240, 80);
 	save->move(100, 300);
-	QPixmap p15 = QPixmap(":/ui/Resource/image/ui/return.png");
+	QPixmap p15 = QPixmap(":/ui/Resource/image/ui/save.png");
 	save->setIcon(p15);
 	save->setIconSize(QSize(240, 80));
 	save->setFlat(true);
@@ -58,22 +58,22 @@ SetUp::SetUp(Hero hero, Player* local, int mode, int mapchoose, QWidget *parent)
 	back->setFlat(true);
 
 	load_one->resize(240, 80);
-	load_one->move(200, 50);
-	QPixmap p17 = QPixmap(":/ui/Resource/image/ui/return.png");
+	load_one->move(200, 100);
+	QPixmap p17 = QPixmap(":/ui/Resource/image/ui/load2.png");
 	load_one->setIcon(p15);
 	load_one->setIconSize(QSize(240, 80));
 	load_one->setFlat(true);
 
 	load_two->resize(240, 80);
-	load_two->move(200, 150);
-	QPixmap p18 = QPixmap(":/ui/Resource/image/ui/return.png");
+	load_two->move(200, 200);
+	QPixmap p18 = QPixmap(":/ui/Resource/image/ui/load3.png");
 	load_two->setIcon(p15);
 	load_two->setIconSize(QSize(240, 80));
 	load_two->setFlat(true);
 
 	load_three->resize(240, 80);
-	load_three->move(200, 250);
-	QPixmap p19 = QPixmap(":/ui/Resource/image/ui/return.png");
+	load_three->move(200, 300);
+	QPixmap p19 = QPixmap(":/ui/Resource/image/ui/load3.png");
 	load_three->setIcon(p15);
 	load_three->setIconSize(QSize(240, 80));
 	load_three->setFlat(true);
@@ -82,9 +82,11 @@ SetUp::SetUp(Hero hero, Player* local, int mode, int mapchoose, QWidget *parent)
 	connect(load_one, &QPushButton::clicked, this, &SetUp::LoadOne);
 	connect(load_two, &QPushButton::clicked, this, &SetUp::LoadTwo);
 	connect(load_three, &QPushButton::clicked, this, &SetUp::LoadThree);
+	connect(load_three, &QPushButton::clicked, this, &SetUp::LoadThree);
 
 	remind->setGeometry(200, 100, 400, 50);
-	remind->setText("自选");
+	remind->setText("选择存档或退出");
+	remind->setObjectName("remind");
 	load_interface->hide();
 	set_interface->show();
 }
@@ -98,7 +100,7 @@ void SetUp::paintEvent(QPaintEvent* event) {
 void SetUp::Load() {
 	delete set_interface;
 	load_interface->show();
-	remind->setText("存档");
+	remind->setText("选择存档位置");
 }
 
 void SetUp::LoadOne() {
