@@ -1,7 +1,6 @@
 #pragma once
 
 #include <QWidget>
-#include "ui_VideoInterface.h"
 #include "OriginInterface.h"
 #include <QDesktopWidget>
 #include <QIcon>
@@ -19,7 +18,6 @@ public:
 	~VideoInterface();
 
 private:
-	Ui::VideoInterfaceClass ui;
 	QMediaPlayer* qtaudioPlayer;
 	QVideoWidget* m_videoW;
 	OriginInterface* origin_interface = new OriginInterface(this);

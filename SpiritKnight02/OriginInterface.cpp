@@ -5,7 +5,7 @@
 OriginInterface::OriginInterface(QWidget *parent)
 	: QWidget(parent)
 {
-	ui.setupUi(this);
+	//ui.setupUi(this);
 	this->parent = parent;
 	QDesktopWidget w;
 	int DeskWidth = w.width() / 2;

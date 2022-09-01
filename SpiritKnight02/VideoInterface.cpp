@@ -3,7 +3,7 @@
 VideoInterface::VideoInterface(QWidget *parent)
 	: QWidget(parent)
 {
-	ui.setupUi(this);
+	//ui.setupUi(this);
 	QDesktopWidget w;
 	int DeskWidth = w.width() / 2;
 	int DeskHeight = w.height() / 2;//获取设备的分辨率

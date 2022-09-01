@@ -57,7 +57,7 @@ MyMainWindow::MyMainWindow(int mode, Player* local, int mapchoose, QWidget *pare
         sorcerer_one_time.resize(sorcerer_one_num);
         for (int i = 1; i < sorcerer_one.size(); i++) {
         sorcerer_one[i] = new SorcererOne();
-        sorcerer_one_survive[i] = true;
+        sorcerer_one_survive[i] = false;
         }
     }
     int little_monster_num = 3;
@@ -66,7 +66,7 @@ MyMainWindow::MyMainWindow(int mode, Player* local, int mapchoose, QWidget *pare
     little_monster_time.resize(little_monster_num);
     for (int i = 1; i < little_monster.size(); i++) {
         little_monster[i] = new LittleMonster(0);
-        little_monster_survive[i] = false;
+        little_monster_survive[i] = true;
     }
     int little_monster2_num = 3;
     little_monster2.resize(little_monster_num);
@@ -74,7 +74,7 @@ MyMainWindow::MyMainWindow(int mode, Player* local, int mapchoose, QWidget *pare
     little_monster2_time.resize(little_monster_num);
     for (int i = 1; i < little_monster2.size(); i++) {
         little_monster2[i] = new LittleMonster(1);
-        little_monster2_survive[i] = true;
+        little_monster2_survive[i] = false;
     }
     int middle_monster_num = 2;
     middle_monster.resize(middle_monster_num);
@@ -454,15 +454,13 @@ void MyMainWindow::UpdateOne(int mode) {
         }
         hero_one.Attack();
     }
-    if (hero_one.GetKind() == 5 && hero_one.GetStrong() == 0) {
+    if (hero_one.GetKind() == 5) {
         hero_one.BeAttackedAnimation();
-        if (hero_one.count_attack > 11) {
-            hero_one.SetStrong(1);
-            timeID1 = startTimer(2000);
+        if (hero_one.count_attack > 10) {
+            timeID1 = startTimer(600);
             hero_one.SetKind(0);
         }
     }
-
     if (hero_one.GetKind() == 6) {
         hero_one.Die();
     }
@@ -474,11 +472,13 @@ void MyMainWindow::UpdateOne(int mode) {
         timeIDm1 = startTimer(800);
     }
     for (int i = 1; i < little_monster.size(); i++) {
+        qDebug() << hero_one.GetStrong();
         if (little_monster_survive[i] == true) {
             little_monster[i]->Move(hero_one);
             if (hero_one.GetStrong() == 0) {
                 if (little_monster[i]->attack_range.intersects(hero_one.real_body)) {
-                    hero_one.SetHP(hero_one.GetHP() - 1);
+                    hero_one.SetHP(hero_one.GetHP() - 20);
+                    hero_one.SetStrong(1);
                     hero_one.SetKind(5);
                 }
             }
@@ -525,7 +525,8 @@ void MyMainWindow::UpdateOne(int mode) {
         if (little_monster2_survive[i] == true) {
             if (hero_one.GetStrong()==0) {
                 if (little_monster2[i]->attack_range.intersects(hero_one.real_body)) {
-                    hero_one.SetHP(hero_one.GetHP() - 0.5);
+                    hero_one.SetHP(hero_one.GetHP() - 40);
+                    hero_one.SetStrong(1);
                     hero_one.SetKind(5);
                 }
             }
@@ -573,7 +574,8 @@ void MyMainWindow::UpdateOne(int mode) {
         if (middle_monster_survive[i] == true) {
             if (hero_one.GetStrong() == 0) {
                 if (middle_monster[i]->attack_range.intersects(hero_one.real_body)) {
-                    hero_one.SetHP(hero_one.GetHP() - 3);
+                    hero_one.SetHP(hero_one.GetHP() - 40);
+                    hero_one.SetStrong(1);
                     hero_one.SetKind(5);
                 }
             }
@@ -774,7 +776,8 @@ void MyMainWindow::UpdateOne(int mode) {
         for (int m = 1; m < sorcerer_one[i]->bullet_collector.size(); m++) {
             if (hero_one.GetStrong() == 0) {
                 if (sorcerer_one[i]->bullet_collector[m]->attack_range.intersects(hero_one.real_body)) {
-                    hero_one.SetHP(hero_one.GetHP() - 1);
+                    hero_one.SetHP(hero_one.GetHP() - 40);
+                    hero_one.SetStrong(1);
                     hero_one.SetKind(5);
                 }
             }

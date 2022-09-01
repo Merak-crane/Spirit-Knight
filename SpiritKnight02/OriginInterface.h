@@ -3,7 +3,6 @@
 #include <QWidget>
 #include "LoginInterface.h"
 #include "RegisterInterface.h"
-#include "ui_OriginInterface.h"
 #include <QPushButton>
 #include <QPainter>
 
@@ -20,7 +19,6 @@ public:
 	void Login();
 	void Register();
 private:
-	Ui::OriginInterfaceClass ui;
 	Player* local;
 	LoginInterface* login_interface = new LoginInterface(local);
 	RegisterInterface* register_interface = new RegisterInterface;

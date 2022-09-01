@@ -1,7 +1,6 @@
 #pragma once
 
 #include <QWidget>
-#include "ui_LoginInterface.h"
 #include "Player.h"
 #include "StartInterface.h"
 #include <QPushButton>
@@ -29,7 +28,6 @@ public:
 	void ReturnOrigin();
 	void paintEvent(QPaintEvent* event);
 private:
-	Ui::LoginInterfaceClass ui;
 	Player* local;
 	QLineEdit* username = new QLineEdit(this);
 	QLineEdit* password = new QLineEdit(this);
