@@ -6,7 +6,6 @@ StartInterface::StartInterface(Player* local, QWidget *parent)
 	: QWidget(parent)
 {
 	//ui.setupUi(this);
-	this->setAttribute(Qt::WA_DeleteOnClose);
 	this->local = local;
 	QDesktopWidget w;
 	int DeskWidth = w.width() / 2;

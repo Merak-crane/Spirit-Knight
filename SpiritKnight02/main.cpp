@@ -1,5 +1,6 @@
 #include "VideoInterface.h"
 #include "OriginInterface.h"
+#include "MyMainWindow.h"
 #include <QtWidgets/QApplication>
 #include <QFile>
 #include <QMessageBox>
@@ -29,9 +30,7 @@ int main(int argc, char *argv[])
 		QMessageBox::about(NULL, "Test", "Open File Failed");
 		//file.close();
 	}
-	//Start s;
-	//s.show();
-	//Player* o = new Player("222", "sss", "ss", 60);
+	Player* o = new Player("222", "sss", "ss", 60);
 	//MyMainWindow w(1,o);
 	//w.show();
 	VideoInterface v;

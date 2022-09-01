@@ -7,7 +7,6 @@ LoginInterface::LoginInterface(Player* local, QWidget *parent)
 	: QWidget(parent)
 {
 	//ui.setupUi(this);
-	this->setAttribute(Qt::WA_DeleteOnClose);
 	QDesktopWidget w;
 	int DeskWidth = w.width() / 2;
 	int DeskHeight = w.height() / 2;//获取设备的分辨率
@@ -55,7 +54,7 @@ LoginInterface::LoginInterface(Player* local, QWidget *parent)
 	start_time.setInterval(10);
 	start_time.start();
 	connect(&start_time, &QTimer::timeout, [=]() {
-			LoginUpdate();
+		LoginUpdate();
 		});
 }
 
@@ -136,9 +135,9 @@ void LoginInterface::LoginConfirm() {
 			QString name = record.value("name").toString();
 			local = new Player(record.value("name").toString(), record.value("email").toString(), record.value("power").toString()
 				, record.value("level").toInt());
-			this->close();
 			StartInterface* login = new StartInterface(local);
 			login->show();
+			this->close();
 		}
 		else {
 			QMessageBox::information(this, "提示", "密码错误，登录失败!");

@@ -141,7 +141,6 @@
         <file>Resource/image/zark/wrap/googuy_40.png</file>
         <file>Resource/image/main_character/hp.png</file>
         <file>Resource/image/background/background.jpeg</file>
-        <file>Resource/image/background/background.png</file>
         <file>Resource/image/background/background2.jpg</file>
         <file>Resource/image/background/login.png</file>
         <file>Resource/image/background/modechoose.jpg</file>
@@ -193,6 +192,7 @@
         <file>Resource/image/snake_L/stand/hewligg_0.png</file>
         <file>Resource/image/snake_L/stand/hewligg_1.png</file>
         <file>Resource/image/snake_L/stand/hewligg_2.png</file>
+        <file>Resource/image/background/backgroundorigin.jpg</file>
     </qresource>
     <qresource prefix="/css">
         <file>Resource/stylesheet.css</file>

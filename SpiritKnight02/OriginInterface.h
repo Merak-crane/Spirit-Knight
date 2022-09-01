@@ -20,7 +20,5 @@ public:
 	void Register();
 private:
 	Player* local;
-	LoginInterface* login_interface = new LoginInterface(local);
-	RegisterInterface* register_interface = new RegisterInterface;
 	QWidget* parent;
 };

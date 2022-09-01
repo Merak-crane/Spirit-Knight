@@ -20,5 +20,4 @@ public:
 private:
 	QMediaPlayer* qtaudioPlayer;
 	QVideoWidget* m_videoW;
-	OriginInterface* origin_interface = new OriginInterface(this);
 };

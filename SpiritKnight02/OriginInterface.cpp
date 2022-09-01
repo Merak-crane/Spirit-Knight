@@ -32,28 +32,30 @@ OriginInterface::OriginInterface(QWidget *parent)
 
 void OriginInterface::paintEvent(QPaintEvent* event){
 	QPainter* painter = new QPainter(this);
-	painter->drawPixmap(0, 0, this->width(), this->height(), QPixmap(":/image/Resource/image/background/background.png"));
+	painter->drawPixmap(0, 0, this->width(), this->height(), QPixmap(":/image/Resource/image/background/backgroundorigin.jpg"));
 	painter->end();
 }
 
 void OriginInterface::Login() {
-	login_interface->show();
+	LoginInterface* load = new LoginInterface(local);
 	if (parent != nullptr) {
 		parent->close();
 	}
 	else {
 		this->close();
 	}
+	load->show();
 }
 
 void OriginInterface::Register() {
-	register_interface->show();
+	RegisterInterface* load = new RegisterInterface;
 	if (parent != nullptr) {
 		parent->close();
 	}
 	else {
 		this->close();
 	}
+	load->show();
 }
 
 OriginInterface::~OriginInterface()

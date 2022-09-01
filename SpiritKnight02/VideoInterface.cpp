@@ -24,7 +24,9 @@ VideoInterface::VideoInterface(QWidget *parent)
 	connect(qtaudioPlayer, &QMediaPlayer::mediaStatusChanged, [=]() {
 		if (qtaudioPlayer->mediaStatus() == 7) {
 			m_videoW->close();
-			origin_interface->show();
+			OriginInterface* mode = new OriginInterface;
+			mode->show();
+			this->close();
 		}
 		});
 }
