@@ -9,6 +9,9 @@ public:
 	~Player();
 	QString GetUsername();
 	int GetLevel();
+	int GetHP();
+	int GetMP();
+	int GetEXP();
 
 private:
 	QString username;
