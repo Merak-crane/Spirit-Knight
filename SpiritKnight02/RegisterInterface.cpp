@@ -9,6 +9,18 @@ RegisterInterface::RegisterInterface(QWidget *parent)
 {
 	//ui.setupUi(this);
 	register_kind = 0;
+	QSqlDatabase data_base = QSqlDatabase::addDatabase("QMYSQL");//添加驱动
+	data_base.setHostName("175.178.64.219");  //设置主机地址
+	data_base.setPort(3306);  //mysql设置端口
+	data_base.setDatabaseName("gametest");  //设置数据库名称
+	if (!data_base.open())//打开数据库
+	{
+		qDebug() << "connect failed";
+		qDebug() << data_base.lastError();//.databaseText()  输出错误信息
+	}
+	else
+		qDebug() << "success";
+	data_base.close();//关闭数据库
 	QDesktopWidget w;
 	int DeskWidth = 1280;
 	int DeskHeight = 800;//获取设备的分辨率
