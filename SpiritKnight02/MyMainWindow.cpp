@@ -164,7 +164,7 @@ void MyMainWindow::paintEvent(QPaintEvent *event)
     hp->setGeometry(155, 110, hero_one.GetHP() * 320 / hero_one.GetHPMAX(), 10);
     mp->setGeometry(155, 122, hero_one.GetMP() * 320 / hero_one.GetMPMAX(), 10);
     exp->setGeometry(155, 134, hero_one.GetExp() * 320 / hero_one.GetExpmax(), 10);
-    user_information_label->setGeometry(175, 45, 200, 80);
+    user_information_label->setGeometry(175, 45, 300, 80);
     QString information = QString("%1 Lv. %2").arg(local->GetUsername()).arg(hero_one.GetLevel());
     user_information_label->setText(information);
     painter->drawPixmap(hero_one.GetX(), hero_one.GetY(), hero_one.image_width, hero_one.image_height, hero_one.photo);
