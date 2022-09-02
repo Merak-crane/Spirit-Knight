@@ -5,6 +5,12 @@ Tutorial::Tutorial(Player* local, QWidget *parent)
 	: QWidget(parent)
 {
 	ui.setupUi(this);
+    playlist->addMedia(QUrl::fromLocalFile("./Resource/sound/BGM1.wav"));
+    playlist->setPlaybackMode(QMediaPlaylist::Loop);
+    playlist->setCurrentIndex(1);
+    player->setPlaylist(playlist);
+    player->setVolume(50);
+    player->play();
     this->local = local;
     Long = new ProfessorLong;
     hero_one.SetLevel(local->GetLevel());
@@ -159,6 +165,7 @@ void Tutorial::UpdateOne() {
 }
 
 void Tutorial::ReturnBack() {
+    player->stop();
     StartInterface* intro = new StartInterface(local);
     intro->show();
     this->close();

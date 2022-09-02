@@ -9,7 +9,8 @@
 #include <QLabel>
 #include <QPainter>
 #include <QPushButton>
-
+#include <QMediaPlaylist>
+#include <QMediaPlayer>
 class Tutorial : public QWidget
 {
 	Q_OBJECT
@@ -36,4 +37,6 @@ private:
 	Player* local;
 	QTimer map_time;
 	QPushButton* returnbtn_tutorial = new QPushButton(this);
+	QMediaPlaylist* playlist = new QMediaPlaylist(this);
+	QMediaPlayer* player = new QMediaPlayer(this);
 };

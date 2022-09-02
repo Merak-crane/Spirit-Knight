@@ -18,7 +18,7 @@
 MyMainWindow::MyMainWindow(int mode, Player* local, int mapchoose, QWidget *parent)
     : QMainWindow(parent)
 {  
-    playlist->addMedia(QUrl::fromLocalFile("./Resource/sound/BGM1.wav"));
+    playlist->addMedia(QUrl::fromLocalFile("./Resource/sound/BGMstart.wav"));
     playlist->setPlaybackMode(QMediaPlaylist::Loop);
     playlist->setCurrentIndex(1);
     player->setPlaylist(playlist);
@@ -1160,7 +1160,7 @@ void MyMainWindow::UpdateOne() {
                     if (ultra_monster[i]->GetKind() == 5 && ultra_monster[i]->GetStrong() == 0) {
                         ultra_monster[i]->BeAttackedAnimation();
                         if (ultra_monster[i]->count_attack >= 4) {
-                            ultra_monster[i]->SetHP(ultra_monster[i]->GetHP() - 30);
+                            ultra_monster[i]->SetHP(ultra_monster[i]->GetHP() - 100);
                             ultra_monster_time_one[i] = startTimer(2000);
                             ultra_monster[i]->SetStrong(1);
                             if (ultra_monster[i]->GetLay() != 1 && ultra_monster[i]->life == 2) {

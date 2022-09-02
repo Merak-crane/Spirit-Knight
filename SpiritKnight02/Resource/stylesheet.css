@@ -1,7 +1,7 @@
 
 QLineEdit {
 	border: 3px solid #f9cd07; /* 边框宽度为1px，颜色为#A0A0A0 */
-	border-radius: 5px; /* 边框圆角 */
+	border-radius: 15px; /* 边框圆角 */
 	padding-left: 5px; /* 文本距离左边界有5px */
 	background-color: #fcfbf8; /* 背景颜色 */
 	color: #0d7fea; /* 文本颜色 */
