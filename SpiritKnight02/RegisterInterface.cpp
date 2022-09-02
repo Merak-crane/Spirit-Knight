@@ -37,22 +37,27 @@ RegisterInterface::RegisterInterface(QWidget *parent)
 	confirm2->setIconSize(QSize(240, 80));
 	confirm2->setFlat(true);
 
-	username2->move(200, 550);
+	username2->move(300, 550);
 	username2->setMaxLength(11);
-	email->move(200, 600);
+	email->move(300, 600);
 	email->setPlaceholderText("email");
-	identify_code->move(200, 750);
+	identify_code->move(300, 750);
 	identify_code->setPlaceholderText("6Î»Êý×Ö");
 
-	password2->move(200, 650);
+	password2->move(300, 650);
 	password2->setMaxLength(15);
-	password_confirm->move(200, 700);
+	password_confirm->move(300, 700);
 	password_confirm->setEchoMode(QLineEdit::Password);
 	password_confirm->setMaxLength(15);
 	password2->setEchoMode(QLineEdit::Password);
 	username2->setPlaceholderText("username");
 	password2->setPlaceholderText("password");
 	password_confirm->setPlaceholderText("password again");
+	username_verify_label->setObjectName("infor");
+	password_verify_label->setObjectName("infor");
+	password_confirm_verify_label->setObjectName("infor");
+	email_verify_label->setObjectName("infor");
+	identify_verify_label->setObjectName("infor");
 
 	connect(confirm2, &QPushButton::clicked, this, &RegisterInterface::RegisterConfirm);
 	connect(identify_code_emit, &QPushButton::clicked, [=] {

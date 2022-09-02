@@ -1,4 +1,5 @@
 #include "StartInterface.h"
+#include "Tutorial.h"
 #include <QDesktopWidget>
 #include <QDebug>
 
@@ -62,9 +63,9 @@ void StartInterface::OpenLoad(){
 }
 
 void StartInterface::OpenIntroduction() {
-	//IntroInterface* intro = new IntroInterface;
-	//intro->show();
-	//this->close();
+	Tutorial* o = new Tutorial(local);
+	o->show();
+	this->close();
 }
 
 void StartInterface::ModeChoose() {

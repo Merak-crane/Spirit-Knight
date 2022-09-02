@@ -6,7 +6,8 @@
 #include <QTimer>
 #include <QLabel>
 #include <QPushButton>
-
+#include <QMediaPlaylist>
+#include <QMediaPlayer>
 #include <QSound>
 class MyMainWindow : public QMainWindow
 {
@@ -54,6 +55,9 @@ private:
     vector<bool> ultra_monster_survive;
     vector<int> ultra_monster_time_one;
     vector<int> ultra_monster_time_two;
+    QMediaPlayer* player2 = new QMediaPlayer(this);
+    QMediaPlaylist* playlist = new QMediaPlaylist(this);
+    QMediaPlayer* player = new QMediaPlayer(this);
     Hero hero_one;
     LittleMonster* k;
     QTimer map_time;

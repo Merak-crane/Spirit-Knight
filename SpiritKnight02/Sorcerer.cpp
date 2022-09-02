@@ -79,10 +79,14 @@ void SorcererOne::Attack() {
     else
     {
         if (kind != 4) {
-            if (bullet_num < 10) {
+            if (bullet_num < 100 && bullet_num % 10 == 0) {
+                int m = 0;
+                m = bullet_num;
+                bullet_num = bullet_num / 10;
                 bullet_collector[bullet_num]->BulletUpdate(real_body_x, real_body_y - 30, direction);
+                bullet_num = m;
             }
-            else
+            else if(bullet_num >= 100 && bullet_num % 10 == 0)
             {
                 bullet_num = 1;
                 bullet_collector[bullet_num]->BulletUpdate(real_body_x, real_body_y - 30, direction);
@@ -90,16 +94,19 @@ void SorcererOne::Attack() {
             bullet_num++;
         }
         else if (kind == 4) {
-            if (bullet_num < 10 && bullet_collector[bullet_num]->Disappear()) {
+            if (bullet_num < 100 && bullet_num % 10 == 0 && bullet_collector[bullet_num / 10]->Disappear()) {
+                int m = 0;
+                m = bullet_num;
+                bullet_num = bullet_num / 10;
                 bullet_collector[bullet_num]->BulletUpdate(real_body_x, real_body_y - 30, direction);
-                bullet_num++;
+                bullet_num = m;
             }
-            else if(bullet_collector[1]->Disappear())
+            else if(bullet_num >= 100 && bullet_collector[1]->Disappear() && bullet_num % 10 == 0)
             {
                 bullet_num = 1;
                 bullet_collector[bullet_num]->BulletUpdate(real_body_x, real_body_y - 30, direction);
-                bullet_num++;
             }
+            bullet_num++;
         }
     }
 }

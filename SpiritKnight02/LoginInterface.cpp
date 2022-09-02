@@ -27,8 +27,8 @@ LoginInterface::LoginInterface(Player* local, QWidget *parent)
 		qDebug() << "success";
 	data_base.close();//¹Ø±ÕÊý¾Ý¿â
 
-	username->move(200, 600);
-	password->move(200, 700);
+	username->move(300, 600);
+	password->move(300, 700);
 	password->setEchoMode(QLineEdit::Password);
 	username->setPlaceholderText("username");
 	password->setPlaceholderText("password");
@@ -51,6 +51,9 @@ LoginInterface::LoginInterface(Player* local, QWidget *parent)
 	connect(confirm, &QPushButton::clicked, this, &LoginInterface::LoginConfirm);
 	connect(returnbtn_login, &QPushButton::clicked, this, &LoginInterface::ReturnOrigin);
 
+	username_verify_label2->setObjectName("infor");
+	password_verify_label2->setObjectName("infor");
+
 	start_time.setInterval(10);
 	start_time.start();
 	connect(&start_time, &QTimer::timeout, [=]() {
@@ -66,7 +69,7 @@ void LoginInterface::LoginUpdate() {
 	username->setValidator(username_validator);
 	QString username_text = username->text();
 	int username_verify_num = 0;
-	username_verify_label2->setGeometry(50, 600, 200, 30);
+	username_verify_label2->setGeometry(50, 600, 180, 30);
 	if (username_text.length() < 11) {
 		if (username_text.length() == 0)
 		{
@@ -89,7 +92,7 @@ void LoginInterface::LoginUpdate() {
 	password->setValidator(password_validator);
 	QString password_text = password->text();
 	int password_verify_num = 0;
-	password_verify_label2->setGeometry(50, 700, 200, 30);
+	password_verify_label2->setGeometry(50, 700, 180, 30);
 	if (password_text.length() <= 15) {
 		if (password_text.length() == 0)
 		{

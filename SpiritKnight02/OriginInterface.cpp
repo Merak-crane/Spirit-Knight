@@ -1,11 +1,11 @@
 #include "OriginInterface.h"
 #include <QDesktopWidget>
 #include <QDebug>
-
+#include <QMediaPlaylist>
+#include <QMediaPlayer>
 OriginInterface::OriginInterface(QWidget *parent)
 	: QWidget(parent)
 {
-	//ui.setupUi(this);
 	this->parent = parent;
 	QDesktopWidget w;
 	int DeskWidth = 1280;

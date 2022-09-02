@@ -193,6 +193,7 @@
         <file>Resource/image/snake_L/stand/hewligg_1.png</file>
         <file>Resource/image/snake_L/stand/hewligg_2.png</file>
         <file>Resource/image/background/backgroundorigin.jpg</file>
+        <file>Resource/image/lh2_1.png</file>
     </qresource>
     <qresource prefix="/css">
         <file>Resource/stylesheet.css</file>
@@ -216,5 +217,6 @@
         <file>Resource/image/ui/save.png</file>
         <file>Resource/image/ui/setup.png</file>
         <file>Resource/image/ui/close.png</file>
+        <file>Resource/stylesheet.css</file>
     </qresource>
 </RCC>

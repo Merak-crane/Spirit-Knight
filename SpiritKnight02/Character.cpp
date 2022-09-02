@@ -270,6 +270,38 @@ void Hero::BeAttacked(vector<LittleMonster*> monster, vector<bool> monster_survi
         }
     }
 }
+
+ProfessorLong::ProfessorLong() {
+    x = 200;
+    y = 400;
+    count_be_attack = 0;
+    real_body_width = 38 * size_factor;
+    real_body_height = 41 * size_factor;
+    real_body_x = x + image_width / 2;
+    real_body_y = y + image_height / 2;
+    x_speed_left = 50;
+    x_speed_right = 50;
+    y_speed = 40;
+    kind = 0;
+    exp = 30;
+    expmax = 1000;
+    count_attack = 0;
+    count_left = 0;
+    count_right = 0;
+    count_top = 0;
+    strong = 0;
+    level = 1;
+    real_body.moveTo(real_body_x, real_body_y);
+    real_body.setWidth(50);   
+    real_body.setHeight(50);
+    attack_range_x = 110;
+    attack_range_y = 100;
+    photo = QPixmap(":/image/Resource/image/lh2_1.png");
+    PathCreator(":/image/Resource/image/main_character/running3/zero4_", ".png", 5, 13, running.skill_picture);
+    PathCreator(":/image/Resource/image/main_character/slice1/zero2_", ".png", 18, 11, attack.skill_picture);
+    PathCreator(":/image/Resource/image/main_character/die/zero1_", ".png", 16, 11, die.skill_picture);
+}
+
 LittleMonster::LittleMonster(int type) {
     x = (rand() % ( 1200 + 1)) + 0;
     y = (rand() % ( 600 + 1)) + 0;

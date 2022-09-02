@@ -135,6 +135,7 @@ public:
 	void BeAttacked(Hero hero);
 	void BeAttackedAnimation();
 };
+
 class Hero : public Character {
 private:
 	int exp;
@@ -150,6 +151,15 @@ public:
 	int GetExp();
 	void SetExpmax(int expmax);
 	int GetExpmax();
+};
+
+class ProfessorLong : public Character {
+private:
+	int exp;
+	int expmax;
+public:
+	int count_be_attack;
+	ProfessorLong();
 };
 
 class LittleMonster: public Character {

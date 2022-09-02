@@ -8,6 +8,7 @@ ModeInterface::ModeInterface(Player* local, QWidget *parent)
 	: QWidget(parent)
 {
 	//ui.setupUi(this);
+	this->local = local;
 	this->setAttribute(Qt::WA_DeleteOnClose);
 	QDesktopWidget w;
 	int DeskWidth = 1280;

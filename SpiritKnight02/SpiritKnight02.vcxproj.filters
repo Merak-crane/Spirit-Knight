@@ -79,6 +79,9 @@
     <ClCompile Include="OriginInterface.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Tutorial.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="config.h">
@@ -117,6 +120,9 @@
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="LoadInterface.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="Tutorial.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>

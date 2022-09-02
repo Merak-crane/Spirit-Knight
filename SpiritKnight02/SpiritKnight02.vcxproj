@@ -101,6 +101,7 @@
     <ClCompile Include="Smtp.cpp" />
     <ClCompile Include="Sorcerer.cpp" />
     <ClCompile Include="StartInterface.cpp" />
+    <ClCompile Include="Tutorial.cpp" />
     <ClCompile Include="VideoInterface.cpp" />
     <QtRcc Include="Resource.qrc" />
     <QtUic Include="MyMainWindow.ui" />
@@ -112,6 +113,7 @@
   <ItemGroup>
     <ClInclude Include="Character.h" />
     <ClInclude Include="config.h" />
+    <QtMoc Include="Tutorial.h" />
     <QtMoc Include="StartInterface.h" />
     <QtMoc Include="VideoInterface.h" />
     <QtMoc Include="OriginInterface.h" />

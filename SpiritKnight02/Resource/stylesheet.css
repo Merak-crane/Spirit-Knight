@@ -77,3 +77,21 @@ QLabel#remind{
 	font-weight: 800;
 	font-size: 30px;
 }
+QLabel#tutorial{
+	background-color: #00b2f9;
+	border-radius: 5px;
+	border: 2px solid rgb(13, 228, 207);
+	color: white;
+	font-size: FangSong;
+	font-weight: 800;
+	font-size: 25px;
+}
+QLabel#infor{
+	background-color: #00b2f9;
+	border-radius: 5px;
+	border: 2px solid rgb(13, 228, 207);
+	color: white;
+	font-size: FangSong;
+	font-weight: 800;
+	font-size: 20px;
+}

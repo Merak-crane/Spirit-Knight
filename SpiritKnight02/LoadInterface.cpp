@@ -40,7 +40,7 @@ LoadInterface::LoadInterface(Player* local, QWidget *parent)
 
 	load_three->resize(240, 80);
 	load_three->move(800, 600);
-	QPixmap p11 = QPixmap(":/ui/Resource/image/ui/load2.png");
+	QPixmap p11 = QPixmap(":/ui/Resource/image/ui/load3.png");
 	load_three->setIcon(p11);
 	load_three->setIconSize(QSize(240, 80));
 	load_three->setFlat(true);

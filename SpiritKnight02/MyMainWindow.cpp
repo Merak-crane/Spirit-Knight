@@ -18,6 +18,12 @@
 MyMainWindow::MyMainWindow(int mode, Player* local, int mapchoose, QWidget *parent)
     : QMainWindow(parent)
 {  
+    playlist->addMedia(QUrl::fromLocalFile("./Resource/sound/BGM1.wav"));
+    playlist->setPlaybackMode(QMediaPlaylist::Loop);
+    playlist->setCurrentIndex(1);
+    player->setPlaylist(playlist);
+    player->setVolume(50);
+    player->play();
     this->mode = mode;
     hero_one.SetLevel(local->GetLevel());
     hero_one.StatusUpdate();
@@ -105,6 +111,7 @@ MyMainWindow::MyMainWindow(int mode, Player* local, int mapchoose, QWidget *pare
     set_up_btn->setIconSize(QSize(240, 80));
     set_up_btn->setFlat(true);
     connect(set_up_btn, &QPushButton::clicked, [=]() {
+        player->stop();
         SetUp* set = new SetUp(hero_one, local, mode, map_choose, this);
         set->show();
         });
@@ -256,7 +263,6 @@ void MyMainWindow::paintEvent(QPaintEvent *event)
                 //painter->drawRect(sorcerer_one[i]->bullet_collector[m]);
                 /*painter->setBrush(Qt::red);*/
                 painter->drawPixmap(sorcerer_one[i]->bullet_collector[m]->GetX(), sorcerer_one[i]->bullet_collector[m]->GetY(), sorcerer_one[i]->bullet_collector[m]->image_width, sorcerer_one[i]->bullet_collector[m]->image_height, sorcerer_one[i]->bullet_collector[m]->photo);
-                painter->drawRect(sorcerer_one[i]->bullet_collector[m]->attack_range);
                 /*painter->drawRect(little_monster[i]->real_body_x - 30, little_monster[i]->real_body_y + 65, 80 * (double(little_monster[i]->GetHP()) / little_monster[i]->GetHPMAX()), 15);
                 painter->setBrush(Qt::blue);
                 painter->drawRect(little_monster[i]->real_body_x - 30, little_monster[i]->real_body_y + 50, 80 * (double(little_monster[i]->GetMP()) / little_monster[i]->GetMPMAX()), 10);
@@ -354,9 +360,13 @@ void MyMainWindow::keyPressEvent(QKeyEvent* event) {
     case Qt::Key_J:
         hero_one.attacknum = 1;
         hero_one.SetKind(4);
+        player2->setMedia(QUrl::fromLocalFile("./Resource/sound/h_att01.wav"));
+        player2->setVolume(50);
+        player2->play();
         break;
     case Qt::Key_Escape:
         if (hero_one.GetHP() == 0 || map_choose == 8) {
+            player->stop();
             this->close();
         }
         break;
